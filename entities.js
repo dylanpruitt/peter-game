@@ -40,7 +40,7 @@ class mrFunky extends Entity {
         24, 24,
         6,
         1,
-        25,
+        15,
         4,
         16,
         [attack],

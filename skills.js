@@ -35,13 +35,19 @@ let guitarSolo = new Skill("Guitar Solo", "Peter's guitar solo. Does INTENSE fir
 });
 
 let damageTarget = function (entUser, entTarget, amount, type) {
-    let damage = amount + entUser.attack - entTarget.defense;
+    let randomNumber = Math.floor (Math.random() * 101);
+    if (randomNumber <= entTarget.evasion) {
+        console.log (entTarget.name + " evaded the attack!!");
+    } else {
+        let damage = amount + entUser.attack - entTarget.defense;
 
-    if (entTarget.hasWeakness (type)) {
-        damage = Math.round (damage * 1.5);
-        console.log (entTarget.name + "'s weakness was hit!!");
+        if (entTarget.hasWeakness (type)) {
+            damage = Math.round (damage * 1.5);
+            console.log (entTarget.name + "'s weakness was hit!!");
+        }
+        if (damage <= 0) { damage = 0; }
+        entTarget.health -= damage;
+
+        console.log (entTarget.name + " took " + damage + " damage!!");
     }
-    if (damage <= 0) { damage = 0; }
-    entTarget.health -= damage;
-    console.log (entTarget.name + " took " + damage + " damage!!");
 }
