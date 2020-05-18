@@ -18,6 +18,15 @@ class Entity {
 
     ai (targets) { defaultAI (targets); }
 
+    hasStatus (status) {
+        for (let i = 0; i < this.statuses.length; i++) {
+            if (this.statuses [i].name === status) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     hasWeakness (type) {
         for (let i = 0; i < this.weaknesses.length; i++) {
             if (this.weaknesses [i] === type) {
@@ -26,11 +35,24 @@ class Entity {
         }
         return false;
     }
+
+    updateStatuses () {
+        let newStatuses = [];
+        for (let i = 0; i < this.statuses.length; i++) {
+            this.statuses [i].effect (this);
+            this.statuses [i].turnsLeft--;
+            if (this.statuses [i].turnsLeft > 0) {
+                newStatuses.push (this.statuses [i]);
+            }
+        }
+        this.statuses.length = 0;
+        for (let i = 0; i < newStatuses.length; i++) { this.statuses.push (newStatuses [i]); }
+    }
 }
 
 let playerPeter = new Entity ("Peter", 14, 14, 4, 2, 22, 3, 0, [attack, provoke, guitarSolo], null, "images/demo-peter-portrait.png");
 playerPeter.weaknesses.push ("melee");
-let playerJustin = new Entity ("Justin", 22, 22, 5, 1, 36, 2, 0, [attack], null, "images/demo-justin-portrait.png");
+let playerJustin = new Entity ("Justin", 22, 22, 5, 1, 36, 2, 0, [attack, charm], null, "images/demo-justin-portrait.png");
 let playerRaymond = new Entity ("Raymond", 18, 18, 2, 1, 17, 2, 0, [attack, useItem], new warheadGnome (), "images/demo-raymond-portrait.png");
 let playerDrWinder = new Entity ("Dr. Winder", 15, 15, 2, 2, 10, 6, 0, [heal], null, "images/demo-drwinder-portrait.png");
 

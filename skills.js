@@ -25,12 +25,24 @@ let useItem = new Skill("Use item", "Use a held item.", (entUser, entTarget) => 
 
 let provoke = new Skill("Provoke", "Provoke a target, making them gain attack but lose defense.", (entUser, entTarget) => {
     entTarget.attack += 3; entTarget.defense -= 4;
-    updateBattleLog (entTarget.name + " provoked the enemy!!");
+    updateBattleLog (entUser.name + " provoked the enemy!!");
+});
+
+let charm = new Skill("Charm", "Charms an enemy (60% chance).", (entUser, entTarget) => {
+    let HIT_CHANCE = 60;
+    let randomNumber = Math.floor (Math.random() * 101);
+
+    if (randomNumber <= HIT_CHANCE) {
+        updateBattleLog ("Enemy charmed!!");
+        entTarget.statuses.push (new Charm ());
+    } else {
+        updateBattleLog ("D'oh! Missed!!");
+    }
 });
 
 let guitarSolo = new Skill("Guitar Solo", "Peter's guitar solo. Does INTENSE fire damage.", (entUser, entTarget) => {
     let BASE_DAMAGE = 36;
-    updateBattleLog (entTarget.name + " starts a gnarly guitar solo!!");
+    updateBattleLog (entUser.name + " starts a gnarly guitar solo!!");
     damageTarget(entUser, entTarget, BASE_DAMAGE, "fire");
 });
 

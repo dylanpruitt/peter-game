@@ -21,6 +21,7 @@
             battleLog.appendChild(battleMessage);
         }
     </script>
+    <script src="statuses.js"></script>
     <script src="skills.js"></script>
     <script src="items.js"></script>
     <script src="entities.js"></script>
@@ -49,6 +50,7 @@
                 let partyMemberHP = document.createElement ("p");
                 partyMemberHP.id = "party-member-" + (i + 1) + "-hp";
                 partyMemberHP.innerHTML = "<span style='color: coral'>" + players [i].health + "</span> HP";
+                partyMemberHP.title = players [i].maxHealth + " max HP";
                 partyMemberInfo.appendChild(partyMemberHP);
 
                 let partyMemberTarget = document.createElement ("div");
@@ -108,6 +110,7 @@
                 let enemyHP = document.createElement ("p");
                 enemyHP.id = "enemy-" + (i + 1) + "-hp";
                 enemyHP.innerHTML = "<span style='color: coral'>" + enemies [i].health + "</span> HP";
+                enemyHP.title = enemies [i].maxHealth + " max HP";
                 enemyInfo.appendChild(enemyHP);
             }
         }

@@ -75,6 +75,12 @@ let fight = function () {
   let battleLog = document.getElementById("battle-log");
   battleLog.appendChild(document.createElement("hr"));
 
+  for (let i = 0; i < enemies.length; i++) {
+    if (enemies [i].health > 0) {
+        enemies [i].updateStatuses ();
+    }
+  }
+
   for (let i = 0; i < players.length; i++) {
     if (players [i].health > 0) {
         updateBattleLog(players[i].name + " used " + players[i].skills[selectedMoves[i]].name + "!");
@@ -84,12 +90,24 @@ let fight = function () {
             players[i].skills[selectedMoves[i]].use(players[i], enemies[selectedTargets[i]]);
 
         }
+    } else {
+        updateBattleLog(players[i].name + "'s still dead.");
     }
   }
 
   for (let i = 0; i < enemies.length; i++) {
     if (enemies [i].health > 0) {
-        enemies[i].ai(players);
+        if (enemies [i].hasStatus ("Charm")) {
+            updateBattleLog(enemies [i].name + " is charmed!");
+        } else {
+            enemies[i].ai(players);
+        }
+    }
+  }
+
+  for (let i = 0; i < players.length; i++) {
+    if (players [i].health > 0) {
+        players [i].updateStatuses ();
     }
   }
 
@@ -116,9 +134,27 @@ let updateCombatantInfo = function () {
   for (let i = 0; i < players.length; i++) {
     let playerHealthText = document.getElementById("party-member-" + (i + 1) + "-hp");
     playerHealthText.innerHTML = "<span style='color: coral'>" + players[i].health + "</span> HP";
+    playerHealthText.title = players [i].maxHealth + " max HP";
+
+    let playerNameText = document.getElementById("party-member-" + (i + 1) + "-name");
+    let statusesString = "statuses: ";
+    for (let j = 0; j < players [i].statuses.length; j++) {
+        statusesString += players [i].statuses [j].name + " (" + players [i].statuses [j].turnsLeft + ")";
+        if (j < (players [i].statuses.length - 1)) { statusesString += ", "; }
+    }
+    playerNameText.title = statusesString;
   }
   for (let i = 0; i < enemies.length; i++) {
     let enemyHealthText = document.getElementById("enemy-" + (i + 1) + "-hp");
     enemyHealthText.innerHTML = "<span style='color: coral'>" + enemies[i].health + "</span> HP";
+    enemyHealthText.title = enemies [i].maxHealth + " max HP";
+
+    let enemyNameText = document.getElementById("enemy-" + (i + 1) + "-name");
+    let statusesString = "statuses: ";
+    for (let j = 0; j < enemies [i].statuses.length; j++) {
+        statusesString += enemies [i].statuses [j].name + " (" + enemies [i].statuses [j].turnsLeft + ")";
+        if (j < (enemies [i].statuses.length - 1)) { statusesString += ", "; }
+    }
+    enemyNameText.title = statusesString;
   }
 };
