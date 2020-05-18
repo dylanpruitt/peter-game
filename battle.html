@@ -1,208 +1,103 @@
 <!DOCTYPE html>
 <head>
     <title>Silly Peter Increases G Two - Battle Screen</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <div id="party-member-1-info" class="party-member-info">
-        <img id="party-member-1-portrait" src="images/demo-peter-portrait.png"></img>
-        <p id="party-member-1-name"><strong>P</strong>eter</p>
-        <p id="party-member-1-hp"><span style="color: coral">7</span> HP</p>
-        <div id="party-member-1-target">
-            <button class="select-target-button" onclick="selectTarget(0, 0)">1</button
-            ><button class="select-target-button" onclick="selectTarget(0, 1)">2</button
-            ><button class="select-target-button" onclick="selectTarget(0, 2)">3</button
-            ><button class="select-target-button" onclick="selectTarget(0, 3)">4</button>
-        </div>
-        <button id="party-1-move-1" class="select-move-button" onclick="selectMove(0, 0)">Attack</button>
-        <button id="party-1-move-2" class="select-move-button" onclick="selectMove(0, 1)">Provoke</button>
-        <button id="party-1-move-3" class="select-move-button" onclick="selectMove(0, 2)">Charm</button>
-    </div>
-    <div id="party-member-2-info" class="party-member-info">
-        <img id="party-member-2-portrait" src="images/demo-justin-portrait.png"></img>
-        <p id="party-member-2-name"><strong>J</strong>ustin</p>
-        <p id="party-member-2-hp"><span style="color: coral">9</span> HP</p>
-        <div id="party-member-2-target">
-            <button class="select-target-button" onclick="selectTarget(1, 0)">1</button
-            ><button class="select-target-button" onclick="selectTarget(1, 1)">2</button
-            ><button class="select-target-button" onclick="selectTarget(1, 2)">3</button
-            ><button class="select-target-button" onclick="selectTarget(1, 3)">4</button>
-        </div>
-        <button id="party-2-move-1" class="select-move-button"onclick="selectMove(1, 0)">Attack</button>
-        <button id="party-2-move-2" class="select-move-button" onclick="selectMove(1, 1)">Flex</button>
-        <button id="party-2-move-3" class="select-move-button" onclick="selectMove(1, 2)">Bust a move</button>
-    </div>
-    <div id="party-member-3-info" class="party-member-info">
-        <img id="party-member-3-portrait" src="images/demo-raymond-portrait.png"></img>
-        <p id="party-member-3-name"><strong>R</strong>aymond</p>
-        <p id="party-member-3-hp"><span style="color: coral">11</span> HP</p>
-        <div id="party-member-3-target">
-            <button class="select-target-button" onclick="selectTarget(2, 0)">1</button
-            ><button class="select-target-button" onclick="selectTarget(2, 1)">2</button
-            ><button class="select-target-button" onclick="selectTarget(2, 2)">3</button
-            ><button class="select-target-button" onclick="selectTarget(2, 3)">4</button>
-        </div>
-        <button id="party-3-move-1" class="select-move-button"onclick="selectMove(2, 0)">Attack</button>
-        <button id="party-3-move-2" class="select-move-button" onclick="selectMove(2, 1)">Defend</button>
-        <button id="party-3-move-3" class="select-move-button" onclick="selectMove(2, 2)">Bust a move</button>
-    </div>
-    <div id="party-member-4-info" class="party-member-info">
-        <img id="party-member-4-portrait" src="images/demo-drwinder-portrait.png"></img>
-        <p id="party-member-4-name"><strong>D</strong>r. <strong>W</strong>inder</p>
-        <p id="party-member-4-hp"><span style="color: coral">8</span> HP</p>
-        <div id="party-member-4-target">
-            <button class="select-target-button" onclick="selectTarget(3, 0)">1</button
-            ><button class="select-target-button" onclick="selectTarget(3, 1)">2</button
-            ><button class="select-target-button" onclick="selectTarget(3, 2)">3</button
-            ><button class="select-target-button" onclick="selectTarget(3, 3)">4</button>
-        </div>
-        <button id="party-4-move-1" class="select-move-button"onclick="selectMove(3, 0)">Heal</button>
-        <button id="party-4-move-2" class="select-move-button" onclick="selectMove(3, 1)">Bust a move</button>
-        <button id="party-4-move-3" class="select-move-button" onclick="selectMove(3, 2)">Attack</button>
-    </div>
-    <div id="enemy-1-info" class="enemy-info">
-        <img id="enemy-1-portrait" src="images/mr-funky.jpg"></img>
-        <p id="enemy-1-name"><strong>M</strong>r. <strong>F</strong>unky</p>
-        <p id="enemy-1-hp"><span style="color: coral">24</span> HP</p>
-    </div>
-    <div id="enemy-2-info" class="enemy-info">
-        <img id="enemy-2-portrait" src="images/mr-funky.jpg"></img>
-        <p id="enemy-2-name"><strong>M</strong>r. <strong>F</strong>unky</p>
-        <p id="enemy-2-hp"><span style="color: coral">24</span> HP</p>
-    </div>
     <img id="target-icon-1" class="target-icon" src="images/target-icon-1.png"></img>
     <img id="target-icon-2" class="target-icon" src="images/target-icon-2.png"></img>
     <img id="target-icon-3" class="target-icon" src="images/target-icon-3.png"></img>
     <img id="target-icon-4" class="target-icon" src="images/target-icon-4.png"></img>
     <button id="fight-button" onclick="fight()">Fight!</button>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 20px;
-        }
-        button {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-        }
-        .party-member-info {
-            position: absolute;
-            top: 50%;
-            text-align: center;
-            width: 15%;
-        }
-        #party-member-1-info {
-            left: 10%;
-        }
-        #party-member-2-info {
-            left: 30%;
-        }
-        #party-member-3-info {
-            left: 50%;
-        }
-        #party-member-4-info {
-            left: 70%;
-        }
-        .select-move-button {
-            width: 100%;
-        }
-        .select-target-button {
-            width: 25%;
-        }
-        .enemy-info {
-            position: absolute;
-            top: 5%;
-            text-align: center;
-            width: 15%;
-        }
-        #enemy-1-info {
-            left: 10%;
-        }
-        #enemy-1-portrait {
-            width: 128px;
-            height: 128px;
-        }
-        #enemy-2-info {
-            left: 30%;
-        }
-        #enemy-2-portrait {
-            width: 128px;
-            height: 128px;
-        }
-        .target-icon {
-            width: 10px;
-            height: 10px;
-            position: absolute;
-            visibility: hidden;
-        }
-        #fight-button {
-            position: absolute;
-            right: 5%;
-            top: 70%;
-            width: 8%;
-            height: 5%;
-        }
-    </style>
+
     <script src="skills.js"></script>
     <script src="entities.js"></script>
+    <script src="battleLogic.js"></script>
     <script>
-        let audioIsPlaying = false;
-        let selectedMoves = [0, 0, 0, 0];
-        let selectedTargets = [0, 0, 0, 0];
-        let players = [playerPeter, playerJustin, playerRaymond, playerDrWinder];
-
-        let mrFunky2 = JSON.parse(JSON.stringify(mrFunky));
-        let enemies = [mrFunky, mrFunky2];
-        let myAudio = document.createElement("audio"); myAudio.src = "audio/battle_funky_enemy.mp3";
-        myAudio.loop = true;
-
-        let selectMove = function (user, move) {
-            if (move < players [user].skills.length) {
-                selectedMoves [user] = move;
-                console.log (players[user].name + " will " + players[user].skills[selectedMoves[user]].name + ".");
-            } else {
-                console.log ("Invalid move!");
-            }
-        };
-
-        let selectTarget = function (user, target) {
-            if (target < enemies.length) {
-                selectedTargets [user] = target;
-                console.log (players[user].name + " -> now targeting " + enemies[target].name);
-                updateTargetIcon (user, target);
-            } else {
-                console.log ("Invalid target!");
-            }
-        }
-
-        let updateTargetIcon = function (user, target) {
-            let targetIcon = document.getElementById ("target-icon-" + (user + 1));
-            targetIcon.style.visibility = "visible";
-            let iconPositionPercent = 13 + (user * 3) + (20 * target);
-            targetIcon.style.left = iconPositionPercent + "%";
-            targetIcon.style.top = "23%";
-        }
-
-        let fight = function () {
-            if (!audioIsPlaying) {
-                audioIsPlaying = true;
-                myAudio.play();
-            }
-
+        let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {
-                console.log (players [i].name + " used " + players [i].skills [selectedMoves [i]].name + "!");
-                players [i].skills [selectedMoves [i]].use (players [i], enemies[selectedTargets [i]]);
+                let partyMemberInfo = document.createElement ("div");
+                partyMemberInfo.id = "party-member-" + (i + 1) + "-info";
+                partyMemberInfo.className = "party-member-info";
+                partyMemberInfo.style.left = (10 + 20 * i) + "%";
+                document.body.appendChild (partyMemberInfo);
+
+                let partyMemberPortrait = document.createElement ("img");
+                partyMemberPortrait.id = "party-member-" + (i + 1) + "-portrait";
+                partyMemberPortrait.src = players [i].imagePath;
+                partyMemberInfo.appendChild(partyMemberPortrait);
+
+                let partyMemberName = document.createElement ("p");
+                partyMemberName.id = "party-member-" + (i + 1) + "-name";
+                partyMemberName.innerHTML = "<strong>" + players [i].name [0] + "</strong>" 
+                    + players [i].name.slice (1, players [i].name.length);
+                partyMemberInfo.appendChild(partyMemberName);
+
+                let partyMemberHP = document.createElement ("p");
+                partyMemberHP.id = "party-member-" + (i + 1) + "-hp";
+                partyMemberHP.innerHTML = "<span style='color: coral'>" + players [i].health + "</span> HP";
+                partyMemberInfo.appendChild(partyMemberHP);
+
+                let partyMemberTarget = document.createElement ("div");
+                partyMemberTarget.id = "party-member-" + (i + 1) + "-target";
+                partyMemberInfo.appendChild(partyMemberTarget);
+
+                for (let j = 0; j < 4; j++) {
+                    let targetButton = document.createElement ("button");
+                    targetButton.className = "select-target-button";
+                    targetButton.onclick = function () { selectTarget(i, j); };
+                    targetButton.innerHTML = (j + 1);
+                    partyMemberTarget.appendChild(targetButton);
+                }
+
+                let toggleButton = document.createElement ("button");
+                toggleButton.id = "toggle-target-" + (i + 1);
+                toggleButton.className = "select-target-button";
+                toggleButton.onclick = function () { toggleTarget(i) };
+                toggleButton.innerHTML = "E";
+                partyMemberTarget.appendChild(toggleButton);
+
+                for (let j = 0; j < 3; j++) {
+                    let moveButton = document.createElement ("button");
+                    moveButton.id = "party-" + (i + 1) + "-move-" + (j + 1);
+                    moveButton.className = "select-move-button";
+                    moveButton.onclick = function () { selectMove (i, j) };
+                    if (j < players [i].skills.length) {
+                        moveButton.innerHTML = players [i].skills [j].name;
+                    } else {
+                        moveButton.innerHTML = "-";
+                    }
+                    document.getElementById("party-member-" + (i + 1) + "-target").appendChild(moveButton);
+                }
             }
 
-            updateCombatantInfo ();
-        }
-
-        let updateCombatantInfo = function () {
             for (let i = 0; i < enemies.length; i++) {
-                let enemyHealthText = document.getElementById ("enemy-" + (i+1) + "-hp");
-                enemyHealthText.innerHTML = "<span style='color: coral'>" + enemies [i].health + "</span> HP";
+                let enemyInfo = document.createElement ("div");
+                enemyInfo.id = "enemy-" + (i + 1) + "-info";
+                enemyInfo.className = "enemy-info";
+                enemyInfo.style.left = (10 + 20 * i) + "%";
+                document.body.appendChild (enemyInfo);
+
+                let enemyPortrait = document.createElement ("img");
+                enemyPortrait.id = "enemy-" + (i + 1) + "-portrait";
+                enemyPortrait.className = "enemy-portrait";
+                enemyPortrait.src = enemies [i].imagePath;
+                enemyInfo.appendChild(enemyPortrait);
+
+                let enemyName = document.createElement ("p");
+                enemyName.id = "enemy-" + (i + 1) + "-name";
+                enemyName.innerHTML = "<strong>" + enemies [i].name [0] + "</strong>" 
+                    + enemies [i].name.slice (1, enemies [i].name.length);
+                enemyInfo.appendChild(enemyName);
+
+                let enemyHP = document.createElement ("p");
+                enemyHP.id = "enemy-" + (i + 1) + "-hp";
+                enemyHP.innerHTML = "<span style='color: coral'>" + enemies [i].health + "</span> HP";
+                enemyInfo.appendChild(enemyHP);
             }
         }
+
+        createWebsiteElements ();
     </script>
 </body>
 </html>
