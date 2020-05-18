@@ -90,8 +90,24 @@ let fight = function () {
     }
   }
 
+  if (allEnemiesDead ()) {
+    saveState ();
+    setTimeout(function () { window.location.replace('victory.html'); }, 1000);
+  }
+
+  if (players [0].health <= 0) {
+    setTimeout(function () { window.location.replace('death.html'); }, 1000);
+  }
+
   updateCombatantInfo();
 };
+
+let allEnemiesDead = function () {
+    for (let i = 0; i < enemies.length; i++) {
+        if (enemies [i].health > 0) { return false; }
+    }
+    return true;
+}
 
 let updateCombatantInfo = function () {
   for (let i = 0; i < players.length; i++) {
