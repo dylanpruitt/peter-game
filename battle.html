@@ -64,6 +64,11 @@
         <p id="enemy-1-name"><strong>M</strong>r. <strong>F</strong>unky</p>
         <p id="enemy-1-hp"><span style="color: coral">24</span> HP</p>
     </div>
+    <div id="enemy-2-info" class="enemy-info">
+        <img id="enemy-2-portrait" src="images/mr-funky.jpg"></img>
+        <p id="enemy-2-name"><strong>M</strong>r. <strong>F</strong>unky</p>
+        <p id="enemy-2-hp"><span style="color: coral">24</span> HP</p>
+    </div>
     <img id="target-icon-1" class="target-icon" src="images/target-icon-1.png"></img>
     <img id="target-icon-2" class="target-icon" src="images/target-icon-2.png"></img>
     <img id="target-icon-3" class="target-icon" src="images/target-icon-3.png"></img>
@@ -117,6 +122,13 @@
             width: 128px;
             height: 128px;
         }
+        #enemy-2-info {
+            left: 30%;
+        }
+        #enemy-2-portrait {
+            width: 128px;
+            height: 128px;
+        }
         .target-icon {
             width: 10px;
             height: 10px;
@@ -138,7 +150,9 @@
         let selectedMoves = [0, 0, 0, 0];
         let selectedTargets = [0, 0, 0, 0];
         let players = [playerPeter, playerJustin, playerRaymond, playerDrWinder];
-        let enemies = [mrFunky];
+
+        let mrFunky2 = JSON.parse(JSON.stringify(mrFunky));
+        let enemies = [mrFunky, mrFunky2];
         let myAudio = document.createElement("audio"); myAudio.src = "audio/battle_funky_enemy.mp3";
         myAudio.loop = true;
 
@@ -155,9 +169,18 @@
             if (target < enemies.length) {
                 selectedTargets [user] = target;
                 console.log (players[user].name + " -> now targeting " + enemies[target].name);
+                updateTargetIcon (user, target);
             } else {
                 console.log ("Invalid target!");
             }
+        }
+
+        let updateTargetIcon = function (user, target) {
+            let targetIcon = document.getElementById ("target-icon-" + (user + 1));
+            targetIcon.style.visibility = "visible";
+            let iconPositionPercent = 13 + (user * 3) + (20 * target);
+            targetIcon.style.left = iconPositionPercent + "%";
+            targetIcon.style.top = "23%";
         }
 
         let fight = function () {
@@ -176,7 +199,7 @@
 
         let updateCombatantInfo = function () {
             for (let i = 0; i < enemies.length; i++) {
-                let enemyHealthText = document.getElementById ("enemy-1-hp");
+                let enemyHealthText = document.getElementById ("enemy-" + (i+1) + "-hp");
                 enemyHealthText.innerHTML = "<span style='color: coral'>" + enemies [i].health + "</span> HP";
             }
         }
