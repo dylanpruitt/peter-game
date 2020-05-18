@@ -8,9 +8,19 @@
     <img id="target-icon-2" class="target-icon" src="images/target-icon-2.png"></img>
     <img id="target-icon-3" class="target-icon" src="images/target-icon-3.png"></img>
     <img id="target-icon-4" class="target-icon" src="images/target-icon-4.png"></img>
-    <p id="battle-log">The enemy draws near!</p>
     <button id="fight-button" onclick="fight()">Fight!</button>
+    <div id="battle-log"></div>
 
+    <script>
+        let updateBattleLog = function (message) {
+            let battleMessage = document.createElement("p");
+            battleMessage.style.fontSize = "14px";
+            battleMessage.style.textAlign = "left";
+            battleMessage.innerHTML = message;
+            let battleLog = document.getElementById("battle-log");
+            battleLog.appendChild(battleMessage);
+        }
+    </script>
     <script src="skills.js"></script>
     <script src="items.js"></script>
     <script src="entities.js"></script>
@@ -103,6 +113,7 @@
         }
 
         createWebsiteElements ();
+        updateBattleLog ("The enemy draws near!");
     </script>
 </body>
 </html>

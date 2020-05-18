@@ -52,7 +52,7 @@ class mrFunky extends Entity {
     ai (targets) { 
         let ATTACK = 0;
         let target = Math.floor(Math.random() * targets.length);
-        console.log (this.name + " used " + this.skills [ATTACK].name + "!"); 
+        updateBattleLog (this.name + " used " + this.skills [ATTACK].name + "!"); 
         this.skills [ATTACK].use (this, targets [target]);
     }
 }

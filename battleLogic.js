@@ -12,7 +12,7 @@ myAudio.loop = true;
 let selectMove = function (user, move) {
   if (move < players[user].skills.length) {
     selectedMoves[user] = move;
-    console.log(players[user].name + " will " + players[user].skills[selectedMoves[user]].name + ".");
+    updateBattleLog(players[user].name + " will " + players[user].skills[selectedMoves[user]].name + ".");
   } else {
     console.log("Invalid move!");
   }
@@ -21,14 +21,14 @@ let selectMove = function (user, move) {
 let selectTarget = function (user, target) {
   if (targetType [user] === "player") {
     selectedTargets[user] = target;
-    console.log(players[user].name + " -> now targeting " + players[selectedTargets [user]].name);
+    updateBattleLog(players[user].name + " -> now targeting " + players[selectedTargets [user]].name);
     updateTargetIcon(user, target);
   } else if (target < enemies.length) {
     selectedTargets[user] = target;
-    console.log(players[user].name + " -> now targeting " + enemies[target].name);
+    updateBattleLog(players[user].name + " -> now targeting " + enemies[target].name);
     updateTargetIcon(user, target);
   } else {
-    console.log("Invalid target!");
+    updateBattleLog("Invalid target!");
   }
 };
 
@@ -72,9 +72,12 @@ let fight = function () {
     myAudio.play();
   }
 
+  let battleLog = document.getElementById("battle-log");
+  battleLog.appendChild(document.createElement("hr"));
+
   for (let i = 0; i < players.length; i++) {
     if (players [i].health > 0) {
-        console.log(players[i].name + " used " + players[i].skills[selectedMoves[i]].name + "!");
+        updateBattleLog(players[i].name + " used " + players[i].skills[selectedMoves[i]].name + "!");
         if (targetType [i] === "player") { 
             players[i].skills[selectedMoves[i]].use(players[i], players[selectedTargets[i]]);
         } else {
@@ -119,8 +122,3 @@ let updateCombatantInfo = function () {
     enemyHealthText.innerHTML = "<span style='color: coral'>" + enemies[i].health + "</span> HP";
   }
 };
-
-let updateBattleLog = function (message) {
-    let battleLog = document.getElementById("battle-log");
-    battleLog.innerHTML = message;
-}

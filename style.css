@@ -38,9 +38,11 @@ button {
 }
 #battle-log {
     position: absolute;
-    left: 10%;
-    top: 40%;
-    width: 75%;
+    right: 4%;
+    top: 10%;
+    width: 10%;
+    height: 40%;
+    overflow: auto;
     text-align: center;
 }
 #fight-button {

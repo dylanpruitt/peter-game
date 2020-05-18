@@ -10,7 +10,7 @@ class warheadGnome extends Item {
     constructor () {
         super ("Warhead Gnome", "A nuclear warhead gnome. Deals 256 damage to an enemy.", (entTarget) => {
             entTarget.health -= 256;
-            console.log (entTarget.name + " took 256 damage!!");
+            updateBattleLog (entTarget.name + " took 256 damage!!");
         });
     }
 }
