@@ -12,6 +12,7 @@ class Entity {
         this.item = itemItem;
         this.statuses = [];
         this.weaknesses = [];
+        this.expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
         this.imagePath = sImagePath;
     }
 

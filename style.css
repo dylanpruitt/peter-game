@@ -36,6 +36,13 @@ button {
     position: absolute;
     visibility: hidden;
 }
+#battle-log {
+    position: absolute;
+    left: 10%;
+    top: 40%;
+    width: 75%;
+    text-align: center;
+}
 #fight-button {
     position: absolute;
     right: 5%;

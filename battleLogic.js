@@ -63,7 +63,7 @@ let updateTargetIcon = function (user, target) {
 let fight = function () {
   for (let i = 0; i < players.length; i++) {
       if (selectedMoves [i] === -1 || selectedTargets [i] === -1) {
-          console.log("Commands not given!");
+          updateBattleLog("Commands not given!");
           return;
       }
   }
@@ -119,3 +119,8 @@ let updateCombatantInfo = function () {
     enemyHealthText.innerHTML = "<span style='color: coral'>" + enemies[i].health + "</span> HP";
   }
 };
+
+let updateBattleLog = function (message) {
+    let battleLog = document.getElementById("battle-log");
+    battleLog.innerHTML = message;
+}

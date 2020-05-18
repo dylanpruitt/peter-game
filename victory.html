@@ -7,16 +7,60 @@
 </head>
 <body>
     <p>You won the battle!</p>
+    <button id="see-results" onclick="battleResults()">See results</button>
 
     <script src="skills.js"></script>
     <script src="items.js"></script>
     <script src="entities.js"></script>
     <script src="dataStorage.js"></script>
     <script>
-        console.log(getState());
+        let gameData = getState();
+        let players = gameData.players;
+        let enemies = gameData.enemies;
+
+        let myAudio = document.createElement("audio");
+        myAudio.src = "audio/level_up.mp3";
+        myAudio.loop = true;
 
         let calculateExperienceGain = function (player) {
-            
+            let experienceGain = 0;
+            for (let i = 0; i < enemies.length; i++) {
+                let experience = enemies [i].experience - (player.level * 4);
+                if (experience < 0) { experience = 0; }
+                experienceGain += experience;
+            }
+            return experienceGain;
+        }
+
+        let promotePlayer = function (player) {
+            let levelUpStrings = ["Gnarly! ", "Radical! ", "Tubular! ", "Totally Based! ", "Awesome! "];
+            let levelUpString = levelUpStrings[Math.floor(Math.random() * levelUpStrings.length)];
+
+            myAudio.play();
+            player.level++;
+            let levelUpText = document.createElement ("p");
+            levelUpText.innerHTML = levelUpString + player.name + " has been promoted to level <span style='color: coral'>"
+                 + player.level + "</span>!";
+            document.body.appendChild (levelUpText); 
+
+            player.maxHealth += Math.floor (Math.random() * 7);
+            player.health = player.maxHealth;
+            player.attack += Math.floor (Math.random() * 2);
+            player.defense += Math.floor (Math.random() * 2);
+            player.evasion += Math.floor (Math.random() * 2);
+        }
+
+        let battleResults = function () {
+            document.getElementById("see-results").style.visibility = "hidden";
+            for (let i = 0; i < players.length; i++) {
+                let experienceGain = calculateExperienceGain (players [i]);
+                players [i].experience += experienceGain;
+                let experienceGainText = document.createElement ("p");
+                experienceGainText.innerHTML = players [i].name + " gained <span style='color: coral'>" 
+                    + experienceGain + "</span> EXP!";
+                document.body.appendChild (experienceGainText); 
+                promotePlayer (players [i]);
+            }
         }
     </script>
 </body>
