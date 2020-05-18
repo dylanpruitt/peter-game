@@ -10,15 +10,27 @@ class Entity {
         this.experience = iExperience;
         this.skills = aSkills;
         this.item = itemItem;
+        this.statuses = [];
+        this.weaknesses = [];
         this.imagePath = sImagePath;
     }
 
     ai (targets) { defaultAI (targets); }
+
+    hasWeakness (type) {
+        for (let i = 0; i < this.weaknesses.length; i++) {
+            if (this.weaknesses [i] === type) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
-let playerPeter = new Entity ("Peter", 14, 14, 4, 2, 22, 3, 0, [attack], null, "images/demo-peter-portrait.png");
+let playerPeter = new Entity ("Peter", 14, 14, 4, 2, 22, 3, 0, [attack, provoke, guitarSolo], null, "images/demo-peter-portrait.png");
+playerPeter.weaknesses.push ("melee");
 let playerJustin = new Entity ("Justin", 22, 22, 5, 1, 36, 2, 0, [attack], null, "images/demo-justin-portrait.png");
-let playerRaymond = new Entity ("Raymond", 18, 18, 2, 1, 17, 2, 0, [attack], null, "images/demo-raymond-portrait.png");
+let playerRaymond = new Entity ("Raymond", 18, 18, 2, 1, 17, 2, 0, [attack, useItem], new warheadGnome (), "images/demo-raymond-portrait.png");
 let playerDrWinder = new Entity ("Dr. Winder", 15, 15, 2, 2, 10, 6, 0, [heal], null, "images/demo-drwinder-portrait.png");
 
 class mrFunky extends Entity {
@@ -33,6 +45,7 @@ class mrFunky extends Entity {
         [attack],
         null,
         "images/mr-funky.jpg");
+        this.weaknesses = ["ice"];
     }
 
     ai (targets) { 

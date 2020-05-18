@@ -11,6 +11,7 @@
     <button id="fight-button" onclick="fight()">Fight!</button>
 
     <script src="skills.js"></script>
+    <script src="items.js"></script>
     <script src="entities.js"></script>
     <script src="battleLogic.js"></script>
     <script>
@@ -55,6 +56,7 @@
                 toggleButton.className = "select-target-button";
                 toggleButton.onclick = function () { toggleTarget(i) };
                 toggleButton.innerHTML = "E";
+                toggleButton.title = "Toggle between targeting players/enemies.";
                 partyMemberTarget.appendChild(toggleButton);
 
                 for (let j = 0; j < 3; j++) {
@@ -64,10 +66,11 @@
                     moveButton.onclick = function () { selectMove (i, j) };
                     if (j < players [i].skills.length) {
                         moveButton.innerHTML = players [i].skills [j].name;
+                        moveButton.title = players [i].skills [j].description;
                     } else {
                         moveButton.innerHTML = "-";
                     }
-                    document.getElementById("party-member-" + (i + 1) + "-target").appendChild(moveButton);
+                    partyMemberTarget.appendChild(moveButton);
                 }
             }
 
