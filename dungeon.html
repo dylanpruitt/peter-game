@@ -1,8 +1,62 @@
 <!DOCTYPE html>
 <head>
-</head>
-<body>
+    <title>Silly Peter Increases G Two - Dungeon Screen</title>
+    <div id="screen">
+      <img id="screen-image" src="images/test_cliff.png" />
+    </div>
+    <link rel="stylesheet" type="text/css" href="dungeon-page-style.css" />
+  </head>
+  <body>
+    <button id="left-button" onclick="player.goLeft ()">Left</button>
+    <button id="right-button" onclick="player.goRight ()">Right</button>
+    <button id="forward-button" onclick="player.goForward ()">Go forward</button>
+    <button id="compass" onclick="compass()">Compass</button>
+    <button id="save-game" onclick="saveGame()">Save Game</button>
+
+    <p id="description-text"></p>
+<script src="player.js"></script>
+<script src="map.js"></script>
 <script>
+    dungeon.generateFloor();
+
+    function updateImage() {
+        let roomIndex = 0;
+        if (player.direction === "west") {
+            if (player.x === 0) {
+              document.getElementById("screen-image").src = "images/test_cliff.png";
+            } else {
+              roomIndex = getIndexFromPosition(player.x - 1, player.y);
+              document.getElementById("screen-image").src = dungeon.map[roomIndex].image;
+            }
+        } else if (player.direction === "north") {
+            if (player.y === 0) {
+                document.getElementById("screen-image").src = "images/test_cliff.png";
+            } else {
+                roomIndex = getIndexFromPosition(player.x, player.y - 1);
+                document.getElementById("screen-image").src = dungeon.map[roomIndex].image;
+            }
+        } else if (player.direction === "east") {
+            if (player.x === MAP_SIZE - 1) {
+                document.getElementById("screen-image").src = "images/test_cliff.png";
+            } else {
+                roomIndex = getIndexFromPosition(player.x + 1, player.y);
+                document.getElementById("screen-image").src = dungeon.map[roomIndex].image;
+            }
+        } else if (player.direction === "south") {
+            if (player.y === MAP_SIZE - 1) {
+                document.getElementById("screen-image").src = "images/test_cliff.png";
+            } else {
+                roomIndex = getIndexFromPosition(player.x, player.y + 1);
+                document.getElementById("screen-image").src = dungeon.map[roomIndex].image;
+            }
+        }
+    }
+
+    updateImage ();
+    
+    function compass () {
+        document.getElementById("description-text").innerHTML = "You are facing " + player.direction + ".";
+    }
 </script>
 </body>
 </html>

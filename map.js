@@ -6,13 +6,13 @@ let cliffTile = function (iX, iY) {
   this.x = iX;
   this.y = iY;
   this.isCollidable = true;
-  this.image = "images/cliff.png";
+  this.image = "images/test_cliff.png";
 };
 let caveFloorTile = function (iX, iY) {
   this.x = iX;
   this.y = iY;
   this.isCollidable = false;
-  this.image = "images/cave_tile.png";
+  this.image = "images/test_cave.png";
 };
 
 let presetMaps = [
@@ -81,9 +81,7 @@ let presetMaps = [
     ],
 ];
 
-let player = {x: 0, y: 0};
-
-let world = {
+let dungeon = {
   /// none -1, cliff 0, floor 1
   map: [
     -1, -1, -1, -1, -1, -1, -1,
@@ -94,7 +92,6 @@ let world = {
     -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1,
   ],
-  floor: 1,
   treasureChests: [],
   stairs: {x: 0, y: 0},
   fillMap : function () {
@@ -117,23 +114,47 @@ let world = {
     }
     return false;
   },
+  spawnInPlayer () {
+    let spawnIsInvalid = true;
+    let x = -1, y = -1;
+    while (spawnIsInvalid) {
+        x = Math.floor(Math.random() * 7);
+        y = Math.floor(Math.random() * 7);
+        if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE) {
+            spawnIsInvalid = false;
+            player.x = x; player.y = y;
+        }
+    } 
+  },
+  spawnInStairs () {
+    let spawnIsInvalid = true;
+    let x = -1, y = -1;
+    while (spawnIsInvalid) {
+        x = Math.floor(Math.random() * 7);
+        y = Math.floor(Math.random() * 7);
+        if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE && !(x === player.x && y === player.y)) {
+            spawnIsInvalid = false;
+            this.stairs.x = x; this.stairs.y = y;
+        }
+    } 
+  },
   generateFloor : function () {
-    if (this.floorIsSpecial (this.floor)) {
+    if (this.floorIsSpecial (player.floor)) {
         let BOSS_MAP = 6;
         this.map = presetMaps [BOSS_MAP];
     } else {
         let preset = Math.floor(Math.random() * 6);
-        console.log(preset);
         this.map = presetMaps [preset];
     }
-
+    this.spawnInPlayer();
+    this.spawnInStairs();
     this.fillMap();
   }
 };
 
 function getIndexFromPosition(x, y) {
-  for (var i = 0; i < world.map.length; i++) {
-    if (x === world.map[i].x && y === world.map[i].y) {
+  for (var i = 0; i < dungeon.map.length; i++) {
+    if (x === dungeon.map[i].x && y === dungeon.map[i].y) {
       return i;
     }
   }
@@ -149,8 +170,8 @@ function getPositionFromIndex(i) {
 
 function getTreasureChestIndexFromPosition(x, y) {
   let NONE_FOUND = -1;
-  for (let i = 0; i < world.treasureChests.length; i++) {
-    if (x === world.treasureChests[i].x && y === world.treasureChests[i].y) {
+  for (let i = 0; i < dungeon.treasureChests.length; i++) {
+    if (x === dungeon.treasureChests[i].x && y === dungeon.treasureChests[i].y) {
       return i;
     }
   }
