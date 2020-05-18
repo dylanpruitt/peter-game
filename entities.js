@@ -14,6 +14,7 @@ class Entity {
         this.weaknesses = [];
         this.expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
         this.imagePath = sImagePath;
+        this.updateStatuses = this.updateStatuses.bind(this);
     }
 
     ai (targets) { defaultAI (targets); }
@@ -47,6 +48,31 @@ class Entity {
         }
         this.statuses.length = 0;
         for (let i = 0; i < newStatuses.length; i++) { this.statuses.push (newStatuses [i]); }
+    }
+
+    copyProperties (original) {
+        this.name = original.name;
+        this.health = original.health;
+        this.maxHealth = original.maxHealth;
+        this.attack = original.attack;
+        this.defense = original.defense;
+        this.evasion = original.evasion;
+        this.level = original.level;
+        this.experience = original.experience;
+        this.skills.length = 0;
+        for (let i = 0; i < original.skills.length; i++) {
+            this.skills.push(original.skills [i]);
+        }
+        this.item = original.item;
+        this.statuses.length = 0;
+        for (let i = 0; i < original.statuses.length; i++) {
+            this.statuses.push(original.statuses [i]);
+        }
+        this.weaknesses.length = 0;
+        for (let i = 0; i < original.weaknesses.length; i++) {
+            this.weaknesses.push(original.weaknesses [i]);
+        }
+        this.imagePath = original.imagePath;
     }
 }
 

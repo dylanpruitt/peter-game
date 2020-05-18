@@ -52,8 +52,11 @@ let player = {
         if (player.onStairs ()) {
             document.getElementById("description-text").innerHTML = "You find the stairs, and advance a level.";
             player.floor++;
+            document.getElementById("floor-text").innerHTML = "Floor " + player.floor;
             dungeon.generateFloor();
             updateImage();
+        } else {
+            checkForEncounter();
         }
     },
     canMoveForward: function () {

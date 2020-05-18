@@ -115,6 +115,16 @@
             }
         }
 
+        let createEnemiesFromData = function () {
+            let enemyData = getDungeonState ().enemies;
+            for (let i = 0; i < enemyData.length; i++) {
+                if (enemyData [i].name === "Mr. Funky") {
+                    enemies.push (new mrFunky ());
+                }
+            }
+        }
+
+        createEnemiesFromData ();
         createWebsiteElements ();
         updateBattleLog ("The enemy draws near!");
     </script>

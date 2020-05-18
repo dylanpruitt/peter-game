@@ -3,8 +3,7 @@ let selectedMoves = [-1, -1, -1, -1];
 let selectedTargets = [-1, -1, -1, -1];
 let targetType = ["enemy", "enemy", "enemy", "enemy"];
 let players = [playerPeter, playerJustin, playerRaymond, playerDrWinder];
-
-let enemies = [new mrFunky(), new mrFunky(), new mrFunky()];
+let enemies = [];
 let myAudio = document.createElement("audio");
 myAudio.src = "audio/battle_funky_enemy.mp3";
 myAudio.loop = true;
@@ -112,7 +111,7 @@ let fight = function () {
   }
 
   if (allEnemiesDead ()) {
-    saveState ();
+    saveBattleState ();
     setTimeout(function () { window.location.replace('victory.html'); }, 1000);
   }
 
