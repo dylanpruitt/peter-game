@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+    <title>Silly Peter Increases G Two - Battle Screen</title>
+</head>
+<body>
+    <div id="party-member-1-info" class="party-member-info">
+        <img id="party-member-1-portrait" src="images/demo-peter-portrait.png"></img>
+        <p id="party-member-1-name"><strong>P</strong>eter</p>
+        <p id="party-member-1-hp"><span style="color: coral">7</span> HP</p>
+        <button id="party-1-move-1" class="select-move-button" onclick="selectMove(0, 0)">Attack</button>
+        <button id="party-1-move-2" class="select-move-button" onclick="selectMove(0, 1)">Provoke</button>
+        <button id="party-1-move-3" class="select-move-button" onclick="selectMove(0, 2)">Charm</button>
+    </div>
+    <div id="party-member-2-info" class="party-member-info">
+        <img id="party-member-2-portrait" src="images/demo-justin-portrait.png"></img>
+        <p id="party-member-2-name"><strong>J</strong>ustin</p>
+        <p id="party-member-2-hp"><span style="color: coral">9</span> HP</p>
+        <button id="party-2-move-1" class="select-move-button"onclick="selectMove(1, 0)">Attack</button>
+        <button id="party-2-move-2" class="select-move-button" onclick="selectMove(1, 1)">Flex</button>
+        <button id="party-2-move-3" class="select-move-button" onclick="selectMove(1, 2)">Bust a move</button>
+    </div>
+    <div id="party-member-3-info" class="party-member-info">
+        <img id="party-member-3-portrait" src="images/demo-raymond-portrait.png"></img>
+        <p id="party-member-3-name"><strong>R</strong>aymond</p>
+        <p id="party-member-3-hp"><span style="color: coral">11</span> HP</p>
+        <button id="party-3-move-1" class="select-move-button"onclick="selectMove(2, 0)">Attack</button>
+        <button id="party-3-move-2" class="select-move-button" onclick="selectMove(2, 1)">Defend</button>
+        <button id="party-3-move-3" class="select-move-button" onclick="selectMove(2, 2)">Bust a move</button>
+    </div>
+    <div id="party-member-4-info" class="party-member-info">
+        <img id="party-member-4-portrait" src="images/demo-braddles-portrait.png"></img>
+        <p id="party-member-4-name"><strong>B</strong>raddles</p>
+        <p id="party-member-4-hp"><span style="color: coral">8</span> HP</p>
+        <button id="party-4-move-1" class="select-move-button"onclick="selectMove(3, 0)">Attack</button>
+        <button id="party-4-move-2" class="select-move-button" onclick="selectMove(3, 1)">Go Ape</button>
+        <button id="party-4-move-3" class="select-move-button" onclick="selectMove(3, 2)">Vibe Check</button>
+    </div>
+    <div id="enemy-info">
+        <img id="enemy-portrait" src="images/mr-funky.jpg"></img>
+        <p id="enemy-name"><strong>M</strong>r. <strong>F</strong>unky</p>
+        <p id="enemy-hp"><span style="color: coral">24</span> HP</p>
+    </div>
+    <button id="fight-button" onclick="fight()">Fight!</button>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+        }
+        .party-member-info {
+            position: absolute;
+            top: 50%;
+            text-align: center;
+        }
+        #party-member-1-info {
+            left: 10%;
+        }
+        #party-member-2-info {
+            left: 30%;
+        }
+        #party-member-3-info {
+            left: 50%;
+        }
+        #party-member-4-info {
+            left: 70%;
+        }
+        .select-move-button {
+            width: 100%;
+        }
+        #enemy-info {
+            position: absolute;
+            top: 5%;
+            left: 35%;
+            width: 20%;
+            height: 40%;
+            text-align: center;
+        }
+        #enemy-portrait {
+            width: 100%;
+            height: 80%;
+        }
+        #fight-button {
+            position: absolute;
+            right: 5%;
+            top: 70%;
+            width: 8%;
+            height: 5%;
+        }
+    </style>
+    <script>
+        let audioIsPlaying = false;
+        let selectedMoves = [0, 0, 0, 0];
+        let myAudio = document.createElement("audio"); myAudio.src = "audio/battle_funky_enemy.mp3";
+        myAudio.loop = true;
+
+        let selectMove = function (user, move) {
+            selectedMoves [user] = move;
+            console.log (selectedMoves [user]);
+        };
+
+        let fight = function () {
+            if (!audioIsPlaying) {
+                audioIsPlaying = true;
+                myAudio.play();
+            }
+        }
+    </script>
+</body>
+</html>
