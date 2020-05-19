@@ -9,9 +9,7 @@ function saveBattleState() {
 function saveDungeonState() {
     let gameData = {
         player: player,
-        players: players,
         dungeon: dungeon,
-        enemies: enemies,
     };
     localStorage.setItem("dungeon-data", JSON.stringify(gameData));
 }

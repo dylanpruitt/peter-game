@@ -28,6 +28,11 @@
     <script src="dataStorage.js"></script>
     <script src="battleLogic.js"></script>
     <script>
+        let gameData = getBattleState();
+        if (gameData !== undefined) {
+            updatePlayerInfo (gameData.players);
+        }
+
         let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {
                 let partyMemberInfo = document.createElement ("div");
@@ -115,16 +120,7 @@
             }
         }
 
-        let createEnemiesFromData = function () {
-            let enemyData = getDungeonState ().enemies;
-            for (let i = 0; i < enemyData.length; i++) {
-                if (enemyData [i].name === "Mr. Funky") {
-                    enemies.push (new mrFunky ());
-                }
-            }
-        }
-
-        createEnemiesFromData ();
+        enemies = [new mrFunky ()];
         createWebsiteElements ();
         updateBattleLog ("The enemy draws near!");
     </script>

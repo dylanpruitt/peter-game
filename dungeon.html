@@ -23,9 +23,9 @@
 <script src="entities.js"></script>
 <script src="dataStorage.js"></script>
 <script>
-    let ENCOUNTER_RATE = 100;
+    let ENCOUNTER_RATE = 15;
 
-    dungeon.generateFloor();
+    updateDungeonInfo ();
 
     function updateImage() {
         let roomIndex = 0;
@@ -63,7 +63,7 @@
     updateImage ();
 
     function battle () {
-        enemies = ["Mr. Funky"];
+        enemies = [new mrFunky ()];
         saveDungeonState ();
         document.getElementById("description-text").innerHTML = "You encounter an enemy!";
         setTimeout(function () { window.location.replace('battle.html'); }, 1000);
@@ -72,6 +72,24 @@
         let randomNumber = Math.floor(Math.random() * 101);
         if (randomNumber <= ENCOUNTER_RATE) {
             battle ();
+        }
+    }
+
+    function updateDungeonInfo () {
+        let dungeonState = getDungeonState();
+        if (dungeonState === undefined) {
+            dungeon.generateFloor();
+            console.log("lmao");
+        } else {
+            player.direction = dungeonState.player.direction;
+            player.floor = dungeonState.player.floor;
+            player.x = dungeonState.player.x;
+            player.y = dungeonState.player.y;
+            document.getElementById("floor-text").innerHTML = "Floor " + player.floor;
+
+            dungeon.map = dungeonState.dungeon.map;
+            dungeon.treasureChests = dungeonState.dungeon.treasureChests;
+            dungeon.stairs = dungeonState.dungeon.stairs;
         }
     }
 

@@ -15,7 +15,7 @@
     <script src="dataStorage.js"></script>
     <script>
         let gameData = getBattleState();
-        let players = gameData.players;
+        updatePlayerInfo (gameData.players);
         let enemies = gameData.enemies;
 
         let myAudio = document.createElement("audio");
@@ -43,11 +43,19 @@
                  + player.level + "</span>!";
             document.body.appendChild (levelUpText); 
 
-            player.maxHealth += Math.floor (Math.random() * 7);
+            player.maxHealth += Math.floor (Math.random() * 10);
             player.health = player.maxHealth;
-            player.attack += Math.floor (Math.random() * 2);
-            player.defense += Math.floor (Math.random() * 2);
-            player.evasion += Math.floor (Math.random() * 2);
+            player.attack += Math.floor (Math.random() * 4);
+            player.defense += Math.floor (Math.random() * 4);
+            player.evasion += Math.floor (Math.random() * 4);
+        }
+
+        let playerReadyForPromotion = function (player) {
+            if (player.experience >= player.expToNextLevel[player.level - 1]) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         let battleResults = function () {
@@ -59,8 +67,24 @@
                 experienceGainText.innerHTML = players [i].name + " gained <span style='color: coral'>" 
                     + experienceGain + "</span> EXP!";
                 document.body.appendChild (experienceGainText); 
-                promotePlayer (players [i]);
+                if (playerReadyForPromotion (players [i])) {
+                    promotePlayer (players [i]);
+                } else {
+                    let experienceToNextLevel = players [i].expToNextLevel [players [i].level - 1] - players [i].experience;
+                    let expToNextText = document.createElement ("p");
+                    expToNextText.innerHTML = "<span style='color: coral'>" + experienceToNextLevel + "</span> EXP to next level";
+                    document.body.appendChild (expToNextText); 
+                }
             }
+            
+            enemies.length = 0;
+            saveBattleState();
+
+            let backToDungeonButton = document.createElement ("button");
+            backToDungeonButton.className = "back-to-dungeon";
+            backToDungeonButton.onclick = function () { window.location.replace('dungeon.html'); };
+            backToDungeonButton.innerHTML = "Back to dungeon";
+            document.body.appendChild(backToDungeonButton);
         }
     </script>
 </body>
