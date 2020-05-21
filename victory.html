@@ -18,6 +18,8 @@
         updatePlayerInfo (gameData.players);
         let enemies = gameData.enemies;
 
+        let expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
+
         let myAudio = document.createElement("audio");
         myAudio.src = "audio/level_up.mp3";
         myAudio.loop = true;
@@ -48,10 +50,17 @@
             player.attack += Math.floor (Math.random() * 4);
             player.defense += Math.floor (Math.random() * 4);
             player.evasion += Math.floor (Math.random() * 4);
+
+            if (player.name === "Peter" && player.level === 2) {
+                player.skills.push (provoke ());
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
         }
 
         let playerReadyForPromotion = function (player) {
-            if (player.experience >= player.expToNextLevel[player.level - 1]) {
+            if (player.experience >= expToNextLevel[player.level - 1]) {
                 return true;
             } else {
                 return false;
@@ -70,7 +79,7 @@
                 if (playerReadyForPromotion (players [i])) {
                     promotePlayer (players [i]);
                 } else {
-                    let experienceToNextLevel = players [i].expToNextLevel [players [i].level - 1] - players [i].experience;
+                    let experienceToNextLevel = expToNextLevel [players [i].level - 1] - players [i].experience;
                     let expToNextText = document.createElement ("p");
                     expToNextText.innerHTML = "<span style='color: coral'>" + experienceToNextLevel + "</span> EXP to next level";
                     document.body.appendChild (expToNextText); 

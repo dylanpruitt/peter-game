@@ -32,6 +32,10 @@
         if (gameData !== undefined) {
             updatePlayerInfo (gameData.players);
         }
+        let enemyIndices = getEncounter();
+        for (let i = 0; i < enemyIndices.length; i++) {
+            enemies.push(dungeonEnemies[enemyIndices[i]]());
+        }
 
         let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {
@@ -120,7 +124,6 @@
             }
         }
 
-        enemies = [new mrFunky ()];
         createWebsiteElements ();
         updateBattleLog ("The enemy draws near!");
     </script>

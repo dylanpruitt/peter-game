@@ -1,28 +1,26 @@
 let audioIsPlaying = false;
-let selectedMoves = [-1, -1, -1, -1];
-let selectedTargets = [-1, -1, -1, -1];
-let targetType = ["enemy", "enemy", "enemy", "enemy"];
 let enemies = [];
+
 let myAudio = document.createElement("audio");
 myAudio.src = "audio/battle_funky_enemy.mp3";
 myAudio.loop = true;
 
 let selectMove = function (user, move) {
   if (move < players[user].skills.length) {
-    selectedMoves[user] = move;
-    updateBattleLog(players[user].name + " will " + players[user].skills[selectedMoves[user]].name + ".");
+    players[user].selectedMove = move;
+    updateBattleLog(players[user].name + " will " + players[user].skills[move].name + ".");
   } else {
     console.log("Invalid move!");
   }
 };
 
 let selectTarget = function (user, target) {
-  if (targetType [user] === "player") {
-    selectedTargets[user] = target;
-    updateBattleLog(players[user].name + " -> now targeting " + players[selectedTargets [user]].name);
+  if (players[user].targetType === "player") {
+    players[user].selectedTarget = target;
+    updateBattleLog(players[user].name + " -> now targeting " + players[target].name);
     updateTargetIcon(user, target);
   } else if (target < enemies.length) {
-    selectedTargets[user] = target;
+    players[user].selectedTarget = target;
     updateBattleLog(players[user].name + " -> now targeting " + enemies[target].name);
     updateTargetIcon(user, target);
   } else {
@@ -33,11 +31,11 @@ let selectTarget = function (user, target) {
 let toggleTarget = function (user) {
     let toggleButton = document.getElementById("toggle-target-" + (user + 1));
     if (toggleButton) {
-        if (targetType [user] === "enemy") {
-            targetType [user] = "player";
+        if (players[user].targetType === "enemy") {
+            players[user].targetType = "player";
             toggleButton.innerHTML = "P";
         } else {
-            targetType [user] = "enemy";
+            players[user].targetType = "enemy";
             toggleButton.innerHTML = "E";
         }
     }
@@ -47,7 +45,7 @@ let updateTargetIcon = function (user, target) {
   let targetIcon = document.getElementById("target-icon-" + (user + 1));
   targetIcon.style.visibility = "visible";
 
-  if (targetType [user] === "enemy") {
+  if (players[user].targetType === "enemy") {
     let iconPositionPercent = 13 + user * 3 + 20 * target;
     targetIcon.style.left = iconPositionPercent + "%";
     targetIcon.style.top = "23%";
@@ -60,7 +58,7 @@ let updateTargetIcon = function (user, target) {
 
 let fight = function () {
   for (let i = 0; i < players.length; i++) {
-      if (selectedMoves [i] === -1 || selectedTargets [i] === -1) {
+      if (players[i].selectedMove === -1 || players[i].selectTarget === -1) {
           updateBattleLog("Commands not given!");
           return;
       }
@@ -81,11 +79,12 @@ let fight = function () {
 
   for (let i = 0; i < players.length; i++) {
     if (players [i].health > 0) {
-        updateBattleLog(players[i].name + " used " + players[i].skills[selectedMoves[i]].name + "!");
-        if (targetType [i] === "player") { 
-            players[i].skills[selectedMoves[i]].use(players[i], players[selectedTargets[i]]);
+        let selectedMove = players [i].selectedMove, selectedTarget = players [i].selectedTarget;
+        updateBattleLog(players[i].name + " used " + players[i].skills[selectedMove].name + "!");
+        if (players [i].targetType === "player") { 
+            players[i].skills[selectedMove].use(players[i], players[selectedTarget]);
         } else {
-            players[i].skills[selectedMoves[i]].use(players[i], enemies[selectedTargets[i]]);
+            players[i].skills[selectedMove].use(players[i], enemies[selectedTarget]);
 
         }
     } else {

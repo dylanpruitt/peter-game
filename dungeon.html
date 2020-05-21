@@ -62,24 +62,36 @@
 
     updateImage ();
 
-    function battle () {
-        enemies = [new mrFunky ()];
-        saveDungeonState ();
-        document.getElementById("description-text").innerHTML = "You encounter an enemy!";
-        setTimeout(function () { window.location.replace('battle.html'); }, 1000);
-    }
     function checkForEncounter () {
         let randomNumber = Math.floor(Math.random() * 101);
         if (randomNumber <= ENCOUNTER_RATE) {
             battle ();
         }
     }
+    function battle () {
+        let enemyIndices = generateEnemies ();
+        saveDungeonState ();
+        saveEncounter (enemyIndices);
+        document.getElementById("description-text").innerHTML = "You encounter an enemy!";
+        setTimeout(function () { window.location.replace('battle.html'); }, 1000);
+    }
+    function generateEnemies () {
+        let enemies = [];
+        let numberOfEnemies = Math.floor(Math.random() * 3) + 1;
+
+        for (let i = 0; i < numberOfEnemies; i++) {
+            if (player.floor < 5) {
+                let enemyIndex = Math.floor(Math.random() * 2);
+                enemies.push(enemyIndex);
+            }
+        }
+        return enemies;
+    }
 
     function updateDungeonInfo () {
         let dungeonState = getDungeonState();
         if (dungeonState === undefined) {
             dungeon.generateFloor();
-            console.log("lmao");
         } else {
             player.direction = dungeonState.player.direction;
             player.floor = dungeonState.player.floor;

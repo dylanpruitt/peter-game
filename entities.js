@@ -1,66 +1,128 @@
-class Entity {
-    constructor (sName, iHealth, iMaxHealth, iAttack, iDefense, iEvasion, iLevel, iExperience, aSkills, itemItem, sImagePath) {
-        this.name = sName;
-        this.health = iHealth;
-        this.maxHealth = iMaxHealth;
-        this.attack = iAttack;
-        this.defense = iDefense;
-        this.evasion = iEvasion;
-        this.level = iLevel;
-        this.experience = iExperience;
-        this.skills = aSkills;
-        this.item = itemItem;
-        this.statuses = [];
-        this.weaknesses = [];
-        this.expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
-        this.imagePath = sImagePath;
-        this.ai = this.ai.bind(this);
-        this.hasStatus = this.hasStatus.bind(this);
-        this.hasWeakness = this.hasWeakness.bind(this);
-        this.updateStatuses = this.updateStatuses.bind(this);
-    }
-
-    ai (targets) { defaultAI (targets); }
-
-    hasStatus (status) {
-        for (let i = 0; i < this.statuses.length; i++) {
-            if (this.statuses [i].name === status) {
+const properties = (entity) => ({
+    hasStatus: (status) => {
+        for (let i = 0; i < entity.statuses.length; i++) {
+            if (entity.statuses [i].name === status) {
                 return true;
             }
         }
         return false;
-    }
-
-    hasWeakness (type) {
-        for (let i = 0; i < this.weaknesses.length; i++) {
-            if (this.weaknesses [i] === type) {
+    },
+    hasWeakness: (type) => {
+        for (let i = 0; i < entity.weaknesses.length; i++) {
+            if (entity.weaknesses [i] === type) {
                 return true;
             }
         }
         return false;
-    }
-
-    updateStatuses () {
+    },
+    updateStatuses: () => {
         let newStatuses = [];
-        for (let i = 0; i < this.statuses.length; i++) {
-            this.statuses [i].effect (this);
-            this.statuses [i].turnsLeft--;
-            if (this.statuses [i].turnsLeft > 0) {
-                newStatuses.push (this.statuses [i]);
+        for (let i = 0; i < entity.statuses.length; i++) {
+            entity.statuses [i].effect (entity);
+            entity.statuses [i].turnsLeft--;
+            if (entity.statuses [i].turnsLeft > 0) {
+                newStatuses.push (entity.statuses [i]);
             }
         }
-        this.statuses.length = 0;
-        for (let i = 0; i < newStatuses.length; i++) { this.statuses.push (newStatuses [i]); }
+        entity.statuses.length = 0;
+        for (let i = 0; i < newStatuses.length; i++) { entity.statuses.push (newStatuses [i]); }
     }
+});
+
+let playerPeter = () => {
+    let entity = {
+        name: "Peter",
+        health: 12,
+        maxHealth: 12,
+        attack: 1,
+        defense: 0,
+        evasion: 15,
+        level: 1,
+        experience: 0,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: ["melee"],
+        item: null,
+        imagePath: "images/demo-peter-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let playerJustin = () => {
+    let entity = {
+        name: "Justin",
+        health: 17,
+        maxHealth: 17,
+        attack: 4,
+        defense: 1,
+        evasion: 32,
+        level: 1,
+        experience: 0,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: [],
+        item: null,
+        imagePath: "images/demo-justin-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let playerRaymond = () => {
+    let entity = {
+        name: "Raymond",
+        health: 22,
+        maxHealth: 22,
+        attack: 3,
+        defense: 2,
+        evasion: 11,
+        level: 1,
+        experience: 0,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: [],
+        item: null,
+        imagePath: "images/demo-raymond-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let playerHunter = () => {
+    let entity = {
+        name: "Hunter",
+        health: 19,
+        maxHealth: 19,
+        attack: 2,
+        defense: 2,
+        evasion: 22,
+        level: 1,
+        experience: 0,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: [],
+        item: null,
+        imagePath: "images/demo-hunter-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
 }
 
-let playerPeter = new Entity ("Peter", 6, 6, 1, 0, 15, 1, 0, [attack, provoke, guitarSolo], null, "images/demo-peter-portrait.png");
-playerPeter.weaknesses.push ("melee");
-let playerJustin = new Entity ("Justin", 9, 9, 3, 1, 32, 1, 0, [attack, charm], null, "images/demo-justin-portrait.png");
-let playerRaymond = new Entity ("Raymond", 11, 11, 2, 2, 11, 1, 0, [attack, useItem], new warheadGnome (), "images/demo-raymond-portrait.png");
-let playerDrWinder = new Entity ("Dr. Winder", 8, 8, 1, 2, 10, 1, 0, [heal], null, "images/demo-drwinder-portrait.png");
+let players = [playerPeter(), playerJustin(), playerRaymond(), playerHunter()];
 
-let players = [playerPeter, playerJustin, playerRaymond, playerDrWinder];
+for (let i = 0; i < players.length; i++) {
+    players [i] = Object.assign (players [i], properties(players [i]));
+}
 
 let updatePlayerInfo = function (gameData) {
     for (let i = 0; i < players.length; i++) {
@@ -76,29 +138,54 @@ let updatePlayerInfo = function (gameData) {
     }
 }
 
-class mrFunky extends Entity {
-    constructor () {
-        super ("Mr. Funky",
-        24, 24,
-        6,
-        1,
-        15,
-        4,
-        16,
-        [attack],
-        null,
-        "images/mr-funky.jpg");
-        this.weaknesses = ["ice"];
+let bikerGnome = () => {
+    let entity = {
+        name: "Biker Gnome",
+        health: 7,
+        maxHealth: 7,
+        attack: 3,
+        defense: 2,
+        evasion: 5,
+        level: 1,
+        experience: 14,
+        skills: [attack(), fire()],
+        statuses: [],
+        weaknesses: ["ice"],
+        imagePath: "images/biker-gnome.jpg",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        }
     }
 
-    ai (targets) { 
-        let ATTACK = 0;
-        let target = Math.floor(Math.random() * targets.length);
-        updateBattleLog (this.name + " used " + this.skills [ATTACK].name + "!"); 
-        this.skills [ATTACK].use (this, targets [target]);
-    }
+    return Object.assign (entity, properties(entity));
 }
 
-let defaultAI = function (targets) {
-    console.log ("needs ai implementation!");
+let bear = () => {
+    let entity = {
+        name: "Bear",
+        health: 14,
+        maxHealth: 14,
+        attack: 4,
+        defense: 1,
+        evasion: 5,
+        level: 1,
+        experience: 14,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: ["melee", "fire"],
+        imagePath: "images/bear.jpg",
+        ai: (targets) => { 
+            let ATTACK = 0;
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [ATTACK].name + "!"); 
+            entity.skills [ATTACK].use (entity, targets [target]);
+        }
+    }
+
+    return Object.assign (entity, properties(entity));
 }
+
+let dungeonEnemies = [bikerGnome, bear];
