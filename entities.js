@@ -63,7 +63,7 @@ let playerJustin = () => {
         experience: 0,
         skills: [attack()],
         statuses: [],
-        weaknesses: [],
+        weaknesses: ["fire"],
         item: null,
         imagePath: "images/demo-justin-portrait.png",
         selectedMove: -1,
@@ -83,9 +83,9 @@ let playerRaymond = () => {
         evasion: 11,
         level: 1,
         experience: 0,
-        skills: [attack()],
+        skills: [fire()],
         statuses: [],
-        weaknesses: [],
+        weaknesses: ["ice"],
         item: null,
         imagePath: "images/demo-raymond-portrait.png",
         selectedMove: -1,
@@ -95,6 +95,7 @@ let playerRaymond = () => {
 
     return Object.assign (entity, properties(entity));
 }
+
 let playerHunter = () => {
     let entity = {
         name: "Hunter",
@@ -107,9 +108,55 @@ let playerHunter = () => {
         experience: 0,
         skills: [attack()],
         statuses: [],
-        weaknesses: [],
+        weaknesses: ["lightning"],
         item: null,
         imagePath: "images/demo-hunter-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+let playerJoe = () => {
+    let entity = {
+        name: "Joe",
+        health: 16,
+        maxHealth: 16,
+        attack: 3,
+        defense: 3,
+        evasion: 12,
+        level: 1,
+        experience: 0,
+        skills: [attack()],
+        statuses: [],
+        weaknesses: ["lightning"],
+        item: null,
+        imagePath: "images/demo-joe-portrait.png",
+        selectedMove: -1,
+        selectedTarget: -1,
+        targetType: "enemy"
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+let playerAbby = () => {
+    let entity = {
+        name: "Abby",
+        health: 15,
+        maxHealth: 15,
+        attack: 3,
+        defense: 1,
+        evasion: 26,
+        level: 1,
+        experience: 0,
+        skills: [ice()],
+        statuses: [],
+        weaknesses: ["fire"],
+        item: null,
+        imagePath: "images/demo-abby-portrait.png",
         selectedMove: -1,
         selectedTarget: -1,
         targetType: "enemy"
@@ -122,20 +169,6 @@ let players = [playerPeter(), playerJustin(), playerRaymond(), playerHunter()];
 
 for (let i = 0; i < players.length; i++) {
     players [i] = Object.assign (players [i], properties(players [i]));
-}
-
-let updatePlayerInfo = function (gameData) {
-    for (let i = 0; i < players.length; i++) {
-        players [i].name = gameData [i].name;
-        players [i].health = gameData [i].health;
-        players [i].maxHealth = gameData [i].maxHealth;
-        players [i].attack = gameData [i].attack;
-        players [i].defense = gameData [i].defense;
-        players [i].evasion = gameData [i].evasion;
-        players [i].level = gameData [i].level;
-        players [i].experience = gameData [i].experience;
-        players [i].weaknesses = gameData [i].weaknesses;
-    }
 }
 
 let bikerGnome = () => {

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+    <title>Silly Peter Increases G Two - Hall Screen</title>
+    <link rel="stylesheet" type="text/css" href="hall-page-style.css" />
+    <h1>The hall</h1>
+    <hr>
+</head>
+<body>
+    <p>Selected characters:</p>
+    <span id="selected-characters">Peter</span
+    ><button id="party-member-1" onclick="returnPartyMember('Raymond')">Raymond</button
+    ><button id="party-member-2" onclick="returnPartyMember('Hunter')">Hunter</button
+    ><button id="party-member-3" onclick="returnPartyMember('Abby')">Abby</button
+    ><button id="party-member-4" onclick="returnPartyMember('Joe')">Joe</button
+    ><button id="party-member-5" onclick="returnPartyMember('Justin')">Justin</button>
+    <br>
+    <p>Unselected characters:</p>
+    <button id="select-party-member-1" onclick="addPartyMember('Raymond')">Raymond</button
+    ><button id="select-party-member-2" onclick="addPartyMember('Hunter')">Hunter</button
+    ><button id="select-party-member-3" onclick="addPartyMember('Abby')">Abby</button
+    ><button id="select-party-member-4" onclick="addPartyMember('Joe')">Joe</button
+    ><button id="select-party-member-5" onclick="addPartyMember('Justin')">Justin</button>
+    <hr>
+    <p id="message"></p>
+    <button id="go-back" onclick="gotoCampus()">Back to campus</button>
+    <script src="skills.js"></script>
+    <script src="entities.js"></script>
+    <script src="dataStorage.js"></script>
+    <script>
+        let unselectedMembers = [playerRaymond(), playerHunter(), playerAbby(), playerJoe(), playerJustin()];
+
+        let party = players;
+
+        let gameData = getParty();
+        if (gameData !== undefined) {
+            party = gameData;
+        }
+        let memberData = getUnselectedMembers();
+        if (memberData !== undefined) {
+            unselectedMembers = memberData;
+        }
+
+        let updateWebsiteElements = function () {
+            let members = [playerRaymond(), playerHunter(), playerAbby(), playerJoe(), playerJustin()];
+            for (let i = 0; i < 5; i++) {
+                if (playerIsInParty(members [i].name)) {
+                    document.getElementById("select-party-member-" + (i + 1)).style.visibility = "hidden";
+                    document.getElementById("party-member-" + (i + 1)).style.visibility = "visible";
+                } else {
+                    document.getElementById("party-member-" + (i + 1)).style.visibility = "hidden";
+                    document.getElementById("select-party-member-" + (i + 1)).style.visibility = "visible";
+                }
+            }
+        }
+
+        let playerIsInParty = function (name) {
+            for (let i = 0; i < party.length; i++) {
+                if (party [i].name === name) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        let addPartyMember = function (name) {
+            if (party.length < 4) {
+                let index = getUnselectedMemberIndex (name);
+                party.push(unselectedMembers[index]);
+                unselectedMembers.splice(index, 1);
+                updateWebsiteElements();
+            } else {
+                document.getElementById("message").innerHTML = "Party full!";
+            }
+        }
+
+        let getUnselectedMemberIndex = function (name) {
+            for (let i = 0; i < unselectedMembers.length; i++) {
+                if (unselectedMembers [i].name === name) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        let returnPartyMember = function (name) {
+            let index = getPartyIndex (name);
+            unselectedMembers.push(party[index]);
+            party.splice(index, 1);
+            updateWebsiteElements();
+        }
+
+        let getPartyIndex = function (name) {
+            for (let i = 0; i < party.length; i++) {
+                if (party [i].name === name) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        let gotoCampus = function () {
+            if (party.length < 4) {
+                document.getElementById("message").innerHTML = "You don't have enough members in your party!";
+            } else {
+                saveParty(party);
+                saveUnselectedMembers(unselectedMembers);
+                window.location.replace('campus.html'); 
+            }
+        }
+
+        for (let i = 0; i < party.length; i++) {
+            let index = getUnselectedMemberIndex(party [i].name);
+            if (index !== -1) {
+                unselectedMembers.splice(index, 1);
+            }
+        }
+
+        updateWebsiteElements ();
+    </script>
+</body>
+</html>

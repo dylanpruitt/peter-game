@@ -110,6 +110,7 @@ let fight = function () {
 
   if (allEnemiesDead ()) {
     saveBattleState ();
+    saveParty (players);
     setTimeout(function () { window.location.replace('victory.html'); }, 1000);
   }
 

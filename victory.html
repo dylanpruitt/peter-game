@@ -14,8 +14,8 @@
     <script src="entities.js"></script>
     <script src="dataStorage.js"></script>
     <script>
+        players = getParty();
         let gameData = getBattleState();
-        updatePlayerInfo (gameData.players);
         let enemies = gameData.enemies;
 
         let expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
@@ -88,6 +88,7 @@
             
             enemies.length = 0;
             saveBattleState();
+            saveParty(players);
 
             let backToDungeonButton = document.createElement ("button");
             backToDungeonButton.className = "back-to-dungeon";

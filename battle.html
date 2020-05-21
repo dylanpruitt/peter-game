@@ -28,9 +28,9 @@
     <script src="dataStorage.js"></script>
     <script src="battleLogic.js"></script>
     <script>
-        let gameData = getBattleState();
-        if (gameData !== undefined) {
-            updatePlayerInfo (gameData.players);
+        let party = getParty();
+        if (party !== undefined) {
+            players = party;
         }
         let enemyIndices = getEncounter();
         for (let i = 0; i < enemyIndices.length; i++) {

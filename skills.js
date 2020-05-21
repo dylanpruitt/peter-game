@@ -123,3 +123,15 @@ let damageTarget = function (entUser, entTarget, amount, type) {
         updateBattleLog (entTarget.name + " took " + damage + " damage!!");
     }
 }
+
+let skills = [attack(), fire(), ice(), heal(), useItem(), provoke(), charm(), guitarSolo()];
+
+let getSkillIndexFromName = function (name) {
+    let NOT_FOUND = -1;
+    for (let i = 0; i < skills.length; i++) {
+        if (skills [i].name === name) {
+            return i;
+        }
+    }
+    return NOT_FOUND;
+}
