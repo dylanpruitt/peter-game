@@ -24,6 +24,10 @@
         myAudio.src = "audio/level_up.mp3";
         myAudio.loop = true;
 
+        if (enemies.length > 0) {
+            if (enemies [0].isBoss) { players [0].bossesDefeated++; }
+        }
+
         let calculateExperienceGain = function (player) {
             let experienceGain = 0;
             for (let i = 0; i < enemies.length; i++) {

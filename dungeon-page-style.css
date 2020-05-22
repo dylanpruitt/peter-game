@@ -45,3 +45,6 @@ button {
     position: absolute;
     top: 85%;
 }
+.checkpoint {
+    visibility: hidden;
+}

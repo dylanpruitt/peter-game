@@ -115,6 +115,8 @@
         }
 
         let gotoStatusPage = function () {
+            saveParty(party);
+            saveUnselectedMembers(unselectedMembers);
             window.open("status.html"); 
         }
 

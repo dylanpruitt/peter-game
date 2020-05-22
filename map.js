@@ -104,7 +104,7 @@ let dungeon = {
   spawnInPlayer () {
     let spawnIsInvalid = true;
     let x = -1, y = -1;
-    while (spawnIsInvalid && !this.floorIsSpecial (player.floor)) {
+    while (spawnIsInvalid) {
         x = Math.floor(Math.random() * MAP_SIZE);
         y = Math.floor(Math.random() * MAP_SIZE);
         if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE) {
@@ -116,7 +116,7 @@ let dungeon = {
   spawnInStairs () {
     let spawnIsInvalid = true;
     let x = -1, y = -1;
-    while (spawnIsInvalid && !this.floorIsSpecial (player.floor)) {
+    while (spawnIsInvalid) {
         x = Math.floor(Math.random() * MAP_SIZE);
         y = Math.floor(Math.random() * MAP_SIZE);
         if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE && !(x === player.x && y === player.y)) {
@@ -132,15 +132,17 @@ let dungeon = {
         if (player.floor === 4) {
           player.x = 2, player.y = 3;
           this.stairs.x = 2, this.stairs.y = 1;
-          this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-          this.bossEncounter.index = 2;
+          if (party [0].bossesDefeated === 0) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.index = 2;
+          }
         }
     } else {
         let preset = Math.floor(Math.random() * 6);
         this.map = presetMaps [preset];
+        this.spawnInPlayer();
+        this.spawnInStairs();
     }
-    this.spawnInPlayer();
-    this.spawnInStairs();
     this.fillMap();
   }
 };

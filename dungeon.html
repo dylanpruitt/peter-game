@@ -12,16 +12,17 @@
     <button id="forward-button" onclick="onForward()">Go forward</button>
     <button id="compass" onclick="compass()">Compass</button>
     <button id="back-to-campus" onclick="gotoCampus()">Back to campus</button>
+    <button id="checkpoint-1" class="checkpoint" onclick="gotoFloor(4)">Checkpoint : 4F</button>
     
     <p id="floor-text">Floor 1</p>
 
     <p id="description-text"></p>
 <script src="player.js"></script>
-<script src="map.js"></script>
 <script src="statuses.js"></script>
 <script src="skills.js"></script>
 <script src="items.js"></script>
 <script src="entities.js"></script>
+<script src="map.js"></script>
 <script src="dataStorage.js"></script>
 <script>
     let ENCOUNTER_RATE = 15;
@@ -32,6 +33,7 @@
 
     let party = getParty ();
     updateDungeonInfo ();
+    updateCheckpointButtons ();
 
     function onForward() {
         player.goForward (); 
@@ -82,7 +84,7 @@
     function battle () {
         let enemyIndices = generateEnemies ();
         saveDungeonState ();
-        saveEncounter (enemyIndices);
+        saveEncounter (enemyIndices, "audio/encounter_get_funky.mp3");
         document.getElementById("description-text").innerHTML = "You encounter an enemy!";
         setTimeout(function () { window.location.replace('battle.html'); }, 1000);
     }
@@ -94,6 +96,9 @@
             if (player.floor < 5) {
                 let enemyIndex = Math.floor(Math.random() * 2);
                 enemies.push(enemyIndex);
+            } else if (player.floor < 11) {
+                let enemyIndex = Math.floor(Math.random() * 3) + 3;
+                enemies.push(enemyIndex);
             }
         }
         return enemies;
@@ -102,6 +107,10 @@
     function updateDungeonInfo () {
         let dungeonState = getDungeonState();
         if (dungeonState === undefined) {
+            dungeon.generateFloor();
+        } else if (dungeon.floorIsSpecial(dungeonState.player.floor)) {
+            player.floor = dungeonState.player.floor;
+            document.getElementById("floor-text").innerHTML = "Floor " + player.floor;
             dungeon.generateFloor();
         } else {
             player.direction = dungeonState.player.direction;
@@ -120,9 +129,25 @@
         document.getElementById("description-text").innerHTML = "You are facing " + player.direction + ".";
     }
 
-    let gotoCampus = function () {
+    function gotoCampus () {
         localStorage.removeItem("dungeon-data");
         window.location.replace('campus.html'); 
+    }
+
+    function updateCheckpointButtons () {
+        for (let i = 0; i < party [0].bossesDefeated; i++) {
+            document.getElementById("checkpoint-" + (i + 1)).style.visibility = "visible";
+        }
+    }
+
+    function gotoFloor (floor) {
+        dungeon.map = presetMaps[6];
+        player.x = 2, player.y = 3, player.floor = floor;
+        dungeon.stairs.x = 2, dungeon.stairs.y = 1;
+        dungeon.fillMap();
+        updateImage ();
+        document.getElementById("floor-text").innerHTML = "Floor " + player.floor;
+        document.getElementById("description-text").innerHTML = "You have warped to the " + floor + "th floor.";
     }
 </script>
 </body>

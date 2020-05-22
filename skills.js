@@ -46,6 +46,18 @@ let lightning = () => {
     return skill;
 }
 
+let holy = () => {
+    let skill = {
+        name: "Holy",
+        description: "A basic holy attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 1;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "holy");     
+        }
+    }
+    return skill;
+}
+
 let heal = () => {
     let skill = {
         name: "Heal",
@@ -70,7 +82,6 @@ let caffeine = () => {
             let BASE_EVASION = 5;
             let evadeAmount = BASE_EVASION + (2 * entUser.level);
             if (entTarget.evasion + evadeAmount > 60) { evadeAmount = 60 - entTarget.evasion; }
-            entTarget.statuses.push(new EvadeBoost()) 
             entTarget.evasion += evadeAmount;
         }
     }
@@ -111,7 +122,7 @@ let charm = () => {
         
             if (randomNumber <= HIT_CHANCE) {
                 updateBattleLog ("Enemy charmed!!");
-                entTarget.statuses.push (new Charm ());
+                entTarget.statuses.push (Charm());
             } else {
                 updateBattleLog ("D'oh! Missed!!");
             } 
@@ -128,6 +139,79 @@ let guitarSolo = () => {
             let BASE_DAMAGE = 36;
             updateBattleLog (entUser.name + " starts a gnarly guitar solo!!");
             damageTarget(entUser, entTarget, BASE_DAMAGE, "fire");    
+        }
+    }
+    return skill;
+}
+
+let gravity = () => {
+    let skill = {
+        name: "Gravity",
+        description: "Halves an enemy's HP (20% base chance).",
+        use: (entUser, entTarget) => {
+            let enemyHit = false;
+            if (entTarget.hasWeakness("gravity")) {
+                updateBattleLog (entTarget.name + "'s weakness was hit!");
+                enemyHit = true;
+            } else {
+                let BASE_HIT_CHANCE = 20;
+                let HIT_CHANCE = BASE_HIT_CHANCE + (entUser.level * 3);
+                let randomNumber = Math.floor (Math.random() * 101);
+            
+                if (randomNumber <= HIT_CHANCE) {
+                    enemyHit = true;
+                } else {
+                    updateBattleLog ("D'oh! Missed!!");
+                } 
+            }
+            if (enemyHit) {
+                entTarget.health /= 2;
+                updateBattleLog (entTarget.name + "'s health was halved!");
+            }
+        }
+    }
+    return skill;
+}
+
+let boostAttack = () => {
+    let skill = {
+        name: "Boost Attack",
+        description: "The target's attack goes up.",
+        use: (entUser, entTarget) => {
+            let BOOST_AMOUNT = 2;
+            if (entTarget.attack + BOOST_AMOUNT > 32) { BOOST_AMOUNT = 32 - entTarget.attack; }
+            entTarget.attack += BOOST_AMOUNT;
+        }
+    }
+    return skill;
+}
+
+let slowDown = () => {
+    let skill = {
+        name: "Slow Down",
+        description: "Slow down a target, reducing their evasion.",
+        use: (entUser, entTarget) => {
+            let DEBUFF_AMOUNT = 7;
+            if (entTarget.evasion - DEBUFF_AMOUNT < 5) { DEBUFF_AMOUNT = entTarget.evasion - 5; }
+            entTarget.evasion -= DEBUFF_AMOUNT;
+        }
+    }
+    return skill;
+}
+
+let decharm = () => {
+    let skill = {
+        name: "Decharm",
+        description: "If the target is charmed, remove their charm status.",
+        use: (entUser, entTarget) => {
+            if (entTarget.hasStatus("Charm")) {
+                let index = 0;
+                for (let i = 0; i < entTarget.statuses.length; i++) { if (entTarget.statuses [i].name === "Charm") { index = i; }}
+                entTarget.statuses.splice(index, 1);
+                updateBattleLog (entTarget.name + " was de-charmed!!");
+            } else {
+                updateBattleLog ("Silly " + entUser.name + "! " + entTarget.name + " isn't charmed!!");
+            }
         }
     }
     return skill;
@@ -151,7 +235,8 @@ let damageTarget = function (entUser, entTarget, amount, type) {
     }
 }
 
-let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo()];
+let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
+                gravity(), holy(), boostAttack(), slowDown(), decharm()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;

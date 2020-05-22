@@ -1,27 +1,8 @@
-class Status {
-    constructor (sName, sDescription, iTurnsLeft, fEffect) {
-        this.name = sName;
-        this.description = sDescription;
-        this.turnsLeft = iTurnsLeft;
-        this.effect = fEffect;
+let Charm = () => {
+    let status = {
+        name: "Charm",
+        description: "Charms an enemy - they won't attack for a turn.",
+        turnsLeft: 1
     }
-}
-
-class Charm extends Status {
-    constructor () {
-        super ("Charm", "Charms an enemy - they won't attack for a turn.", 1, (entParent) => {});
-    }
-}
-
-class Poison extends Status {
-    constructor () {
-        super ("Poison", "Poisons an enemy.", 2, (entParent) => { entParent.health -= 3; });
-    }
-}
-
-class EvadeBoost extends Status {
-    constructor (amount) {
-        super ("Evasion+", "Evasion boosted.", 1, (entParent) => {});
-        this.amount = amount;
-    }
+    return status;
 }

@@ -14,8 +14,12 @@ function saveDungeonState() {
     localStorage.setItem("dungeon-data", JSON.stringify(gameData));
 }
 
-function saveEncounter(enemyIndices) {
-    localStorage.setItem("encounter-data", JSON.stringify(enemyIndices));    
+function saveEncounter(enemyIndices, musicPath) {
+    let gameData = {
+        enemyIndices: enemyIndices,
+        musicPath: musicPath,
+    }
+    localStorage.setItem("encounter-data", JSON.stringify(gameData));    
 }
 
 function saveParty(party) {

@@ -35,10 +35,12 @@
 
         let playerCopy = JSON.parse(JSON.stringify(players));
 
-        let enemyIndices = getEncounter();
+        let gameData = getEncounter();
+        let enemyIndices = gameData.enemyIndices;
         for (let i = 0; i < enemyIndices.length; i++) {
             enemies.push(dungeonEnemies[enemyIndices[i]]());
         }
+        myAudio.src = gameData.musicPath;
 
         let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {

@@ -59,7 +59,7 @@ let player = {
             if (player.x === dungeon.bossEncounter.x && player.y === dungeon.bossEncounter.y) {
                 let enemyIndices = [dungeon.bossEncounter.index]
                 saveDungeonState ();
-                saveEncounter (enemyIndices);
+                saveEncounter (enemyIndices, "audio/encounter_gman.mp3");
                 document.getElementById("description-text").innerHTML = "You encounter an enemy!";
                 setTimeout(function () { window.location.replace('battle.html'); }, 1000);
             }
