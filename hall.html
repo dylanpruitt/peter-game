@@ -23,6 +23,7 @@
     <hr>
     <p id="message"></p>
     <button id="go-back" onclick="gotoCampus()">Back to campus</button>
+    <button id="check-status" onclick="gotoStatusPage()">Check party status</button>
     <script src="skills.js"></script>
     <script src="entities.js"></script>
     <script src="dataStorage.js"></script>
@@ -39,7 +40,6 @@
         if (memberData !== undefined) {
             unselectedMembers = memberData;
         }
-
         let updateWebsiteElements = function () {
             let members = [playerRaymond(), playerHunter(), playerAbby(), playerJoe(), playerJustin()];
             for (let i = 0; i < 5; i++) {
@@ -50,6 +50,12 @@
                     document.getElementById("party-member-" + (i + 1)).style.visibility = "hidden";
                     document.getElementById("select-party-member-" + (i + 1)).style.visibility = "visible";
                 }
+            }
+        }
+
+        let healParty = function () {
+            for (let i = 0; i < party.length; i++) {
+                party [i].health = party [i].maxHealth;
             }
         }
 
@@ -108,6 +114,10 @@
             }
         }
 
+        let gotoStatusPage = function () {
+            window.open("status.html"); 
+        }
+
         for (let i = 0; i < party.length; i++) {
             let index = getUnselectedMemberIndex(party [i].name);
             if (index !== -1) {
@@ -115,6 +125,7 @@
             }
         }
 
+        healParty ();
         updateWebsiteElements ();
     </script>
 </body>

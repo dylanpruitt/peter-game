@@ -32,6 +32,9 @@
         if (party !== undefined) {
             players = party;
         }
+
+        let playerCopy = JSON.parse(JSON.stringify(players));
+
         let enemyIndices = getEncounter();
         for (let i = 0; i < enemyIndices.length; i++) {
             enemies.push(dungeonEnemies[enemyIndices[i]]());

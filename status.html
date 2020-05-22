@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<head>
+    <title>Silly Peter Increases G Two - Status Screen</title>
+    <link rel="stylesheet" type="text/css" href="hall-page-style.css" />
+    <h1>Party Status</h1>
+    <hr>
+</head>
+<body>
+    <style>
+        p {
+            margin: 5px 0;
+        }
+    </style>
+    <script src="skills.js"></script>
+    <script src="entities.js"></script>
+    <script src="dataStorage.js"></script>
+    <script>
+        let loadPlayers = function () {
+            let partyData = getParty();
+            let unselectedMembers = getUnselectedMembers();
+            let players = [];
+
+            for (let i = 0; i < partyData.length; i++) {
+                players.push(partyData [i]);
+            }
+            for (let i = 0; i < unselectedMembers.length; i++) {
+                players.push(unselectedMembers [i]);
+            }
+            return players;
+        }
+
+        let createWebsiteElements = function () {
+            for (let i = 0; i < players.length; i++) {
+                let partyMemberInfo = document.createElement ("div");
+                partyMemberInfo.id = "party-member-" + (i + 1) + "-info";
+                partyMemberInfo.className = "party-member-info";
+                partyMemberInfo.style.left = (10 + 20 * i) + "%";
+                document.body.appendChild (partyMemberInfo);
+
+                let partyMemberPortrait = document.createElement ("img");
+                partyMemberPortrait.id = "party-member-" + (i + 1) + "-portrait";
+                partyMemberPortrait.src = players [i].imagePath;
+                partyMemberInfo.appendChild(partyMemberPortrait);
+
+                let partyMemberName = document.createElement ("p");
+                partyMemberName.id = "party-member-" + (i + 1) + "-name";
+                partyMemberName.innerHTML = "<strong>" + players [i].name [0] + "</strong>" 
+                    + players [i].name.slice (1, players [i].name.length) + " : Level <strong>" 
+                    + players [i].level + "</strong>";
+                partyMemberInfo.appendChild(partyMemberName);
+
+                let partyMemberXP = document.createElement ("p");
+                partyMemberXP.id = "party-member-" + (i + 1) + "-hp";
+                partyMemberXP.innerHTML = "<span style='color: coral'>" + players [i].experience + "</span> EXP";
+                partyMemberInfo.appendChild(partyMemberXP);
+
+                let partyMemberHP = document.createElement ("p");
+                partyMemberHP.id = "party-member-" + (i + 1) + "-hp";
+                partyMemberHP.innerHTML = "<span style='color: coral'>" + players [i].health + 
+                    "</span> / <span style='color: coral'>" + players [i].maxHealth + "</span> HP";
+                partyMemberHP.title = players [i].maxHealth + " max HP";
+                partyMemberInfo.appendChild(partyMemberHP);
+
+                let partyMemberAttack = document.createElement("p");
+                partyMemberAttack.innerHTML = "<span style='color: coral'>" + players [i].attack + "</span> attack";
+                partyMemberInfo.appendChild(partyMemberAttack);
+
+                let partyMemberDefense = document.createElement("p");
+                partyMemberDefense.innerHTML = "<span style='color: coral'>" + players [i].defense + "</span> defense";
+                partyMemberInfo.appendChild(partyMemberDefense);
+
+                let partyMemberEvasion = document.createElement("p");
+                partyMemberEvasion.innerHTML = "<span style='color: coral'>" + players [i].evasion + "</span>% evasion";
+                partyMemberInfo.appendChild(partyMemberEvasion);
+
+                let text = document.createElement ("p"); text.innerHTML = "SKILLS:";
+                partyMemberInfo.appendChild (text);
+
+                for (let j = 0; j < players [i].skills.length; j++) {
+                    let skillText = document.createElement("p");
+                    skillText.innerHTML = players [i].skills [j].name;
+                    skillText.title = players [i].skills [j].description;
+                    partyMemberInfo.appendChild(skillText);
+                }
+
+                let text2 = document.createElement ("p"); text2.innerHTML = "WEAKNESSES:";
+                partyMemberInfo.appendChild (text2);
+
+                for (let j = 0; j < players [i].weaknesses.length; j++) {
+                    let weaknessText = document.createElement("p");
+                    weaknessText.innerHTML = players [i].weaknesses [j];
+                    partyMemberInfo.appendChild(weaknessText);
+                }
+
+                document.body.appendChild (document.createElement ("br"));
+
+            }
+        }
+
+        players = loadPlayers();
+        createWebsiteElements ();
+    </script>
+</body>
+</html>

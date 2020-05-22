@@ -11,7 +11,8 @@
     <button id="right-button" onclick="player.goRight ()">Right</button>
     <button id="forward-button" onclick="player.goForward ()">Go forward</button>
     <button id="compass" onclick="compass()">Compass</button>
-    <button id="save-game" onclick="saveGame()">Save Game</button>
+    <button id="back-to-campus" onclick="gotoCampus()">Back to campus</button>
+    
     <p id="floor-text">Floor 1</p>
 
     <p id="description-text"></p>
@@ -108,6 +109,11 @@
 
     function compass () {
         document.getElementById("description-text").innerHTML = "You are facing " + player.direction + ".";
+    }
+
+    let gotoCampus = function () {
+        localStorage.removeItem("dungeon-data");
+        window.location.replace('campus.html'); 
     }
 </script>
 </body>

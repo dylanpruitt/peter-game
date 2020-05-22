@@ -80,6 +80,7 @@ let dungeon = {
   ],
   treasureChests: [],
   stairs: {x: 0, y: 0},
+  bossEncounter: {x: -1, y: -1, index: -1},
   fillMap : function () {
     let tiles = [cliffTile, caveFloorTile];
     let temporaryMap = [];
@@ -103,7 +104,7 @@ let dungeon = {
   spawnInPlayer () {
     let spawnIsInvalid = true;
     let x = -1, y = -1;
-    while (spawnIsInvalid) {
+    while (spawnIsInvalid && !this.floorIsSpecial (player.floor)) {
         x = Math.floor(Math.random() * MAP_SIZE);
         y = Math.floor(Math.random() * MAP_SIZE);
         if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE) {
@@ -115,7 +116,7 @@ let dungeon = {
   spawnInStairs () {
     let spawnIsInvalid = true;
     let x = -1, y = -1;
-    while (spawnIsInvalid) {
+    while (spawnIsInvalid && !this.floorIsSpecial (player.floor)) {
         x = Math.floor(Math.random() * MAP_SIZE);
         y = Math.floor(Math.random() * MAP_SIZE);
         if (this.map[x + (MAP_SIZE * y)] === FLOOR_TILE && !(x === player.x && y === player.y)) {
@@ -128,6 +129,12 @@ let dungeon = {
     if (this.floorIsSpecial (player.floor)) {
         let BOSS_MAP = 6;
         this.map = presetMaps [BOSS_MAP];
+        if (player.floor === 4) {
+          this.player.x = 2, this.player.y = 3;
+          this.stairs.x = 2, this.stairs.y = 1;
+          this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+          this.bossEncounter.index = 2;
+        }
     } else {
         let preset = Math.floor(Math.random() * 6);
         this.map = presetMaps [preset];

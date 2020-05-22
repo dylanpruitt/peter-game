@@ -1,8 +1,28 @@
 <!DOCTYPE html> 
 <head>
     <title>Silly Peter Increases G Two - Campus Screen</title>
+    <h1>Campus</h1>
 </head>
 <body>
-
+    <button id = "goto-hall" onclick = "gotoHall()">Go to the hall</button>
+    <button id = "goto-dungeon" onclick = "gotoDungeon()">Go to the other world</button>
+    <button id = "clear-save" onclick="wipeSave()">Clear save - for testing purposes only!!</button>
+    <script>
+        let gotoHall = function () { window.location.replace('hall.html'); }
+        let gotoDungeon = function () { window.location.replace('dungeon.html'); }
+        let wipeSave = function () { localStorage.clear(); }
+    </script>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+        }
+        button {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+    </style>
 </body>
 </html>

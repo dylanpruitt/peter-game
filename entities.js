@@ -221,4 +221,29 @@ let bear = () => {
     return Object.assign (entity, properties(entity));
 }
 
-let dungeonEnemies = [bikerGnome, bear];
+let taxCollector = () => {
+    let entity = {
+        name: "Tax Collector",
+        health: 50,
+        maxHealth: 50,
+        attack: 8,
+        defense: 4,
+        evasion: 35,
+        level: 1,
+        experience: 44,
+        skills: [fire(), ice(), lightning()],
+        statuses: [],
+        weaknesses: ["lightning"],
+        imagePath: "images/tax-collector.png",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);            
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        }
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+let dungeonEnemies = [bikerGnome, bear, taxCollector];

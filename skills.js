@@ -34,6 +34,18 @@ let ice = () => {
     return skill;
 }
 
+let lightning = () => {
+    let skill = {
+        name: "Lightning",
+        description: "A basic lightning attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 1;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "lightning");     
+        }
+    }
+    return skill;
+}
+
 let heal = () => {
     let skill = {
         name: "Heal",
@@ -45,6 +57,21 @@ let heal = () => {
             if (entTarget.health + healAmount > entTarget.maxHealth) { healAmount = entTarget.maxHealth - entTarget.health; }
             entTarget.health += healAmount;
             updateBattleLog (entTarget.name + " healed " + healAmount + " HP!!");  
+        }
+    }
+    return skill;
+}
+
+let caffeine = () => {
+    let skill = {
+        name: "Caffeine",
+        description: "The target's evasion goes up.",
+        use: (entUser, entTarget) => {
+            let BASE_EVASION = 5;
+            let evadeAmount = BASE_EVASION + (2 * entUser.level);
+            if (entTarget.evasion + evadeAmount > 60) { evadeAmount = 60 - entTarget.evasion; }
+            entTarget.statuses.push(new EvadeBoost()) 
+            entTarget.evasion += evadeAmount;
         }
     }
     return skill;
@@ -124,7 +151,7 @@ let damageTarget = function (entUser, entTarget, amount, type) {
     }
 }
 
-let skills = [attack(), fire(), ice(), heal(), useItem(), provoke(), charm(), guitarSolo()];
+let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;

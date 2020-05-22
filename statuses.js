@@ -18,3 +18,10 @@ class Poison extends Status {
         super ("Poison", "Poisons an enemy.", 2, (entParent) => { entParent.health -= 3; });
     }
 }
+
+class EvadeBoost extends Status {
+    constructor (amount) {
+        super ("Evasion+", "Evasion boosted.", 1, (entParent) => {});
+        this.amount = amount;
+    }
+}

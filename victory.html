@@ -45,14 +45,100 @@
                  + player.level + "</span>!";
             document.body.appendChild (levelUpText); 
 
-            player.maxHealth += Math.floor (Math.random() * 10);
-            player.health = player.maxHealth;
-            player.attack += Math.floor (Math.random() * 4);
-            player.defense += Math.floor (Math.random() * 4);
-            player.evasion += Math.floor (Math.random() * 4);
+            if (player.name === "Peter") {
+                player.maxHealth += Math.floor (Math.random() * 11);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 3) + 2;
+                player.defense += Math.floor (Math.random() * 2) + 1;
+                player.evasion += Math.floor (Math.random() * 5) + 1;
+                updatePeterSkills (player);
+            } else if (player.name === "Raymond") {
+                player.maxHealth += Math.floor (Math.random() * 10);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 3);
+                player.defense += Math.floor (Math.random() * 2);
+                player.evasion += Math.floor (Math.random() * 3);
+                updateRaymondSkills (player);
+            } else if (player.name === "Hunter") {
+                player.maxHealth += Math.floor (Math.random() * 9);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 5);
+                player.defense += Math.floor (Math.random() * 3);
+                player.evasion += Math.floor (Math.random() * 4);
+                updateHunterSkills (player);
+            } else if (player.name === "Abby") {
+                player.maxHealth += Math.floor (Math.random() * 7);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 4);
+                player.defense += Math.floor (Math.random() * 2);
+                player.evasion += Math.floor (Math.random() * 4);
+                updateAbbySkills (player);
+            } else if (player.name === "Joe") {
+                player.maxHealth += Math.floor (Math.random() * 8);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 3);
+                player.defense += Math.floor (Math.random() * 3);
+                player.evasion += Math.floor (Math.random() * 3);
+                updateJoeSkills (player);
+            } else if (player.name === "Justin") {
+                player.maxHealth += Math.floor (Math.random() * 6);
+                player.health = player.maxHealth;
+                player.attack += Math.floor (Math.random() * 4);
+                player.defense += Math.floor (Math.random() * 2);
+                player.evasion += Math.floor (Math.random() * 5);
+                updateJustinSkills (player);
+            }
+        }
 
-            if (player.name === "Peter" && player.level === 2) {
+        let updatePeterSkills = function (player) {
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
                 player.skills.push (provoke ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
+        }
+        let updateRaymondSkills = function (player) {
+
+        }
+        let updateHunterSkills = function (player) {
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
+                player.skills.push (caffeine ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
+        }
+        let updateAbbySkills = function (player) {
+
+        }
+        let updateJoeSkills = function (player) {
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
+                player.skills.push (lightning ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
+        }
+        let updateJustinSkills = function (player) {
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
+                player.skills.push (charm ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
                 document.body.appendChild (skillAwardText); 

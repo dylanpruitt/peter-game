@@ -110,6 +110,7 @@ let fight = function () {
 
   if (allEnemiesDead ()) {
     saveBattleState ();
+    clearPlayerModifiers(playerCopy);
     saveParty (players);
     setTimeout(function () { window.location.replace('victory.html'); }, 1000);
   }
@@ -126,6 +127,14 @@ let allEnemiesDead = function () {
         if (enemies [i].health > 0) { return false; }
     }
     return true;
+}
+
+let clearPlayerModifiers = function (playerCopy) {
+    for (let i = 0; i < players.length; i++) {
+      players [i].attack = playerCopy [i].attack;
+      players [i].defense = playerCopy [i].defense;
+      players [i].evasion = playerCopy [i].evasion;
+    } 
 }
 
 let updateCombatantInfo = function () {
