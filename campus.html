@@ -6,10 +6,12 @@
 <body>
     <button id = "goto-hall" onclick = "gotoHall()">Go to the hall</button>
     <button id = "goto-dungeon" onclick = "gotoDungeon()">Go to the other world</button>
+    <button id = "goto-howto" onclick = "gotoInstructions()">How to play</button>
     <button id = "clear-save" onclick="wipeSave()">Clear save - for testing purposes only!!</button>
     <script>
         let gotoHall = function () { window.location.replace('hall.html'); }
         let gotoDungeon = function () { window.location.replace('dungeon.html'); }
+        let gotoInstructions = function () { window.open("howtoplay.html"); }
         let wipeSave = function () { localStorage.clear(); }
     </script>
     <style>

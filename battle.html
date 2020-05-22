@@ -89,7 +89,17 @@
                     let moveButton = document.createElement ("button");
                     moveButton.id = "party-" + (i + 1) + "-move-" + (j + 1);
                     moveButton.className = "select-move-button";
-                    moveButton.onclick = function () { selectMove (i, j) };
+                    moveButton.onclick = function () {                         
+                        if (j < players [i].skills.length) {
+                            if (players [i].selectedMove !== -1) {
+                                let oldButton = document.getElementById("party-" + (i + 1) + "-move-" + (players [i].selectedMove + 1));
+                                oldButton.style.backgroundColor = "buttonface";
+                            }
+                            let button = document.getElementById("party-" + (i + 1) + "-move-" + (j + 1));
+                            button.style.backgroundColor = "grey";
+                        } 
+                        selectMove (i, j);
+                    };
                     if (j < players [i].skills.length) {
                         moveButton.innerHTML = players [i].skills [j].name;
                         moveButton.title = players [i].skills [j].description;
