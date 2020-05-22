@@ -9,7 +9,7 @@
   <body>
     <button id="left-button" onclick="player.goLeft ()">Left</button>
     <button id="right-button" onclick="player.goRight ()">Right</button>
-    <button id="forward-button" onclick="player.goForward ()">Go forward</button>
+    <button id="forward-button" onclick="onForward()">Go forward</button>
     <button id="compass" onclick="compass()">Compass</button>
     <button id="back-to-campus" onclick="gotoCampus()">Back to campus</button>
     
@@ -26,8 +26,17 @@
 <script>
     let ENCOUNTER_RATE = 15;
 
+    let myAudio = document.createElement("audio");
+    myAudio.src = "audio/other_world.mp3";
+    myAudio.loop = true;
+
     let party = getParty ();
     updateDungeonInfo ();
+
+    function onForward() {
+        player.goForward (); 
+        myAudio.play();
+    }
 
     function updateImage() {
         let roomIndex = 0;

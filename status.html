@@ -10,6 +10,10 @@
         p {
             margin: 5px 0;
         }
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
     </style>
     <script src="skills.js"></script>
     <script src="entities.js"></script>
@@ -30,12 +34,16 @@
         }
 
         let createWebsiteElements = function () {
+            let wrapper = document.createElement ("div");
+            wrapper.className = "wrapper";
+            document.body.appendChild (wrapper);
+
             for (let i = 0; i < players.length; i++) {
                 let partyMemberInfo = document.createElement ("div");
                 partyMemberInfo.id = "party-member-" + (i + 1) + "-info";
                 partyMemberInfo.className = "party-member-info";
                 partyMemberInfo.style.left = (10 + 20 * i) + "%";
-                document.body.appendChild (partyMemberInfo);
+                wrapper.appendChild (partyMemberInfo);
 
                 let partyMemberPortrait = document.createElement ("img");
                 partyMemberPortrait.id = "party-member-" + (i + 1) + "-portrait";

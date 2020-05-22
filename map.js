@@ -130,7 +130,7 @@ let dungeon = {
         let BOSS_MAP = 6;
         this.map = presetMaps [BOSS_MAP];
         if (player.floor === 4) {
-          this.player.x = 2, this.player.y = 3;
+          player.x = 2, player.y = 3;
           this.stairs.x = 2, this.stairs.y = 1;
           this.bossEncounter.x = 2, this.bossEncounter.y = 2;
           this.bossEncounter.index = 2;

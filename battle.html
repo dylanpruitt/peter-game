@@ -127,7 +127,15 @@
             }
         }
 
+        let resetTargets = function () {
+            for (let i = 0; i < players.length; i++) {
+                players [i].selectedMove = -1;
+                players [i].selectedTarget = -1;
+            }
+        }
+
         createWebsiteElements ();
+        resetTargets ();
         updateBattleLog ("The enemy draws near!");
     </script>
 </body>

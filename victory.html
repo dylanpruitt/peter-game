@@ -46,7 +46,7 @@
             document.body.appendChild (levelUpText); 
 
             if (player.name === "Peter") {
-                player.maxHealth += Math.floor (Math.random() * 11);
+                player.maxHealth += Math.floor (Math.random() * 6) + 5;
                 player.health = player.maxHealth;
                 player.attack += Math.floor (Math.random() * 3) + 2;
                 player.defense += Math.floor (Math.random() * 2) + 1;
