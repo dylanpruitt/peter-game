@@ -39,7 +39,7 @@
         for (let i = 0; i < enemyIndices.length; i++) {
             enemies.push(dungeonEnemies[enemyIndices[i]]());
         }
-        myAudio.src = enemies [0].theme;
+        myAudio.src = "audio/" + enemies [0].theme;
 
         let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {

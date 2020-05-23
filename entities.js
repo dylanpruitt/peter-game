@@ -15,6 +15,14 @@ const properties = (entity) => ({
         }
         return false;
     },
+    hasResistance: (type) => {
+        for (let i = 0; i < entity.resistances.length; i++) {
+            if (entity.resistances [i] === type) {
+                return true;
+            }
+        }
+        return false;
+    },
     updateStatuses: () => {
         let newStatuses = [];
         for (let i = 0; i < entity.statuses.length; i++) {
@@ -41,6 +49,7 @@ let playerPeter = () => {
         skills: [attack()],
         statuses: [],
         weaknesses: ["melee"],
+        resistances: ["holy"],
         item: null,
         imagePath: "images/demo-peter-portrait.png",
         selectedMove: -1,
@@ -64,6 +73,7 @@ let playerJustin = () => {
         skills: [attack()],
         statuses: [],
         weaknesses: ["fire"],
+        resistances: ["lightning"],
         item: null,
         imagePath: "images/demo-justin-portrait.png",
         selectedMove: -1,
@@ -86,6 +96,7 @@ let playerRaymond = () => {
         skills: [fire()],
         statuses: [],
         weaknesses: ["ice"],
+        resistances: ["fire"],
         item: null,
         imagePath: "images/demo-raymond-portrait.png",
         selectedMove: -1,
@@ -109,6 +120,7 @@ let playerHunter = () => {
         skills: [attack()],
         statuses: [],
         weaknesses: ["lightning"],
+        resistances: ["ice"],
         item: null,
         imagePath: "images/demo-hunter-portrait.png",
         selectedMove: -1,
@@ -132,6 +144,7 @@ let playerJoe = () => {
         skills: [attack()],
         statuses: [],
         weaknesses: ["lightning"],
+        resistances: ["ice"],
         item: null,
         imagePath: "images/demo-joe-portrait.png",
         selectedMove: -1,
@@ -155,6 +168,7 @@ let playerAbby = () => {
         skills: [ice()],
         statuses: [],
         weaknesses: ["fire"],
+        resistances: ["lightning"],
         item: null,
         imagePath: "images/demo-abby-portrait.png",
         selectedMove: -1,
@@ -186,6 +200,7 @@ let bikerGnome = () => {
         skills: [attack(), fire()],
         statuses: [],
         weaknesses: ["ice"],
+        resistances: ["fire"],
         imagePath: "images/biker-gnome.jpg",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
@@ -213,6 +228,7 @@ let bear = () => {
         skills: [attack()],
         statuses: [],
         weaknesses: ["melee", "fire"],
+        resistances: ["ice"],
         imagePath: "images/bear.jpg",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
@@ -240,6 +256,7 @@ let taxCollector = () => {
         skills: [fire(), ice(), lightning()],
         statuses: [],
         weaknesses: ["lightning"],
+        resistances: ["ice"],
         imagePath: "images/tax-collector.png",
         theme: "encounter_gman.mp3",
         ai: (targets) => { 
@@ -254,7 +271,7 @@ let taxCollector = () => {
     return Object.assign (entity, properties(entity));
 }
 
-// FLOORS 5 - 10
+// FLOORS 5 - 9
 
 let sentry = () => {
     let entity = {
@@ -269,6 +286,7 @@ let sentry = () => {
         skills: [attack(), lightning(), slowDown()],
         statuses: [],
         weaknesses: ["ice", "gravity"],
+        resistances: ["fire", "lightning", "melee"],
         imagePath: "images/sentry.jpg",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
@@ -296,6 +314,7 @@ let shadow = () => {
         skills: [ice(), fire()],
         statuses: [],
         weaknesses: ["lightning"],
+        resistances: ["melee"],
         imagePath: "images/shadow.png",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
@@ -323,6 +342,7 @@ let onion = () => {
         skills: [attack(), charm()],
         statuses: [],
         weaknesses: ["fire"],
+        resistances: ["lightning"],
         imagePath: "images/onion.jpg",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
@@ -340,30 +360,28 @@ let onion = () => {
 let guardian = () => {
     let entity = {
         name: "Guardian",
-        health: 80,
-        maxHealth: 80,
-        attack: 11,
+        health: 100,
+        maxHealth: 100,
+        attack: 16,
         defense: 5,
         evasion: 14,
         level: 3,
         experience: 56,
-        skills: [boostAttack(), gravity(), provoke(), lightning2()],
+        skills: [boostAttack(), barrage(), lightning2()],
         statuses: [],
         weaknesses: ["fire"],
-        imagePath: "images/guardian.png",
+        resistances: ["gravity", "lightning"],
+        imagePath: "images/guardian.jpg",
         theme: "encounter_ancient_being.mp3",
         ai: (targets) => { 
             let BOOST_ATTACK = 0;
-            let selectedMove = Math.floor(Math.random() * entity.skills.length);
-            if (selectedMove === BOOST_ATTACK) {
-                updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
-                entity.skills [selectedMove].use (entity, entity);
-            } else {
-                let target = Math.floor(Math.random() * targets.length);
-                updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
-                entity.skills [selectedMove].use (entity, targets [target]);
-            }           
-            
+            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+            updateBattleLog (entity.name + " is becoming stronger!");            
+            entity.skills [BOOST_ATTACK].use (entity, entity);
         },
         isBoss: true
     }
@@ -371,4 +389,4 @@ let guardian = () => {
     return Object.assign (entity, properties(entity));
 }
 
-let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion];
+let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian];

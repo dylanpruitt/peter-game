@@ -57,7 +57,7 @@ let player = {
             updateImage();
         } else {
             if (player.x === dungeon.bossEncounter.x && player.y === dungeon.bossEncounter.y) {
-                let enemyIndices = [dungeon.bossEncounter.index]
+                let enemyIndices = dungeon.bossEncounter.indices;
                 saveDungeonState ();
                 saveEncounter (enemyIndices);
                 document.getElementById("description-text").innerHTML = "You encounter an enemy!";

@@ -80,7 +80,7 @@ let dungeon = {
   ],
   treasureChests: [],
   stairs: {x: 0, y: 0},
-  bossEncounter: {x: -1, y: -1, index: -1},
+  bossEncounter: {x: -1, y: -1, indices: -1},
   fillMap : function () {
     let tiles = [cliffTile, caveFloorTile];
     let temporaryMap = [];
@@ -129,12 +129,17 @@ let dungeon = {
     if (this.floorIsSpecial (player.floor)) {
         let BOSS_MAP = 6;
         this.map = presetMaps [BOSS_MAP];
+        player.x = 2, player.y = 3;
+        this.stairs.x = 2, this.stairs.y = 1;
         if (player.floor === 4) {
-          player.x = 2, player.y = 3;
-          this.stairs.x = 2, this.stairs.y = 1;
-          if (party [0].bossesDefeated === 0) {
+          if (party [0].bossesDefeated < 1) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.index = 2;
+            this.bossEncounter.indices = [2];
+          }
+        } else if (player.floor === 9) {
+          if (party [0].bossesDefeated < 2) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.indices = [6];
           }
         }
     } else {

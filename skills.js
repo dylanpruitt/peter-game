@@ -129,7 +129,7 @@ let provoke = () => {
         name: "Provoke",
         description: "Provoke a target, making them gain attack but lose defense.",
         use: (entUser, entTarget) => {
-            entTarget.attack += 3; entTarget.defense -= 4;
+            entTarget.attack += 2; entTarget.defense -= 2;
             updateBattleLog (entUser.name + " provoked the enemy!!");  
         }
     }
@@ -177,6 +177,8 @@ let gravity = () => {
             if (entTarget.hasWeakness("gravity")) {
                 updateBattleLog (entTarget.name + "'s weakness was hit!");
                 enemyHit = true;
+            } else if (entTarget.hasResistance("gravity")) {
+                updateBattleLog (entTarget.name + " is resistant to gravity!");
             } else {
                 let BASE_HIT_CHANCE = 20;
                 let HIT_CHANCE = BASE_HIT_CHANCE + (entUser.level * 3);
@@ -189,7 +191,7 @@ let gravity = () => {
                 } 
             }
             if (enemyHit) {
-                entTarget.health /= 2;
+                entTarget.health = Math.floor (entTarget.health / 2);
                 updateBattleLog (entTarget.name + "'s health was halved!");
             }
         }
@@ -265,6 +267,10 @@ let damageTarget = function (entUser, entTarget, amount, type) {
             damage = Math.round (damage * 1.5);
             updateBattleLog (entTarget.name + "'s weakness was hit!!");
         }
+        if (entTarget.hasResistance (type)) {
+            damage = Math.round (damage / 3);
+            updateBattleLog (entTarget.name + " resists the attack!!");
+        }
         if (damage <= 0) { damage = 0; }
         entTarget.health -= damage;
 
@@ -273,7 +279,7 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 }
 
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
-                gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2()];
+                gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;
