@@ -104,6 +104,9 @@
                 player.skills.push (lightning2 ());
                 hasLearnedSkill = true;
             }
+            if (player.level === 4) {
+                playerReplaceSkill (player, gambleHP());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";

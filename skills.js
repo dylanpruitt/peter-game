@@ -256,6 +256,20 @@ let decharm = () => {
     return skill;
 }
 
+let gambleHP = () => {
+    let skill = {
+        name: "Gamble HP",
+        description: "Restores an amount of the user's max health (up to 85%), but also has a 15% chance to kill the user.",
+        use: (entUser, entTarget) => {
+            let percentageHealth = (Math.floor (Math.random() * 101) - 15) / 100;
+            let newHealthValue = entUser.maxHealth * percentageHealth;
+            entUser.health = newHealthValue
+            updateBattleLog (entUser.name + " used Gamble HP!!");
+        }
+    }
+    return skill;
+}
+
 let damageTarget = function (entUser, entTarget, amount, type) {
     let randomNumber = Math.floor (Math.random() * 101);
     if (randomNumber <= entTarget.evasion) {
@@ -279,7 +293,8 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 }
 
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
-                gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense()];
+                gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense(),
+                gambleHP()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;
