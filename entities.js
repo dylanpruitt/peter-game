@@ -18,7 +18,6 @@ const properties = (entity) => ({
     updateStatuses: () => {
         let newStatuses = [];
         for (let i = 0; i < entity.statuses.length; i++) {
-            entity.statuses [i].effect (entity);
             entity.statuses [i].turnsLeft--;
             if (entity.statuses [i].turnsLeft > 0) {
                 newStatuses.push (entity.statuses [i]);
@@ -257,10 +256,10 @@ let taxCollector = () => {
 let sentry = () => {
     let entity = {
         name: "Sentry",
-        health: 44,
-        maxHealth: 44,
+        health: 33,
+        maxHealth: 33,
         attack: 6,
-        defense: 6,
+        defense: 4,
         evasion: 10,
         level: 2,
         experience: 22,
@@ -287,7 +286,7 @@ let shadow = () => {
         maxHealth: 10,
         attack: 8,
         defense: 2,
-        evasion: 85,
+        evasion: 60,
         level: 2,
         experience: 22,
         skills: [ice(), fire()],

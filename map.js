@@ -1,6 +1,6 @@
 let MAP_SIZE = 5;
 let CLIFF_TILE = 0, FLOOR_TILE = 1;
-let SPECIAL_FLOORS = [4, 10, 16, 25, 31, 35, 44, 50];
+let SPECIAL_FLOORS = [4, 10, 16, 25, 31, 35, 44, 49, 50];
 
 let cliffTile = function (iX, iY) {
   this.x = iX;

@@ -37,6 +37,9 @@ let toggleTarget = function (user) {
         } else {
             players[user].targetType = "enemy";
             toggleButton.innerHTML = "E";
+            if (players[user].selectedTarget >= enemies.length) {
+              players[user].selectedTarget = -1;
+            }
         }
     }
 }
@@ -58,7 +61,7 @@ let updateTargetIcon = function (user, target) {
 
 let fight = function () {
   for (let i = 0; i < players.length; i++) {
-      if (players[i].selectedMove === -1 || players[i].selectTarget === -1) {
+      if (players[i].selectedMove === -1 || players[i].selectedTarget === -1) {
           updateBattleLog("Commands not given!");
           return;
       }
