@@ -14,7 +14,8 @@
     <button id="back-to-campus" onclick="gotoCampus()">Back to campus</button>
     <button id="checkpoint-1" class="checkpoint" onclick="gotoFloor(4)">Checkpoint : 4F</button>
     <button id="checkpoint-2" class="checkpoint" onclick="gotoFloor(9)">Checkpoint : 9F</button>
-    
+    <button id="checkpoint-3" class="checkpoint" onclick="gotoFloor(12)">Checkpoint : 12F</button>
+
     <p id="floor-text">Floor 1</p>
 
     <p id="description-text"></p>
@@ -100,6 +101,15 @@
             } else if (player.floor < 10) {
                 let enemyIndex = Math.floor(Math.random() * 3) + 3;
                 enemies.push(enemyIndex);
+            } else if (player.floor < 15) {
+                let randomNumber = Math.floor(Math.random() * 100) + 1;
+                if (randomNumber <= 30) {
+                    let MR_FUNKY = 10;
+                    enemies.push(enemyIndex);
+                } else {
+                    let enemyIndex = Math.floor(Math.random() * 3) + 7;
+                    enemies.push(enemyIndex);
+                }
             }
         }
         return enemies;

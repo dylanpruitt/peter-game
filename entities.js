@@ -214,7 +214,6 @@ let bikerGnome = () => {
 
     return Object.assign (entity, properties(entity));
 }
-
 let bear = () => {
     let entity = {
         name: "Bear",
@@ -242,7 +241,6 @@ let bear = () => {
 
     return Object.assign (entity, properties(entity));
 }
-
 let taxCollector = () => {
     let entity = {
         name: "Tax Collector",
@@ -300,7 +298,6 @@ let sentry = () => {
 
     return Object.assign (entity, properties(entity));
 }
-
 let shadow = () => {
     let entity = {
         name: "Shadow",
@@ -328,7 +325,6 @@ let shadow = () => {
 
     return Object.assign (entity, properties(entity));
 }
-
 let onion = () => {
     let entity = {
         name: "Onion",
@@ -356,7 +352,6 @@ let onion = () => {
 
     return Object.assign (entity, properties(entity));
 }
-
 let guardian = () => {
     let entity = {
         name: "Guardian",
@@ -389,4 +384,150 @@ let guardian = () => {
     return Object.assign (entity, properties(entity));
 }
 
-let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian];
+// FLOORS 10 - 14
+
+let sparkWizard = () => {
+    let entity = {
+        name: "Spark Wizard",
+        health: 37,
+        maxHealth: 37,
+        attack: 14,
+        defense: 4,
+        evasion: 5,
+        level: 4,
+        experience: 37,
+        skills: [lightning2()],
+        statuses: [],
+        weaknesses: ["ice"],
+        resistances: ["lightning"],
+        imagePath: "images/wizard.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let frostWizard = () => {
+    let entity = {
+        name: "Frost Wizard",
+        health: 37,
+        maxHealth: 37,
+        attack: 14,
+        defense: 4,
+        evasion: 5,
+        level: 4,
+        experience: 37,
+        skills: [ice2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["ice"],
+        imagePath: "images/wizard.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let fireWizard = () => {
+    let entity = {
+        name: "Fire Wizard",
+        health: 37,
+        maxHealth: 37,
+        attack: 14,
+        defense: 4,
+        evasion: 5,
+        level: 4,
+        experience: 37,
+        skills: [fire2()],
+        statuses: [],
+        weaknesses: ["lightning"],
+        resistances: ["fire"],
+        imagePath: "images/wizard.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let mrFunky = () => {
+    let entity = {
+        name: "Mr. Funky",
+        health: 56,
+        maxHealth: 56,
+        attack: 6,
+        defense: 6,
+        evasion: 45,
+        level: 4,
+        experience: 40,
+        skills: [barrage(), charm()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["lightning"],
+        imagePath: "images/mr-funky.jpg",
+        theme: "encounter_funky_enemy.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let enforcer = () => {
+    let entity = {
+        name: "Enforcer",
+        health: 144,
+        maxHealth: 144,
+        attack: 16,
+        defense: 5,
+        evasion: 20,
+        level: 3,
+        experience: 56,
+        skills: [caffeine(), barrage(), ice2()],
+        statuses: [],
+        weaknesses: ["ice"],
+        resistances: ["gravity", "lightning"],
+        imagePath: "images/enforcer.jpg",
+        theme: "encounter_gman.mp3",
+        ai: (targets) => { 
+            let CAFFEINE = 0;
+
+            if (entity.evasion < 50) {
+                updateBattleLog (entity.name + " used Caffeine!");            
+                entity.skills [CAFFEINE].use (entity, entity);
+            } else {
+                let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+                let target = Math.floor(Math.random() * targets.length);
+                updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+                entity.skills [selectedMove].use (entity, targets [target]);
+            }
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian,
+                        sparkWizard, frostWizard, fireWizard, mrFunky, enforcer];

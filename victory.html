@@ -59,9 +59,9 @@
             } else if (player.name === "Raymond") {
                 player.maxHealth += Math.floor (Math.random() * 7) + 3;
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 3) + 1;
-                player.defense += Math.floor (Math.random() * 3);
-                player.evasion += Math.floor (Math.random() * 3) + 1;
+                player.attack += Math.floor (Math.random() * 4) + 1;
+                player.defense += Math.floor (Math.random() * 3) + 1;
+                player.evasion += Math.floor (Math.random() * 4) + 1;
                 updateRaymondSkills (player);
             } else if (player.name === "Hunter") {
                 player.maxHealth += Math.floor (Math.random() * 6) + 3;
@@ -105,6 +105,9 @@
                 hasLearnedSkill = true;
             }
             if (player.level === 4) {
+                playerReplaceSkill (player, resistIce());
+            }
+            if (player.level === 5) {
                 playerReplaceSkill (player, gambleHP());
             }
             if (hasLearnedSkill) {
@@ -123,6 +126,12 @@
                 player.skills.push (boostAttack ());
                 hasLearnedSkill = true;
             }
+            if (player.level === 4) {
+                playerReplaceSkill (player, resistFire());
+            }
+            if (player.level === 5) {
+                playerReplaceSkill (player, resistIce());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -139,6 +148,9 @@
                 player.skills.push (boostDefense ());
                 hasLearnedSkill = true;
             }
+            if (player.level === 4) {
+                playerReplaceSkill (player, resistIce());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -152,8 +164,14 @@
                 hasLearnedSkill = true;
             }
             if (player.level === 3) {
-                player.skills.push (lightning ());
+                player.skills.push (decharm ());
                 hasLearnedSkill = true;
+            }
+            if (player.level === 4) {
+                playerReplaceSkill (player, resistLightning());
+            }
+            if (player.level === 5) {
+                playerReplaceSkill (player, slowDown());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -174,6 +192,9 @@
             if (player.level === 4) {
                 playerReplaceSkill (player, barrage());
             }
+            if (player.level === 5) {
+                playerReplaceSkill (player, resistLightning());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -189,6 +210,12 @@
             if (player.level === 3) {
                 player.skills.push (boostAttack ());
                 hasLearnedSkill = true;
+            }
+            if (player.level === 4) {
+                playerReplaceSkill (player, resistFire());
+            }
+            if (player.level === 5) {
+                playerReplaceSkill (player, resistIce());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");

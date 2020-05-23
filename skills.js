@@ -34,12 +34,36 @@ let fire = () => {
     return skill;
 }
 
+let fire2 = () => {
+    let skill = {
+        name: "Fire2",
+        description: "A medium damage fire attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 5;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "fire");     
+        }
+    }
+    return skill;
+}
+
 let ice = () => {
     let skill = {
         name: "Ice",
         description: "A basic ice attack.",
         use: (entUser, entTarget) => {
             let BASE_DAMAGE = 1;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "ice");     
+        }
+    }
+    return skill;
+}
+
+let ice2 = () => {
+    let skill = {
+        name: "Ice2",
+        description: "A medium damage ice attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 5;
             damageTarget(entUser, entTarget, BASE_DAMAGE, "ice");     
         }
     }
@@ -270,6 +294,42 @@ let gambleHP = () => {
     return skill;
 }
 
+let resistIce = () => {
+    let skill = {
+        name: "Resist Ice",
+        description: "Makes the user resistant to ice attacks, but weak to fire attacks.",
+        use: (entUser, entTarget) => {
+            entTarget.resistances = ["ice"];
+            entTarget.weaknesses = ["fire"];
+        }
+    }
+    return skill;
+}
+
+let resistFire = () => {
+    let skill = {
+        name: "Resist Fire",
+        description: "Makes the user resistant to fire attacks, but weak to lightning attacks.",
+        use: (entUser, entTarget) => {
+            entTarget.resistances = ["fire"];
+            entTarget.weaknesses = ["lightning"];
+        }
+    }
+    return skill;
+}
+
+let resistLightning = () => {
+    let skill = {
+        name: "Resist Lightning",
+        description: "Makes the user resistant to lightning attacks, but weak to ice attacks.",
+        use: (entUser, entTarget) => {
+            entTarget.resistances = ["lightning"];
+            entTarget.weaknesses = ["ice"];
+        }
+    }
+    return skill;
+}
+
 let damageTarget = function (entUser, entTarget, amount, type) {
     let randomNumber = Math.floor (Math.random() * 101);
     if (randomNumber <= entTarget.evasion) {
@@ -294,7 +354,7 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
                 gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense(),
-                gambleHP()];
+                gambleHP(), resistFire(), resistIce(), resistLightning(), ice2(), fire2()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;
