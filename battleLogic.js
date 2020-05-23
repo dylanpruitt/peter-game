@@ -136,6 +136,8 @@ let clearPlayerModifiers = function (playerCopy) {
       players [i].attack = playerCopy [i].attack;
       players [i].defense = playerCopy [i].defense;
       players [i].evasion = playerCopy [i].evasion;
+      players [i].weaknesses = playerCopy [i].weaknesses;
+      players [i].resistances = playerCopy [i].resistances;
     } 
 }
 
