@@ -348,6 +348,8 @@ let damageTarget = function (entUser, entTarget, amount, type) {
         if (damage <= 0) { damage = 0; }
         entTarget.health -= damage;
 
+        if (entTarget.health < 0) { entTarget.health = 0; }
+
         updateBattleLog (entTarget.name + " took " + damage + " damage!!");
     }
 }
