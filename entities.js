@@ -187,6 +187,7 @@ let bikerGnome = () => {
         statuses: [],
         weaknesses: ["ice"],
         imagePath: "images/biker-gnome.jpg",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
@@ -213,6 +214,7 @@ let bear = () => {
         statuses: [],
         weaknesses: ["melee", "fire"],
         imagePath: "images/bear.jpg",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let ATTACK = 0;
             let target = Math.floor(Math.random() * targets.length);
@@ -239,6 +241,7 @@ let taxCollector = () => {
         statuses: [],
         weaknesses: ["lightning"],
         imagePath: "images/tax-collector.png",
+        theme: "encounter_gman.mp3",
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);            
@@ -258,15 +261,16 @@ let sentry = () => {
         name: "Sentry",
         health: 33,
         maxHealth: 33,
-        attack: 6,
+        attack: 5,
         defense: 4,
         evasion: 10,
         level: 2,
-        experience: 22,
+        experience: 32,
         skills: [attack(), lightning(), slowDown()],
         statuses: [],
         weaknesses: ["ice", "gravity"],
         imagePath: "images/sentry.jpg",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
@@ -284,15 +288,16 @@ let shadow = () => {
         name: "Shadow",
         health: 10,
         maxHealth: 10,
-        attack: 8,
+        attack: 6,
         defense: 2,
-        evasion: 60,
+        evasion: 55,
         level: 2,
-        experience: 22,
+        experience: 32,
         skills: [ice(), fire()],
         statuses: [],
         weaknesses: ["lightning"],
         imagePath: "images/shadow.png",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
@@ -310,15 +315,16 @@ let onion = () => {
         name: "Onion",
         health: 24,
         maxHealth: 24,
-        attack: 5,
+        attack: 4,
         defense: 3,
         evasion: 5,
         level: 2,
-        experience: 22,
+        experience: 32,
         skills: [attack(), charm()],
         statuses: [],
         weaknesses: ["fire"],
         imagePath: "images/onion.jpg",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
@@ -326,6 +332,40 @@ let onion = () => {
             entity.skills [selectedMove].use (entity, targets [target]);
         },
         isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+let guardian = () => {
+    let entity = {
+        name: "Guardian",
+        health: 80,
+        maxHealth: 80,
+        attack: 11,
+        defense: 5,
+        evasion: 14,
+        level: 3,
+        experience: 56,
+        skills: [boostAttack(), gravity(), provoke(), lightning2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        imagePath: "images/guardian.png",
+        theme: "encounter_ancient_being.mp3",
+        ai: (targets) => { 
+            let BOOST_ATTACK = 0;
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            if (selectedMove === BOOST_ATTACK) {
+                updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+                entity.skills [selectedMove].use (entity, entity);
+            } else {
+                let target = Math.floor(Math.random() * targets.length);
+                updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+                entity.skills [selectedMove].use (entity, targets [target]);
+            }           
+            
+        },
+        isBoss: true
     }
 
     return Object.assign (entity, properties(entity));

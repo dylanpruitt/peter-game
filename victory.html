@@ -57,39 +57,39 @@
                 player.evasion += Math.floor (Math.random() * 5) + 1;
                 updatePeterSkills (player);
             } else if (player.name === "Raymond") {
-                player.maxHealth += Math.floor (Math.random() * 10);
+                player.maxHealth += Math.floor (Math.random() * 7) + 3;
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 3);
-                player.defense += Math.floor (Math.random() * 2);
-                player.evasion += Math.floor (Math.random() * 3);
+                player.attack += Math.floor (Math.random() * 3) + 1;
+                player.defense += Math.floor (Math.random() * 3);
+                player.evasion += Math.floor (Math.random() * 3) + 1;
                 updateRaymondSkills (player);
             } else if (player.name === "Hunter") {
-                player.maxHealth += Math.floor (Math.random() * 9);
+                player.maxHealth += Math.floor (Math.random() * 6) + 3;
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 5);
-                player.defense += Math.floor (Math.random() * 3);
-                player.evasion += Math.floor (Math.random() * 4);
+                player.attack += Math.floor (Math.random() * 4) + 1;
+                player.defense += Math.floor (Math.random() * 2) + 1;
+                player.evasion += Math.floor (Math.random() * 3) + 1;
                 updateHunterSkills (player);
             } else if (player.name === "Abby") {
-                player.maxHealth += Math.floor (Math.random() * 7);
+                player.maxHealth += Math.floor (Math.random() * 4) + 3;
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 4);
+                player.attack += Math.floor (Math.random() * 3) + 1;
                 player.defense += Math.floor (Math.random() * 2);
-                player.evasion += Math.floor (Math.random() * 4);
+                player.evasion += Math.floor (Math.random() * 4) + 1;
                 updateAbbySkills (player);
             } else if (player.name === "Joe") {
-                player.maxHealth += Math.floor (Math.random() * 8);
+                player.maxHealth += Math.floor (Math.random() * 3) + 5;
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 3);
-                player.defense += Math.floor (Math.random() * 3);
-                player.evasion += Math.floor (Math.random() * 3);
+                player.attack += Math.floor (Math.random() * 2) + 1;
+                player.defense += Math.floor (Math.random() * 2) + 1;
+                player.evasion += Math.floor (Math.random() * 3) + 1;
                 updateJoeSkills (player);
             } else if (player.name === "Justin") {
                 player.maxHealth += Math.floor (Math.random() * 6);
                 player.health = player.maxHealth;
-                player.attack += Math.floor (Math.random() * 4);
+                player.attack += Math.floor (Math.random() * 2) + 2;
                 player.defense += Math.floor (Math.random() * 2);
-                player.evasion += Math.floor (Math.random() * 5);
+                player.evasion += Math.floor (Math.random() * 2) + 4;
                 updateJustinSkills (player);
             }
         }
@@ -107,12 +107,29 @@
             }
         }
         let updateRaymondSkills = function (player) {
-
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
+                player.skills.push (gravity ());
+                hasLearnedSkill = true;
+            }
+            if (player.level === 3) {
+                player.skills.push (boostAttack ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
         }
         let updateHunterSkills = function (player) {
             let hasLearnedSkill = false;
             if (player.level === 2) {
                 player.skills.push (caffeine ());
+                hasLearnedSkill = true;
+            }
+            if (player.level === 3) {
+                player.skills.push (boostDefense ());
                 hasLearnedSkill = true;
             }
             if (hasLearnedSkill) {
@@ -130,6 +147,10 @@
                 player.skills.push (lightning ());
                 hasLearnedSkill = true;
             }
+            if (player.level === 3) {
+                player.skills.push (boostDefense ());
+                hasLearnedSkill = true;
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -140,6 +161,10 @@
             let hasLearnedSkill = false;
             if (player.level === 2) {
                 player.skills.push (charm ());
+                hasLearnedSkill = true;
+            }
+            if (player.level === 3) {
+                player.skills.push (boostAttack ());
                 hasLearnedSkill = true;
             }
             if (hasLearnedSkill) {

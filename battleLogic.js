@@ -2,7 +2,6 @@ let audioIsPlaying = false;
 let enemies = [];
 
 let myAudio = document.createElement("audio");
-myAudio.src = "audio/battle_funky_enemy.mp3";
 myAudio.loop = true;
 
 let selectMove = function (user, move) {

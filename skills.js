@@ -10,6 +10,18 @@ let attack = () => {
     return skill;
 }
 
+let barrage = () => {
+    let skill = {
+        name: "Barrage",
+        description: "A medium damage melee attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 5;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "melee");     
+        }
+    }
+    return skill;
+}
+
 let fire = () => {
     let skill = {
         name: "Fire",
@@ -40,6 +52,18 @@ let lightning = () => {
         description: "A basic lightning attack.",
         use: (entUser, entTarget) => {
             let BASE_DAMAGE = 1;
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "lightning");     
+        }
+    }
+    return skill;
+}
+
+let lightning2 = () => {
+    let skill = {
+        name: "Lightning2",
+        description: "A medium damage lightning attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 5;
             damageTarget(entUser, entTarget, BASE_DAMAGE, "lightning");     
         }
     }
@@ -186,6 +210,19 @@ let boostAttack = () => {
     return skill;
 }
 
+let boostDefense = () => {
+    let skill = {
+        name: "Boost Defense",
+        description: "The target's defense goes up.",
+        use: (entUser, entTarget) => {
+            let BOOST_AMOUNT = 1;
+            if (entTarget.attack + BOOST_AMOUNT > 32) { BOOST_AMOUNT = 32 - entTarget.attack; }
+            entTarget.attack += BOOST_AMOUNT;
+        }
+    }
+    return skill;
+}
+
 let slowDown = () => {
     let skill = {
         name: "Slow Down",
@@ -236,7 +273,7 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 }
 
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
-                gravity(), holy(), boostAttack(), slowDown(), decharm()];
+                gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;

@@ -35,12 +35,11 @@
 
         let playerCopy = JSON.parse(JSON.stringify(players));
 
-        let gameData = getEncounter();
-        let enemyIndices = gameData.enemyIndices;
+        let enemyIndices = getEncounter();
         for (let i = 0; i < enemyIndices.length; i++) {
             enemies.push(dungeonEnemies[enemyIndices[i]]());
         }
-        myAudio.src = gameData.musicPath;
+        myAudio.src = enemies [0].theme;
 
         let createWebsiteElements = function () {
             for (let i = 0; i < players.length; i++) {
@@ -83,7 +82,11 @@
                 toggleButton.id = "toggle-target-" + (i + 1);
                 toggleButton.className = "select-target-button";
                 toggleButton.onclick = function () { toggleTarget(i) };
-                toggleButton.innerHTML = "E";
+                if (players[i].targetType === "enemy") {
+                    toggleButton.innerHTML = "E";
+                } else {
+                    toggleButton.innerHTML = "P";
+                }
                 toggleButton.title = "Toggle between targeting players/enemies.";
                 partyMemberTarget.appendChild(toggleButton);
 
