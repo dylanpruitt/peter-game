@@ -100,6 +100,10 @@
                 player.skills.push (provoke ());
                 hasLearnedSkill = true;
             }
+            if (player.level === 3) {
+                player.skills.push (lightning2 ());
+                hasLearnedSkill = true;
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -119,7 +123,7 @@
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
-                document.body.appendChild (skillAwardText); 
+                document.body.appendChild (skillAwardText);
             }
         }
         let updateHunterSkills = function (player) {
@@ -135,11 +139,24 @@
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
-                document.body.appendChild (skillAwardText); 
+                document.body.appendChild (skillAwardText);
             }
         }
         let updateAbbySkills = function (player) {
-
+            let hasLearnedSkill = false;
+            if (player.level === 2) {
+                player.skills.push (fire ());
+                hasLearnedSkill = true;
+            }
+            if (player.level === 3) {
+                player.skills.push (lightning ());
+                hasLearnedSkill = true;
+            }
+            if (hasLearnedSkill) {
+                let skillAwardText = document.createElement ("p");
+                skillAwardText.innerHTML = player.name + " has learned a new skill!";
+                document.body.appendChild (skillAwardText); 
+            }
         }
         let updateJoeSkills = function (player) {
             let hasLearnedSkill = false;
@@ -150,6 +167,9 @@
             if (player.level === 3) {
                 player.skills.push (boostDefense ());
                 hasLearnedSkill = true;
+            }
+            if (player.level === 4) {
+                playerReplaceSkill (player, barrage());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -200,16 +220,65 @@
                     document.body.appendChild (expToNextText); 
                 }
             }
-            
             enemies.length = 0;
             saveBattleState();
             saveParty(players);
 
             let backToDungeonButton = document.createElement ("button");
             backToDungeonButton.className = "back-to-dungeon";
-            backToDungeonButton.onclick = function () { window.location.replace('dungeon.html'); };
+            backToDungeonButton.onclick = function () { 
+                saveParty(players);
+                window.location.replace('dungeon.html'); 
+            };
             backToDungeonButton.innerHTML = "Back to dungeon";
             document.body.appendChild(backToDungeonButton);
+        }
+
+        let playerReplaceSkill = function (player, skill) {
+            let text = document.createElement ("p");
+            text.innerHTML = "Replace which skill?";
+            document.body.appendChild(text);
+            for (let i = 0; i < player.skills.length; i++) {
+                let skillReplaceButton = document.createElement ("button");
+                skillReplaceButton.className = "replace-skill-" + player.name;
+                skillReplaceButton.onclick = function () { replaceSkill (player, i, skill); };
+                skillReplaceButton.innerHTML = player.skills [i].name;
+                skillReplaceButton.title = player.skills [i].description;
+                document.body.appendChild(skillReplaceButton);
+            }
+
+            let forgetSkillButton = document.createElement ("button");
+            forgetSkillButton.className = "forget-skill-" + player.name;
+            forgetSkillButton.onclick = function () {
+                let buttons = document.getElementsByClassName("replace-skill-" + player.name);
+
+                while (buttons[0]) {
+                    buttons[0].parentNode.removeChild(buttons[0]);
+                }
+                let forgetButtons = document.getElementsByClassName("forget-skill-" + player.name);
+                forgetButtons[0].parentNode.removeChild(forgetButtons[0]);
+            };
+            forgetSkillButton.innerHTML = "Forget skill " + skill.name;
+            forgetSkillButton.title = skill.description;
+            document.body.appendChild(forgetSkillButton);
+
+            document.body.appendChild(document.createElement ("br"));
+
+        }
+
+        let replaceSkill = function (player, skillIndex, newSkill) {
+            player.skills [skillIndex] = newSkill;
+            let skillAwardText = document.createElement ("p");
+            skillAwardText.innerHTML = player.name + " has learned a new skill!";
+            document.body.appendChild (skillAwardText); 
+
+            let buttons = document.getElementsByClassName("replace-skill-" + player.name);
+
+            while (buttons[0]) {
+                buttons[0].parentNode.removeChild(buttons[0]);
+            }
+            let forgetButtons = document.getElementsByClassName("forget-skill-" + player.name);
+            forgetButtons[0].parentNode.removeChild(forgetButtons[0]);
         }
     </script>
 </body>

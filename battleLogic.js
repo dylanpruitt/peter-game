@@ -94,6 +94,12 @@ let fight = function () {
     }
   }
 
+  for (let i = 0; i < players.length; i++) {
+    if (players [i].health > 0) {
+        players [i].updateStatuses ();
+    }
+  }
+
   for (let i = 0; i < enemies.length; i++) {
     if (enemies [i].health > 0) {
         if (enemies [i].hasStatus ("Charm")) {
@@ -101,12 +107,6 @@ let fight = function () {
         } else {
             enemies[i].ai(players);
         }
-    }
-  }
-
-  for (let i = 0; i < players.length; i++) {
-    if (players [i].health > 0) {
-        players [i].updateStatuses ();
     }
   }
 

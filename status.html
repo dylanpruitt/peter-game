@@ -100,6 +100,15 @@
                     partyMemberInfo.appendChild(weaknessText);
                 }
 
+                let text3 = document.createElement ("p"); text3.innerHTML = "RESISTANCES:";
+                partyMemberInfo.appendChild (text3);
+
+                for (let j = 0; j < players [i].resistances.length; j++) {
+                    let resistanceText = document.createElement("p");
+                    resistanceText.innerHTML = players [i].resistances [j];
+                    partyMemberInfo.appendChild(resistanceText);
+                }
+
                 document.body.appendChild (document.createElement ("br"));
 
             }
