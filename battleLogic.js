@@ -81,13 +81,16 @@ let fight = function () {
 
   for (let i = 0; i < players.length; i++) {
     if (players [i].health > 0) {
-        let selectedMove = players [i].selectedMove, selectedTarget = players [i].selectedTarget;
-        updateBattleLog(players[i].name + " used " + players[i].skills[selectedMove].name + "!");
-        if (players [i].targetType === "player") { 
-            players[i].skills[selectedMove].use(players[i], players[selectedTarget]);
+        if (players [i].hasStatus ("Charm")) {
+          updateBattleLog(players[i].name + " is charmed!");
         } else {
-            players[i].skills[selectedMove].use(players[i], enemies[selectedTarget]);
-
+          let selectedMove = players [i].selectedMove, selectedTarget = players [i].selectedTarget;
+          updateBattleLog(players[i].name + " used " + players[i].skills[selectedMove].name + "!");
+          if (players [i].targetType === "player") { 
+              players[i].skills[selectedMove].use(players[i], players[selectedTarget]);
+          } else {
+              players[i].skills[selectedMove].use(players[i], enemies[selectedTarget]);
+          }
         }
     } else {
         updateBattleLog(players[i].name + "'s still dead.");

@@ -17,6 +17,11 @@
         players = getParty();
         let gameData = getBattleState();
         let enemies = gameData.enemies;
+        let unselectedMembers = [playerAbby(), playerJoe()];
+        let memberData = getUnselectedMembers();
+        if (memberData !== undefined) {
+            unselectedMembers = memberData;
+        }
 
         let expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
 
@@ -127,10 +132,10 @@
                 hasLearnedSkill = true;
             }
             if (player.level === 4) {
-                playerReplaceSkill (player, resistFire());
+                playerReplaceSkill (player, boostDefense());
             }
             if (player.level === 5) {
-                playerReplaceSkill (player, resistIce());
+                playerReplaceSkill (player, resistFire());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -250,9 +255,15 @@
                     document.body.appendChild (expToNextText); 
                 }
             }
+            for (let i = 0; i < unselectedMembers.length; i++) {
+                let experienceGain = calculateExperienceGain (unselectedMembers [i]);
+                let MODIFIER = 0.75;
+                unselectedMembers [i].experience += Math.floor (MODIFIER * experienceGain);
+            }
             enemies.length = 0;
             saveBattleState();
             saveParty(players);
+            saveUnselectedMembers(unselectedMembers);
 
             let backToDungeonButton = document.createElement ("button");
             backToDungeonButton.className = "back-to-dungeon";

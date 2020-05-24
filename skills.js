@@ -163,9 +163,9 @@ let provoke = () => {
 let charm = () => {
     let skill = {
         name: "Charm",
-        description: "Charms an enemy (60% chance).",
+        description: "Charms an enemy (30% chance).",
         use: (entUser, entTarget) => {
-            let HIT_CHANCE = 60;
+            let HIT_CHANCE = 30;
             let randomNumber = Math.floor (Math.random() * 101);
         
             if (randomNumber <= HIT_CHANCE) {
