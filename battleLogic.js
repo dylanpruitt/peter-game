@@ -157,6 +157,14 @@ let updateCombatantInfo = function () {
         if (j < (players [i].statuses.length - 1)) { statusesString += ", "; }
     }
     playerNameText.title = statusesString;
+
+    if (players [i].hasStatus("Charm")) {
+      let charmIcon = document.getElementById("party-member-" + (i + 1) + "-status");
+      charmIcon.style.visibility = "visible";
+    } else {
+      let charmIcon = document.getElementById("party-member-" + (i + 1) + "-status");
+      charmIcon.style.visibility = "hidden";
+    }
   }
   for (let i = 0; i < enemies.length; i++) {
     let enemyHealthText = document.getElementById("enemy-" + (i + 1) + "-hp");
@@ -170,5 +178,13 @@ let updateCombatantInfo = function () {
         if (j < (enemies [i].statuses.length - 1)) { statusesString += ", "; }
     }
     enemyNameText.title = statusesString;
+
+    if (enemies [i].hasStatus("Charm")) {
+      let charmIcon = document.getElementById("enemy-" + (i + 1) + "-status");
+      charmIcon.style.visibility = "visible";
+    } else {
+      let charmIcon = document.getElementById("enemy-" + (i + 1) + "-status");
+      charmIcon.style.visibility = "hidden";
+    }
   }
 };

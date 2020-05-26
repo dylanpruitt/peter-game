@@ -14,6 +14,11 @@ button {
     text-align: center;
     width: 15%;
 }
+.party-member-status {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+}
 .select-move-button {
     width: 100%;
 }
@@ -29,6 +34,11 @@ button {
 .enemy-portrait {
     width: 128px;
     height: 128px;
+}
+.enemy-status {
+    position: absolute;
+    top: 80%;
+    right: 5%;
 }
 .target-icon {
     width: 10px;

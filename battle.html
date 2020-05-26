@@ -54,6 +54,13 @@
                 partyMemberPortrait.src = players [i].imagePath;
                 partyMemberInfo.appendChild(partyMemberPortrait);
 
+                let partyMemberStatus = document.createElement ("img");
+                partyMemberStatus.id = "party-member-" + (i + 1) + "-status";
+                partyMemberStatus.className = "party-member-status";
+                partyMemberStatus.src = "images/charm-status-icon.png";
+                partyMemberStatus.style.visibility = "hidden";
+                partyMemberInfo.appendChild(partyMemberStatus);
+
                 let partyMemberName = document.createElement ("p");
                 partyMemberName.id = "party-member-" + (i + 1) + "-name";
                 partyMemberName.innerHTML = "<strong>" + players [i].name [0] + "</strong>" 
@@ -127,6 +134,13 @@
                 enemyPortrait.className = "enemy-portrait";
                 enemyPortrait.src = enemies [i].imagePath;
                 enemyInfo.appendChild(enemyPortrait);
+               
+                let enemyStatus = document.createElement ("img");
+                enemyStatus.id = "enemy-" + (i + 1) + "-status";
+                enemyStatus.className = "enemy-status";
+                enemyStatus.src = "images/charm-status-icon.png";
+                enemyStatus.style.visibility = "hidden";
+                enemyInfo.appendChild(enemyStatus);
 
                 let enemyName = document.createElement ("p");
                 enemyName.id = "enemy-" + (i + 1) + "-name";

@@ -355,8 +355,8 @@ let onion = () => {
 let mrFunky = () => {
     let entity = {
         name: "Mr. Funky",
-        health: 66,
-        maxHealth: 66,
+        health: 52,
+        maxHealth: 52,
         attack: 17,
         defense: 7,
         evasion: 45,
@@ -365,7 +365,7 @@ let mrFunky = () => {
         skills: [barrage(), charm()],
         statuses: [],
         weaknesses: ["fire"],
-        resistances: ["lightning"],
+        resistances: ["lightning", "holy", "gravity"],
         imagePath: "images/mr-funky.jpg",
         theme: "encounter_funky_enemy.mp3",
         ai: (targets) => { 
@@ -391,7 +391,7 @@ let backupDancer = () => {
         experience: 30,
         skills: [barrage(), charm()],
         statuses: [],
-        weaknesses: ["fire"],
+        weaknesses: ["fire", "charm"],
         resistances: ["lightning"],
         imagePath: "images/mr-funky.jpg",
         theme: "encounter_funky_enemy.mp3",
