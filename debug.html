@@ -4,17 +4,49 @@
 <body>
     <input type="number" id="xp-value" value="69"
     ><button onclick="setPartyExperience()">Set party experience</button>
+    <br>
+    <input type="number" id="boss-wins-value" value="0" max="6"
+    ><button onclick="setBossesDefeated()">Set number of bosses defeated (for checkpoints)</button>
+    <br>
+    <input type="number" id="player-floor-value" value="1" min="1" max="20"
+    ><button onclick="setFloor()">Set player floor</button>
     <script src="skills.js"></script>
     <script src="items.js"></script>
     <script src="entities.js"></script>
+    <script src="map.js"></script>
+    <script src="player.js"></script>
     <script src="dataStorage.js"></script>
     <script>
-        let players = getParty();
+        let playerData = getParty();
+        if (playerData !== undefined) {
+            players = getParty();
+        }
         let unselectedMembers = [playerAbby(), playerJoe()];
         let memberData = getUnselectedMembers();
         if (memberData !== undefined) {
             unselectedMembers = memberData;
         }
 
+        let setPartyExperience = function () {
+            let experience = document.getElementById("xp-value").value;
+            for (let i = 0; i < players.length; i++) {
+                players [i].experience = experience;
+            }
+            for (let i = 0; i < unselectedMembers.length; i++) {
+                unselectedMembers [i].experience = experience;
+            }
+            saveParty (players);
+            saveUnselectedMembers (unselectedMembers);
+        }
+        let setBossesDefeated = function () {
+            let bossesDefeated = document.getElementById("boss-wins-value").value;
+            players [0].bossesDefeated = bossesDefeated;
+            saveParty (players);
+        }
+        let setFloor = function () {
+            let floor = document.getElementById("player-floor-value").value;
+            player.floor = floor;
+            saveDungeonState();
+        }
     </script>
 </body>
