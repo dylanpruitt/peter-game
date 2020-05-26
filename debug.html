@@ -30,22 +30,22 @@
         let setPartyExperience = function () {
             let experience = document.getElementById("xp-value").value;
             for (let i = 0; i < players.length; i++) {
-                players [i].experience = experience;
+                players [i].experience = parseInt(experience, 10);
             }
             for (let i = 0; i < unselectedMembers.length; i++) {
-                unselectedMembers [i].experience = experience;
+                unselectedMembers [i].experience = parseInt(experience, 10);
             }
             saveParty (players);
             saveUnselectedMembers (unselectedMembers);
         }
         let setBossesDefeated = function () {
             let bossesDefeated = document.getElementById("boss-wins-value").value;
-            players [0].bossesDefeated = bossesDefeated;
+            players [0].bossesDefeated = parseInt(bossesDefeated, 10);
             saveParty (players);
         }
         let setFloor = function () {
             let floor = document.getElementById("player-floor-value").value;
-            player.floor = floor;
+            player.floor = parseInt(floor, 10);
             saveDungeonState();
         }
     </script>

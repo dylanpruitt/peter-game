@@ -151,7 +151,7 @@ let provoke = () => {
 let charm = () => {
     let skill = {
         name: "Charm",
-        description: "Charms an enemy (30% chance).",
+        description: "Charms an enemy (60% chance).",
         use: (entUser, entTarget) => {
             let enemyHit = false;
             if (entTarget.hasWeakness("charm")) {
@@ -160,7 +160,7 @@ let charm = () => {
             } else if (entTarget.hasResistance("charm")) {
                 updateBattleLog (entTarget.name + " is resistant to charm!");
             } else {
-                let HIT_CHANCE = 30;
+                let HIT_CHANCE = 60;
                 let randomNumber = Math.floor (Math.random() * 101);
             
                 if (randomNumber <= HIT_CHANCE) {
