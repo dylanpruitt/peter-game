@@ -1,6 +1,6 @@
 let MAP_SIZE = 5;
 let CLIFF_TILE = 0, FLOOR_TILE = 1;
-let SPECIAL_FLOORS = [4, 9, 12, 16, 20, 24, 25];
+let SPECIAL_FLOORS = [3, 6, 9, 13, 16, 19, 20];
 
 let cliffTile = function (iX, iY) {
   this.x = iX;
@@ -139,7 +139,7 @@ let dungeon = {
         } else if (player.floor === 6) {
           if (party [0].bossesDefeated < 2) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [6];
+            this.bossEncounter.indices = [10, 11, 11];
           }
         } else if (player.floor === 9) {
           if (party [0].bossesDefeated < 3) {

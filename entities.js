@@ -821,6 +821,6 @@ let dylanG = () => {
 }
 
 let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian,
-                        sparkWizard, frostWizard, fireWizard, mrFunky, enforcer,
+                        sparkWizard, frostWizard, fireWizard, mrFunky, backupDancer, enforcer,
                         manFace, antiPeterClone, theFather, theSon, theSpirit,
                         goose, jefferey, dylanG, dylanP];

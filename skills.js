@@ -170,7 +170,7 @@ let charm = () => {
                 } 
             }
             if (enemyHit) {
-                entTarget.statuses.push (charm ());
+                entTarget.statuses.push (Charm ());
                 updateBattleLog (entTarget.name + " was charmed!");
             } 
         }
