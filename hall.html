@@ -57,6 +57,7 @@
             for (let i = 0; i < party.length; i++) {
                 party [i].health = party [i].maxHealth;
             }
+            saveParty(party);
         }
 
         let playerIsInParty = function (name) {

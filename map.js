@@ -146,6 +146,16 @@ let dungeon = {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [11];
           }
+        } else if (player.floor === 16) {
+          if (party [0].bossesDefeated < 3) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.indices = [13, 13, 13, 13];
+          }
+        } else if (player.floor === 20) {
+          if (party [0].bossesDefeated < 3) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.indices = [14, 15, 16];
+          }
         }
     } else {
         let preset = Math.floor(Math.random() * 6);

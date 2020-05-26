@@ -94,18 +94,6 @@ let lightning2 = () => {
     return skill;
 }
 
-let holy = () => {
-    let skill = {
-        name: "Holy",
-        description: "A basic holy attack.",
-        use: (entUser, entTarget) => {
-            let BASE_DAMAGE = 1;
-            damageTarget(entUser, entTarget, BASE_DAMAGE, "holy");     
-        }
-    }
-    return skill;
-}
-
 let heal = () => {
     let skill = {
         name: "Heal",
@@ -165,14 +153,25 @@ let charm = () => {
         name: "Charm",
         description: "Charms an enemy (30% chance).",
         use: (entUser, entTarget) => {
-            let HIT_CHANCE = 30;
-            let randomNumber = Math.floor (Math.random() * 101);
-        
-            if (randomNumber <= HIT_CHANCE) {
-                updateBattleLog ("Enemy charmed!!");
-                entTarget.statuses.push (Charm());
+            let enemyHit = false;
+            if (entTarget.hasWeakness("charm")) {
+                updateBattleLog (entTarget.name + "'s weakness was hit!");
+                enemyHit = true;
+            } else if (entTarget.hasResistance("charm")) {
+                updateBattleLog (entTarget.name + " is resistant to charm!");
             } else {
-                updateBattleLog ("D'oh! Missed!!");
+                let HIT_CHANCE = 30;
+                let randomNumber = Math.floor (Math.random() * 101);
+            
+                if (randomNumber <= HIT_CHANCE) {
+                    enemyHit = true;
+                } else {
+                    updateBattleLog ("D'oh! Missed!!");
+                } 
+            }
+            if (enemyHit) {
+                entTarget.statuses.push (charm ());
+                updateBattleLog (entTarget.name + " was charmed!");
             } 
         }
     }
@@ -184,9 +183,35 @@ let guitarSolo = () => {
         name: "Guitar Solo",
         description: "Peter's guitar solo. Does INTENSE fire damage.",
         use: (entUser, entTarget) => {
-            let BASE_DAMAGE = 36;
+            let BASE_DAMAGE = 14;
             updateBattleLog (entUser.name + " starts a gnarly guitar solo!!");
             damageTarget(entUser, entTarget, BASE_DAMAGE, "fire");    
+        }
+    }
+    return skill;
+}
+
+let backstab = () => {
+    let skill = {
+        name: "Backstab",
+        description: "An INTENSE melee attack.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 14;
+            updateBattleLog (entUser.name + " starts a gnarly guitar solo!!");
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "melee");    
+        }
+    }
+    return skill;
+}
+
+let factsAndLogic = () => {
+    let skill = {
+        name: "Facts and Logic",
+        description: "An INTENSE rational argument that deals emotional damage.",
+        use: (entUser, entTarget) => {
+            let BASE_DAMAGE = 14;
+            updateBattleLog (entUser.name + " uses Facts and Logic!!");
+            damageTarget(entUser, entTarget, BASE_DAMAGE, "emotional");    
         }
     }
     return skill;
@@ -280,15 +305,14 @@ let decharm = () => {
     return skill;
 }
 
-let gambleHP = () => {
+let trickCard = () => {
     let skill = {
-        name: "Gamble HP",
-        description: "Restores an amount of the user's max health (up to 85%), but also has a 15% chance to kill the user.",
+        name: "Trick Card",
+        description: "Swaps weaknesses with the target.",
         use: (entUser, entTarget) => {
-            let percentageHealth = (Math.floor (Math.random() * 101) - 15) / 100;
-            let newHealthValue = entUser.maxHealth * percentageHealth;
-            entUser.health = newHealthValue
-            updateBattleLog (entUser.name + " used Gamble HP!!");
+            let tempWeaknesses = entTarget.weaknesses;
+            entTarget.weaknesses = entUser.weaknesses;
+            entUser.weaknesses = tempWeaknesses;
         }
     }
     return skill;
@@ -330,6 +354,61 @@ let resistLightning = () => {
     return skill;
 }
 
+let resistHoly = () => {
+    let skill = {
+        name: "Resist Holy",
+        description: "Makes the user resistant to holy attacks, but weak to melee attacks.",
+        use: (entUser, entTarget) => {
+            entTarget.resistances = ["holy"];
+            entTarget.weaknesses = ["melee"];
+        }
+    }
+    return skill;
+}
+
+let holy = () => {
+    let skill = {
+        name: "Holy",
+        description: "Instant death spell (30% hit chance).",
+        use: (entUser, entTarget) => {
+            let enemyHit = false;
+            if (entTarget.hasWeakness("holy")) {
+                updateBattleLog (entTarget.name + "'s weakness was hit!");
+                enemyHit = true;
+            } else if (entTarget.hasResistance("holy")) {
+                updateBattleLog (entTarget.name + " is resistant to holy death spells!");
+            } else {
+                let HIT_CHANCE = 30;
+                let randomNumber = Math.floor (Math.random() * 101);
+            
+                if (randomNumber <= HIT_CHANCE) {
+                    enemyHit = true;
+                } else {
+                    updateBattleLog ("D'oh! Missed!!");
+                } 
+            }
+            if (enemyHit) {
+                entTarget.health = 0;
+                updateBattleLog (entTarget.name + " was killed!");
+            }
+        }
+    }
+    return skill;
+}
+
+let bustaMove = () => {
+    let skill = {
+        name: "Bust a Move",
+        description: "Target heals some health from the power of funky dancing.",
+        use: (entUser, entTarget) => {
+            let healthAmount = Math.floor(entTarget.maxHealth / 6);
+            entTarget.health += healthAmount;
+            if (entTarget.health > entTarget.maxHealth) { entTarget.health = entTarget.maxHealth; }
+        }
+    }
+    return skill;
+}
+
 let damageTarget = function (entUser, entTarget, amount, type) {
     let randomNumber = Math.floor (Math.random() * 101);
     if (randomNumber <= entTarget.evasion) {
@@ -356,7 +435,8 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
                 gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense(),
-                gambleHP(), resistFire(), resistIce(), resistLightning(), ice2(), fire2()];
+                trickCard(), resistFire(), resistIce(), resistLightning(), ice2(), fire2(), backstab(), resistHoly(),
+                holy(), factsAndLogic()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;

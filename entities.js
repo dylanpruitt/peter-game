@@ -196,7 +196,7 @@ let bikerGnome = () => {
         defense: 2,
         evasion: 5,
         level: 1,
-        experience: 12,
+        experience: 16,
         skills: [attack(), fire()],
         statuses: [],
         weaknesses: ["ice"],
@@ -223,7 +223,7 @@ let bear = () => {
         defense: 1,
         evasion: 5,
         level: 1,
-        experience: 12,
+        experience: 16,
         skills: [attack()],
         statuses: [],
         weaknesses: ["melee", "fire"],
@@ -303,7 +303,7 @@ let shadow = () => {
         name: "Shadow",
         health: 10,
         maxHealth: 10,
-        attack: 6,
+        attack: 7,
         defense: 2,
         evasion: 55,
         level: 2,
@@ -330,7 +330,7 @@ let onion = () => {
         name: "Onion",
         health: 24,
         maxHealth: 24,
-        attack: 4,
+        attack: 6,
         defense: 3,
         evasion: 5,
         level: 2,
@@ -365,7 +365,7 @@ let guardian = () => {
         skills: [boostAttack(), barrage(), lightning2()],
         statuses: [],
         weaknesses: ["fire"],
-        resistances: ["gravity", "lightning"],
+        resistances: ["gravity", "lightning", "charm"],
         imagePath: "images/guardian.jpg",
         theme: "encounter_ancient_being.mp3",
         ai: (targets) => { 
@@ -504,16 +504,17 @@ let enforcer = () => {
         evasion: 20,
         level: 3,
         experience: 56,
+        turn: 1,
         skills: [caffeine(), barrage(), ice2()],
         statuses: [],
         weaknesses: ["ice"],
-        resistances: ["gravity", "lightning"],
+        resistances: ["gravity", "lightning", "charm"],
         imagePath: "images/enforcer.jpg",
         theme: "encounter_gman.mp3",
         ai: (targets) => { 
             let CAFFEINE = 0;
 
-            if (entity.evasion < 50) {
+            if (turn < 3) {
                 updateBattleLog (entity.name + " used Caffeine!");            
                 entity.skills [CAFFEINE].use (entity, entity);
             } else {
@@ -522,6 +523,146 @@ let enforcer = () => {
                 updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
                 entity.skills [selectedMove].use (entity, targets [target]);
             }
+
+            turn++;
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
+// FLOORS 15 - 20
+
+let manFace = () => {
+    let entity = {
+        name: "Man Face",
+        health: 66,
+        maxHealth: 66,
+        attack: 18,
+        defense: 11,
+        evasion: 20,
+        level: 4,
+        experience: 60,
+        skills: [barrage(), charm()],
+        statuses: [],
+        weaknesses: ["holy", "fire"],
+        resistances: ["ice"],
+        imagePath: "images/manface.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let antiPeterClone = () => {
+    let entity = {
+        name: "Anti Peter Clone",
+        health: 50,
+        maxHealth: 80,
+        attack: 16,
+        defense: 11,
+        evasion: 20,
+        level: 5,
+        experience: 99,
+        skills: [guitarSolo(), backstab(), factsAndLogic()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "holy", "lightning"],
+        imagePath: "images/demo-peter-portrait.jpg",
+        theme: "encounter_gman.mp3",
+        ai: (targets) => { 
+            let selectedMove = Math.floor(Math.random() * 2);
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let theFather = () => {
+    let entity = {
+        name: "The Father",
+        health: 80,
+        maxHealth: 80,
+        attack: 16,
+        defense: 11,
+        evasion: 20,
+        level: 5,
+        experience: 99,
+        skills: [holy(), fire2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "holy", "charm", "ice"],
+        imagePath: "images/trinity-the-father.jpg",
+        theme: "encounter_ancient_being.mp3",
+        ai: (targets) => { 
+            let selectedMove = Math.floor(Math.random() * 2);
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let theSon = () => {
+    let entity = {
+        name: "The Son",
+        health: 99,
+        maxHealth: 99,
+        attack: 19,
+        defense: 7,
+        evasion: 20,
+        level: 5,
+        experience: 99,
+        skills: [holy(), barrage(), ice2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "lightning", "holy", "charm"],
+        imagePath: "images/trinity-the-son.jpg",
+        theme: "encounter_ancient_being.mp3",
+        ai: (targets) => { 
+            let selectedMove = Math.floor(Math.random() * 3);
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let theSpirit = () => {
+    let entity = {
+        name: "The Holy Spirit",
+        health: 84,
+        maxHealth: 84,
+        attack: 16,
+        defense: 15,
+        evasion: 30,
+        level: 3,
+        experience: 56,
+        skills: [holy(), bustaMove()],
+        statuses: [],
+        weaknesses: ["charm"],
+        resistances: ["gravity", "lightning"],
+        imagePath: "images/trinity-the-holy-spirit.jpg",
+        theme: "encounter_ancient_being.mp3",
+        ai: (targets) => { 
+            let selectedMove = Math.floor(Math.random() * 2);
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
         },
         isBoss: true
     }
@@ -530,4 +671,5 @@ let enforcer = () => {
 }
 
 let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian,
-                        sparkWizard, frostWizard, fireWizard, mrFunky, enforcer];
+                        sparkWizard, frostWizard, fireWizard, mrFunky, enforcer,
+                        manFace, antiPeterClone, theFather, theSon, theSpirit];

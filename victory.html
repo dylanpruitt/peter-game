@@ -113,7 +113,10 @@
                 playerReplaceSkill (player, resistIce());
             }
             if (player.level === 5) {
-                playerReplaceSkill (player, gambleHP());
+                playerReplaceSkill (player, trickCard());
+            }
+            if (player.level === 7) {
+                playerReplaceSkill (player, backstab());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -128,7 +131,7 @@
                 hasLearnedSkill = true;
             }
             if (player.level === 3) {
-                player.skills.push (boostAttack ());
+                player.skills.push (holy ());
                 hasLearnedSkill = true;
             }
             if (player.level === 4) {
@@ -136,6 +139,12 @@
             }
             if (player.level === 5) {
                 playerReplaceSkill (player, resistFire());
+            }
+            if (player.level === 6) {
+                playerReplaceSkill (player, resistHoly());
+            }
+            if (player.level === 7) {
+                playerReplaceSkill (player, bustaMove());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -155,6 +164,9 @@
             }
             if (player.level === 4) {
                 playerReplaceSkill (player, resistIce());
+            }
+            if (player.level === 5) {
+                playerReplaceSkill (player, resistHoly());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -178,6 +190,9 @@
             if (player.level === 5) {
                 playerReplaceSkill (player, slowDown());
             }
+            if (player.level === 6) {
+                playerReplaceSkill (player, holy());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -200,6 +215,9 @@
             if (player.level === 5) {
                 playerReplaceSkill (player, resistLightning());
             }
+            if (player.level === 6) {
+                playerReplaceSkill (player, resistHoly());
+            }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
                 skillAwardText.innerHTML = player.name + " has learned a new skill!";
@@ -221,6 +239,9 @@
             }
             if (player.level === 5) {
                 playerReplaceSkill (player, resistIce());
+            }
+            if (player.level === 6) {
+                playerReplaceSkill (player, resistHoly());
             }
             if (hasLearnedSkill) {
                 let skillAwardText = document.createElement ("p");
@@ -257,8 +278,11 @@
             }
             for (let i = 0; i < unselectedMembers.length; i++) {
                 let experienceGain = calculateExperienceGain (unselectedMembers [i]);
-                let MODIFIER = 0.75;
+                let MODIFIER = 0.65;
                 unselectedMembers [i].experience += Math.floor (MODIFIER * experienceGain);
+                if (playerReadyForPromotion (unselectedMembers [i])) {
+                    promotePlayer (unselectedMembers [i]);
+                }
             }
             enemies.length = 0;
             saveBattleState();

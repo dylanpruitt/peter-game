@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+    <input type="number" id="xp-value" value="69"
+    ><button onclick="setPartyExperience()">Set party experience</button>
+    <script src="skills.js"></script>
+    <script src="items.js"></script>
+    <script src="entities.js"></script>
+    <script src="dataStorage.js"></script>
+    <script>
+        let players = getParty();
+        let unselectedMembers = [playerAbby(), playerJoe()];
+        let memberData = getUnselectedMembers();
+        if (memberData !== undefined) {
+            unselectedMembers = memberData;
+        }
+
+    </script>
+</body>

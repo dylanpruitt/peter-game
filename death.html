@@ -10,6 +10,7 @@
     <button id="go-back" onclick="gotoCampus()">Back to campus</button>
     <script>
         let gotoCampus = function () {
+            localStorage.removeItem("dungeon-data");
             window.location.replace('campus.html'); 
         }
     </script>
