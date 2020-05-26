@@ -131,30 +131,40 @@ let dungeon = {
         this.map = presetMaps [BOSS_MAP];
         player.x = 2, player.y = 3;
         this.stairs.x = 2, this.stairs.y = 1;
-        if (player.floor === 4) {
+        if (player.floor === 3) {
           if (party [0].bossesDefeated < 1) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [2];
           }
-        } else if (player.floor === 9) {
+        } else if (player.floor === 6) {
           if (party [0].bossesDefeated < 2) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [6];
           }
-        } else if (player.floor === 12) {
+        } else if (player.floor === 9) {
           if (party [0].bossesDefeated < 3) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [11];
           }
-        } else if (player.floor === 16) {
-          if (party [0].bossesDefeated < 3) {
+        } else if (player.floor === 13) {
+          if (party [0].bossesDefeated < 4) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [13, 13, 13, 13];
           }
-        } else if (player.floor === 20) {
-          if (party [0].bossesDefeated < 3) {
+        } else if (player.floor === 16) {
+          if (party [0].bossesDefeated < 5) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
             this.bossEncounter.indices = [14, 15, 16];
+          }
+        } else if (player.floor === 19) {
+          if (party [0].bossesDefeated < 6) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.indices = [14, 15, 16];
+          }
+        } else if (player.floor === 20) {
+          if (party [0].bossesDefeated < 7) {
+            this.bossEncounter.x = 2, this.bossEncounter.y = 2;
+            this.bossEncounter.indices = [19, 20];
           }
         }
     } else {

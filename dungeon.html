@@ -12,12 +12,12 @@
     <button id="forward-button" onclick="onForward()">Go forward</button>
     <button id="compass" onclick="compass()">Compass</button>
     <button id="back-to-campus" onclick="gotoCampus()">Back to campus</button>
-    <button id="checkpoint-1" class="checkpoint" onclick="gotoFloor(4)">Checkpoint : 4F</button>
-    <button id="checkpoint-2" class="checkpoint" onclick="gotoFloor(9)">Checkpoint : 9F</button>
-    <button id="checkpoint-3" class="checkpoint" onclick="gotoFloor(12)">Checkpoint : 12F</button>
-    <button id="checkpoint-4" class="checkpoint" onclick="gotoFloor(16)">Checkpoint : 16F</button>
-    <button id="checkpoint-5" class="checkpoint" onclick="gotoFloor(20)">Checkpoint : 20F</button>
-    <button id="checkpoint-6" class="checkpoint" onclick="gotoFloor(24)">Checkpoint : 24F</button>
+    <button id="checkpoint-1" class="checkpoint" onclick="gotoFloor(3)">Checkpoint : 3F</button>
+    <button id="checkpoint-2" class="checkpoint" onclick="gotoFloor(6)">Checkpoint : 6F</button>
+    <button id="checkpoint-3" class="checkpoint" onclick="gotoFloor(9)">Checkpoint : 9F</button>
+    <button id="checkpoint-4" class="checkpoint" onclick="gotoFloor(13)">Checkpoint : 13F</button>
+    <button id="checkpoint-5" class="checkpoint" onclick="gotoFloor(16)">Checkpoint : 16F</button>
+    <button id="checkpoint-6" class="checkpoint" onclick="gotoFloor(19)">Checkpoint : 19F</button>
 
     <p id="floor-text">Floor 1</p>
 
@@ -94,13 +94,29 @@
         setTimeout(function () { window.location.replace('battle.html'); }, 1000);
     }
     function generateEnemies () {
+        let encounters = [];
         let enemies = [];
         let numberOfEnemies = Math.floor(Math.random() * 3) + 1;
 
         for (let i = 0; i < numberOfEnemies; i++) {
-            if (player.floor < 5) {
-                let enemyIndex = Math.floor(Math.random() * 2);
-                enemies.push(enemyIndex);
+            if (player.floor < 3) {
+                let BIKER_GNOME = 0, BEAR = 1;
+                encounters = [
+                    [BIKER_GNOME, BIKER_GNOME],
+                    [BIKER_GNOME, BEAR],
+                    [BEAR, BEAR],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else if (player.floor < 5) {
+                let BIKER_GNOME = 0, BEAR = 1;
+                encounters = [
+                    [BIKER_GNOME, BIKER_GNOME, BEAR],
+                    [BIKER_GNOME, BEAR, BEAR],
+                    [BEAR, BEAR, BEAR],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
             } else if (player.floor < 10) {
                 let enemyIndex = Math.floor(Math.random() * 3) + 3;
                 enemies.push(enemyIndex);

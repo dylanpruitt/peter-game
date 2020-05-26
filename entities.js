@@ -670,6 +670,130 @@ let theSpirit = () => {
     return Object.assign (entity, properties(entity));
 }
 
+// FLOORS 19 - 20
+
+let goose = () => {
+    let entity = {
+        name: "Goose",
+        health: 77,
+        maxHealth: 77,
+        attack: 20,
+        defense: 11,
+        evasion: 60,
+        level: 9,
+        experience: 100,
+        skills: [backstab(), guitarSolo()],
+        statuses: [],
+        weaknesses: ["melee"],
+        resistances: ["charm"],
+        imagePath: "images/goose.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let target = Math.floor(Math.random() * targets.length);
+            let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: false
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let jefferey = () => {
+    let entity = {
+        name: "Jefferey Gnome",
+        health: 260,
+        maxHealth: 260,
+        attack: 32,
+        defense: 5,
+        evasion: 25,
+        level: 9,
+        experience: 160,
+        skills: [boostAttack(), barrage(), guitarSolo()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "holy", "charm"],
+        imagePath: "images/guardian.jpg",
+        theme: "encounter_ancient_being.mp3",
+        ai: (targets) => { 
+            let BOOST_ATTACK = 0;
+            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+            updateBattleLog (entity.name + " is becoming stronger!");            
+            entity.skills [BOOST_ATTACK].use (entity, entity);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let dylanP = () => {
+    let entity = {
+        name: "Dylan P",
+        health: 128,
+        maxHealth: 128,
+        attack: 32,
+        defense: 18,
+        evasion: 45,
+        level: 10,
+        experience: 0,
+        skills: [boostAttack(), barrage(), lightning2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "lightning", "charm"],
+        imagePath: "images/dylan-p.jpg",
+        theme: "encounter_devil_incarnate.mp3",
+        ai: (targets) => { 
+            let BOOST_ATTACK = 0;
+            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+            updateBattleLog (entity.name + " is becoming stronger!");            
+            entity.skills [BOOST_ATTACK].use (entity, entity);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let dylanG = () => {
+    let entity = {
+        name: "Dylan G",
+        health: 128,
+        maxHealth: 128,
+        attack: 32,
+        defense: 18,
+        evasion: 45,
+        level: 10,
+        experience: 0,
+        skills: [boostAttack(), barrage(), lightning2()],
+        statuses: [],
+        weaknesses: ["fire"],
+        resistances: ["gravity", "lightning", "charm"],
+        imagePath: "images/dylan-g.jpg",
+        theme: "encounter_devil_incarnate.mp3",
+        ai: (targets) => { 
+            let BOOST_ATTACK = 0;
+            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+            updateBattleLog (entity.name + " is becoming stronger!");            
+            entity.skills [BOOST_ATTACK].use (entity, entity);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+
 let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian,
                         sparkWizard, frostWizard, fireWizard, mrFunky, enforcer,
-                        manFace, antiPeterClone, theFather, theSon, theSpirit];
+                        manFace, antiPeterClone, theFather, theSon, theSpirit,
+                        goose, jefferey, dylanG, dylanP];
