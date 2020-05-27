@@ -117,18 +117,59 @@
                 ];
                 let encounterIndex = Math.floor(Math.random() * encounters.length);
                 enemies = encounters[encounterIndex];
-            } else if (player.floor < 10) {
-                let enemyIndex = Math.floor(Math.random() * 3) + 3;
-                enemies.push(enemyIndex);
-            } else if (player.floor < 15) {
-                let randomNumber = Math.floor(Math.random() * 100) + 1;
-                if (randomNumber <= 30) {
-                    let MR_FUNKY = 10;
-                    enemies.push(enemyIndex);
-                } else {
-                    let enemyIndex = Math.floor(Math.random() * 3) + 7;
-                    enemies.push(enemyIndex);
-                }
+            } else if (player.floor < 8) {
+                let SENTRY = 3, SHADOW = 4, ONION = 5;
+                encounters = [
+                    [ONION, ONION, SHADOW],
+                    [SENTRY, ONION],
+                    [SENTRY, SHADOW],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else if (player.floor < 11) {
+                let SENTRY = 3, SHADOW = 4, ONION = 5;
+                encounters = [
+                    [SENTRY, SENTRY, SHADOW],
+                    [ONION, ONION, ONION, ONION],
+                    [SHADOW, SHADOW, SHADOW],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else if (player.floor < 13) {
+                let SPARK_WIZARD = 7, FROST_WIZARD = 8, FIRE_WIZARD = 9;
+                encounters = [
+                    [SPARK_WIZARD, FROST_WIZARD],
+                    [FROST_WIZARD, FIRE_WIZARD],
+                    [FIRE_WIZARD, SPARK_WIZARD],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else if (player.floor < 14) {
+                let SPARK_WIZARD = 7, FROST_WIZARD = 8, FIRE_WIZARD = 9;
+                encounters = [
+                    [SPARK_WIZARD, FROST_WIZARD, FIRE_WIZARD],
+                    [FROST_WIZARD, FIRE_WIZARD, FROST_WIZARD],
+                    [FIRE_WIZARD, SPARK_WIZARD, SPARK_WIZARD],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else if (player.floor < 17) {
+                let BIKER_GNOME = 0, BEAR = 1;
+                encounters = [
+                    [BIKER_GNOME, BIKER_GNOME, BEAR],
+                    [BIKER_GNOME, BEAR, BEAR],
+                    [BEAR, BEAR, BEAR],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
+            } else {
+                let GOOSE = 19;
+                encounters = [
+                    [GOOSE],
+                    [GOOSE, GOOSE],
+                ];
+                let encounterIndex = Math.floor(Math.random() * encounters.length);
+                enemies = encounters[encounterIndex];
             }
         }
         return enemies;

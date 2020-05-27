@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+    <title>Silly Peter Increases G Two - Skill Screen</title>
+    <link rel="stylesheet" type="text/css" href="skill-page-style.css" />
+    <h1>Change Party Skills</h1>
+    <hr>
+</head>
+<body>
+    <script src="skills.js"></script>
+    <script src="items.js"></script>
+    <script src="entities.js"></script>
+    <script src="dataStorage.js"></script>
+    <script>
+        let party = getParty();
+        let unselectedMembers = [playerAbby(), playerJoe()];
+
+        if (party !== undefined) {
+            players = party;
+        }
+        let memberData = getUnselectedMembers();
+        if (memberData !== undefined) {
+            unselectedMembers = memberData;
+        }
+
+        let f = function() {
+            var select = document.getElementById("cars");
+            if(select.options.length > 0) {
+                window.alert("Text: " + select.options[select.selectedIndex].text + "\nValue: " + select.options[select.selectedIndex].value);
+            }
+            else {
+                window.alert("Select box is empty");
+            }
+        }
+
+        let createWebsiteElements = function (party, identifier) {
+            for (let i = 0; i < party.length; i++) {
+                let partyMemberInfo = document.createElement ("div");
+                partyMemberInfo.id = identifier + (i + 1) + "-info";
+                partyMemberInfo.className = "party-member-info";
+                document.body.appendChild (partyMemberInfo);
+
+                let partyMemberName = document.createElement ("p");
+                partyMemberName.id = identifier + (i + 1) + "-name";
+                partyMemberName.innerHTML = "<strong>" + party [i].name [0] + "</strong>" 
+                    + party [i].name.slice (1, party [i].name.length);
+                partyMemberInfo.appendChild(partyMemberName);
+
+                for (let j = 0; j < 3; j++) {
+                    let skillSelectForm = document.createElement ("form");
+                    partyMemberInfo.appendChild(skillSelectForm);
+
+                    let skillSelectLabel = document.createElement ("label");
+                    skillSelectLabel.for = identifier + (i + 1) + "-skill-" + j;
+                    skillSelectLabel.innerHTML = "Select skill " + (j + 1);
+                    partyMemberInfo.appendChild(skillSelectLabel);
+
+                    let skillSelect = document.createElement ("select");
+                    skillSelect.id = identifier + (i + 1) + "-skill-" + j;
+                    skillSelect.name = identifier + (i + 1) + "-skill-" + j;
+                    skillSelect.size = 3;
+                    partyMemberInfo.appendChild(skillSelect);
+
+                    for (let k = 0; k < party [i].skillsLearned.length; k++) {
+                        skillSelect.options[skillSelect.options.length] = 
+                            new Option(party [i].skillsLearned [k].name, identifier + (i + 1) + "-skill-" + k);
+                    }
+
+                    partyMemberInfo.appendChild(document.createElement ("br"));
+
+                }
+            }
+        }
+
+        let setPartySkills = function (party, identifier) {
+            for (let i = 0; i < party.length; i++) {
+                party [i].skills = [];
+                for (let j = 0; j < 3; j++) {
+                    let select = document.getElementById(identifier + (i + 1) + "-skill-" + j);
+                    if (select.selectedIndex !== -1) {
+                        console.log(party [i].name + " -> " + select.options[select.selectedIndex].text);
+                        party [i].skills.push({ name: select.options[select.selectedIndex].text });
+
+                    } else {
+                        console.log ("No skill selected for slot " + j);
+                    }
+                }
+            }
+        }
+
+        createWebsiteElements (players, "party-member-");
+        createWebsiteElements (unselectedMembers, "member-");
+        let submitButton = document.createElement ("button");
+        submitButton.id = "save-button";
+        submitButton.innerHTML = "Save changes + return to hall";
+        submitButton.onclick = () => { 
+            setPartySkills (players, "party-member-");
+            setPartySkills (unselectedMembers, "member-"); 
+            saveParty(players);
+            saveUnselectedMembers(unselectedMembers);
+            //window.location.replace("hall.html"); 
+        };
+        document.body.appendChild(submitButton);
+    </script>
+</body>
+</html>

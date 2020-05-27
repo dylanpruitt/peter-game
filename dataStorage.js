@@ -80,6 +80,14 @@ function updatePartySkills(party) {
         }  
         party [i].skills = tempSkills;
     }
+    for (let i = 0; i < party.length; i++) {
+        let tempSkills = [];
+        for (let j = 0; j < party [i].skillsLearned.length; j++) {
+            let index = getSkillIndexFromName(party [i].skillsLearned [j].name);
+            tempSkills.push (skills [index]); 
+        }  
+        party [i].skillsLearned = tempSkills;
+    }
 }
 
 function updateParty(party) {

@@ -144,17 +144,17 @@ let dungeon = {
         } else if (player.floor === 9) {
           if (party [0].bossesDefeated < 3) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [11];
+            this.bossEncounter.indices = [6];
           }
         } else if (player.floor === 13) {
           if (party [0].bossesDefeated < 4) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [13, 13, 13, 13];
+            this.bossEncounter.indices = [12];
           }
         } else if (player.floor === 16) {
           if (party [0].bossesDefeated < 5) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [14, 15, 16];
+            this.bossEncounter.indices = [16, 17, 18];
           }
         } else if (player.floor === 19) {
           if (party [0].bossesDefeated < 6) {

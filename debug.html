@@ -31,9 +31,19 @@
             let experience = document.getElementById("xp-value").value;
             for (let i = 0; i < players.length; i++) {
                 players [i].experience = parseInt(experience, 10);
+                for (let j = 0; j < expToNextLevel.length; j++) {
+                    if (players [i].experience >= expToNextLevel [j]) {
+                        promotePlayer(players [i]);
+                    }
+                }
             }
             for (let i = 0; i < unselectedMembers.length; i++) {
                 unselectedMembers [i].experience = parseInt(experience, 10);
+                for (let j = 0; j < expToNextLevel.length; j++) {
+                    if (unselectedMembers [i].experience >= expToNextLevel [j]) {
+                        promotePlayer(unselectedMembers [i]);
+                    }
+                }
             }
             saveParty (players);
             saveUnselectedMembers (unselectedMembers);

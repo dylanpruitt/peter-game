@@ -24,6 +24,7 @@
     <p id="message"></p>
     <button id="go-back" onclick="gotoCampus()">Back to campus</button>
     <button id="check-status" onclick="gotoStatusPage()">Check party status</button>
+    <button id="change-skills" onclick="gotoSkillsPage()">Change player skills</button>
     <script src="skills.js"></script>
     <script src="entities.js"></script>
     <script src="dataStorage.js"></script>
@@ -119,6 +120,12 @@
             saveParty(party);
             saveUnselectedMembers(unselectedMembers);
             window.open("status.html"); 
+        }
+
+        let gotoSkillsPage = function () {
+            saveParty(party);
+            saveUnselectedMembers(unselectedMembers);
+            window.location.replace("skills.html"); 
         }
 
         for (let i = 0; i < party.length; i++) {

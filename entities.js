@@ -1,3 +1,234 @@
+let expToNextLevel = [80, 175, 285, 410, 550, 705, 875, 1060, 1260];
+
+let levelUp = document.createElement("audio");
+levelUp.src = "audio/level_up.mp3";
+levelUp.loop = true;
+
+let promotePlayer = function (player) {
+    let levelUpStrings = ["Gnarly! ", "Radical! ", "Tubular! ", "Totally Based! ", "Awesome! "];
+    let levelUpString = levelUpStrings[Math.floor(Math.random() * levelUpStrings.length)];
+
+    levelUp.play();
+    player.level++;
+    let levelUpText = document.createElement ("p");
+    levelUpText.innerHTML = levelUpString + player.name + " has been promoted to level <span style='color: coral'>"
+         + player.level + "</span>!";
+    document.body.appendChild (levelUpText); 
+
+    if (player.name === "Peter") {
+        player.maxHealth += Math.floor (Math.random() * 6) + 5;
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 3) + 2;
+        player.defense += Math.floor (Math.random() * 2) + 1;
+        player.evasion += Math.floor (Math.random() * 5) + 1;
+        updatePeterSkills (player);
+    } else if (player.name === "Raymond") {
+        player.maxHealth += Math.floor (Math.random() * 7) + 3;
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 4) + 1;
+        player.defense += Math.floor (Math.random() * 3) + 1;
+        player.evasion += Math.floor (Math.random() * 4) + 1;
+        updateRaymondSkills (player);
+    } else if (player.name === "Hunter") {
+        player.maxHealth += Math.floor (Math.random() * 6) + 3;
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 4) + 1;
+        player.defense += Math.floor (Math.random() * 2) + 1;
+        player.evasion += Math.floor (Math.random() * 3) + 1;
+        updateHunterSkills (player);
+    } else if (player.name === "Abby") {
+        player.maxHealth += Math.floor (Math.random() * 4) + 3;
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 3) + 1;
+        player.defense += Math.floor (Math.random() * 2);
+        player.evasion += Math.floor (Math.random() * 4) + 1;
+        updateAbbySkills (player);
+    } else if (player.name === "Joe") {
+        player.maxHealth += Math.floor (Math.random() * 3) + 5;
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 2) + 1;
+        player.defense += Math.floor (Math.random() * 2) + 1;
+        player.evasion += Math.floor (Math.random() * 3) + 1;
+        updateJoeSkills (player);
+    } else if (player.name === "Justin") {
+        player.maxHealth += Math.floor (Math.random() * 6);
+        player.health = player.maxHealth;
+        player.attack += Math.floor (Math.random() * 2) + 2;
+        player.defense += Math.floor (Math.random() * 2);
+        player.evasion += Math.floor (Math.random() * 2) + 4;
+        updateJustinSkills (player);
+    }
+}
+
+let updatePeterSkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (provoke ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (lightning2 ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (resistIce());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (trickCard());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 7) {
+        player.skillsLearned.push (backstab());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText); 
+    }
+}
+let updateRaymondSkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (gravity ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (holy ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (boostDefense());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (resistFire());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 6) {
+        player.skillsLearned.push (resistHoly());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 7) {
+        player.skillsLearned.push (bustaMove());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText);
+    }
+}
+let updateHunterSkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (caffeine ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (boostDefense ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (resistIce());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (resistHoly());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText);
+    }
+}
+let updateAbbySkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (fire ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (decharm ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (resistLightning());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (slowDown());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 6) {
+        player.skillsLearned.push (holy());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText); 
+    }
+}
+let updateJoeSkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (lightning ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (boostDefense ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (barrage());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (resistLightning());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 6) {
+        player.skillsLearned.push (resistHoly());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText); 
+    }
+}
+let updateJustinSkills = function (player) {
+    let hasLearnedSkill = false;
+    if (player.level === 2) {
+        player.skillsLearned.push (charm ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 3) {
+        player.skillsLearned.push (boostAttack ());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 4) {
+        player.skillsLearned.push (resistFire());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 5) {
+        player.skillsLearned.push (resistIce());
+        hasLearnedSkill = true;
+    }
+    if (player.level === 6) {
+        player.skillsLearned.push (resistHoly());
+        hasLearnedSkill = true;
+    }
+    if (hasLearnedSkill) {
+        let skillAwardText = document.createElement ("p");
+        skillAwardText.innerHTML = player.name + " has learned a new skill!";
+        document.body.appendChild (skillAwardText); 
+    }
+}
+
 const properties = (entity) => ({
     hasStatus: (status) => {
         for (let i = 0; i < entity.statuses.length; i++) {
@@ -47,6 +278,7 @@ let playerPeter = () => {
         level: 1,
         experience: 0,
         skills: [attack()],
+        skillsLearned: [attack()],
         statuses: [],
         weaknesses: ["melee"],
         resistances: ["holy"],
@@ -71,6 +303,7 @@ let playerJustin = () => {
         level: 1,
         experience: 0,
         skills: [attack()],
+        skillsLearned: [attack()],
         statuses: [],
         weaknesses: ["fire"],
         resistances: ["lightning"],
@@ -94,6 +327,7 @@ let playerRaymond = () => {
         level: 1,
         experience: 0,
         skills: [fire()],
+        skillsLearned: [fire()],
         statuses: [],
         weaknesses: ["ice"],
         resistances: ["fire"],
@@ -118,6 +352,7 @@ let playerHunter = () => {
         level: 1,
         experience: 0,
         skills: [attack()],
+        skillsLearned: [attack()],
         statuses: [],
         weaknesses: ["lightning"],
         resistances: ["ice"],
@@ -142,6 +377,7 @@ let playerJoe = () => {
         level: 1,
         experience: 0,
         skills: [attack()],
+        skillsLearned: [attack()],
         statuses: [],
         weaknesses: ["lightning"],
         resistances: ["ice"],
@@ -166,6 +402,7 @@ let playerAbby = () => {
         level: 1,
         experience: 0,
         skills: [ice()],
+        skillsLearned: [ice()],
         statuses: [],
         weaknesses: ["fire"],
         resistances: ["lightning"],
@@ -269,7 +506,7 @@ let taxCollector = () => {
     return Object.assign (entity, properties(entity));
 }
 
-// FLOORS 5 - 9
+// FLOORS 5 - 10
 
 let sentry = () => {
     let entity = {
@@ -438,7 +675,7 @@ let guardian = () => {
     return Object.assign (entity, properties(entity));
 }
 
-// FLOORS 10 - 14
+// FLOORS 11 - 13
 
 let sparkWizard = () => {
     let entity = {
@@ -559,7 +796,7 @@ let enforcer = () => {
     return Object.assign (entity, properties(entity));
 }
 
-// FLOORS 15 - 20
+// FLOORS 14 - 16
 
 let manFace = () => {
     let entity = {
@@ -588,22 +825,49 @@ let manFace = () => {
 
     return Object.assign (entity, properties(entity));
 }
-let antiPeterClone = () => {
+let chadHeretic = () => {
     let entity = {
-        name: "Anti Peter Clone",
+        name: "Chad Heretic",
+        health: 90,
+        maxHealth: 90,
+        attack: 15,
+        defense: 14,
+        evasion: 5,
+        level: 5,
+        experience: 80,
+        skills: [barrage(), slowDown()],
+        statuses: [],
+        weaknesses: ["holy"],
+        resistances: ["melee"],
+        imagePath: "images/chad-heretic.jpg",
+        theme: "encounter_get_funky.mp3",
+        ai: (targets) => { 
+            let selectedMove = Math.floor(Math.random() * 2);
+            let target = Math.floor(Math.random() * targets.length);
+            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+            entity.skills [selectedMove].use (entity, targets [target]);
+        },
+        isBoss: true
+    }
+
+    return Object.assign (entity, properties(entity));
+}
+let policeOfficer = () => {
+    let entity = {
+        name: "Police Officer",
         health: 50,
-        maxHealth: 80,
-        attack: 16,
-        defense: 11,
+        maxHealth: 50,
+        attack: 19,
+        defense: 4,
         evasion: 20,
         level: 5,
         experience: 99,
-        skills: [guitarSolo(), backstab(), factsAndLogic()],
+        skills: [barrage(), holy(), factsAndLogic()],
         statuses: [],
-        weaknesses: ["fire"],
-        resistances: ["gravity", "holy", "lightning"],
+        weaknesses: ["lightning"],
+        resistances: ["ice"],
         imagePath: "images/demo-peter-portrait.jpg",
-        theme: "encounter_gman.mp3",
+        theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let selectedMove = Math.floor(Math.random() * 2);
             let target = Math.floor(Math.random() * targets.length);
@@ -697,7 +961,7 @@ let theSpirit = () => {
     return Object.assign (entity, properties(entity));
 }
 
-// FLOORS 19 - 20
+// FLOORS 17 - 20
 
 let goose = () => {
     let entity = {
@@ -728,7 +992,7 @@ let goose = () => {
 }
 let jefferey = () => {
     let entity = {
-        name: "Jefferey Gnome",
+        name: "Jefferey Gnome, the Ancient One",
         health: 260,
         maxHealth: 260,
         attack: 32,
@@ -740,7 +1004,7 @@ let jefferey = () => {
         statuses: [],
         weaknesses: ["fire"],
         resistances: ["gravity", "holy", "charm"],
-        imagePath: "images/guardian.jpg",
+        imagePath: "images/jefferey.jpg",
         theme: "encounter_ancient_being.mp3",
         ai: (targets) => { 
             let BOOST_ATTACK = 0;
@@ -822,5 +1086,5 @@ let dylanG = () => {
 
 let dungeonEnemies = [bikerGnome, bear, taxCollector, sentry, shadow, onion, guardian,
                         sparkWizard, frostWizard, fireWizard, mrFunky, backupDancer, enforcer,
-                        manFace, antiPeterClone, theFather, theSon, theSpirit,
+                        manFace, chadHeretic, policeOfficer, theFather, theSon, theSpirit,
                         goose, jefferey, dylanG, dylanP];

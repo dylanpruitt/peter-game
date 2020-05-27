@@ -197,7 +197,7 @@ let backstab = () => {
         description: "An INTENSE melee attack.",
         use: (entUser, entTarget) => {
             let BASE_DAMAGE = 14;
-            updateBattleLog (entUser.name + " starts a gnarly guitar solo!!");
+            updateBattleLog (entUser.name + " slashes with a chainsaw!!");
             damageTarget(entUser, entTarget, BASE_DAMAGE, "melee");    
         }
     }
@@ -436,7 +436,7 @@ let damageTarget = function (entUser, entTarget, amount, type) {
 let skills = [attack(), fire(), ice(), lightning(), caffeine(), heal(), useItem(), provoke(), charm(), guitarSolo(),
                 gravity(), holy(), boostAttack(), slowDown(), decharm(), barrage(), lightning2(), boostDefense(),
                 trickCard(), resistFire(), resistIce(), resistLightning(), ice2(), fire2(), backstab(), resistHoly(),
-                holy(), factsAndLogic()];
+                holy(), factsAndLogic(), bustaMove()];
 
 let getSkillIndexFromName = function (name) {
     let NOT_FOUND = -1;
