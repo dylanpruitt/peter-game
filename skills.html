@@ -63,6 +63,7 @@
                     for (let k = 0; k < party [i].skillsLearned.length; k++) {
                         skillSelect.options[skillSelect.options.length] = 
                             new Option(party [i].skillsLearned [k].name, identifier + (i + 1) + "-skill-" + k);
+                        skillSelect.options[skillSelect.options.length - 1].title = party [i].skillsLearned [k].description;
                     }
 
                     partyMemberInfo.appendChild(document.createElement ("br"));
