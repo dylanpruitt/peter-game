@@ -23,7 +23,6 @@
     </script>
     <script src="statuses.js"></script>
     <script src="skills.js"></script>
-    <script src="items.js"></script>
     <script src="entities.js"></script>
     <script src="dataStorage.js"></script>
     <script src="battleLogic.js"></script>
@@ -160,6 +159,7 @@
             for (let i = 0; i < players.length; i++) {
                 players [i].selectedMove = -1;
                 players [i].selectedTarget = -1;
+                players [i].targetType = "enemy";
             }
         }
 
