@@ -545,7 +545,7 @@ let shadow = () => {
         evasion: 55,
         level: 2,
         experience: 18,
-        skills: [ice(), fire()],
+        skills: [gravity(), ice()],
         statuses: [],
         weaknesses: ["lightning"],
         resistances: ["melee"],
@@ -554,6 +554,12 @@ let shadow = () => {
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            for (let i = 0; i < targets.length; i++) {
+                if (targets [i].hasWeakness ("ice") && targets [i].health > 0) {
+                    target = i;
+                    selectedMove = 1;
+                }
+            }
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
@@ -572,7 +578,7 @@ let onion = () => {
         evasion: 5,
         level: 2,
         experience: 18,
-        skills: [attack(), charm()],
+        skills: [fire(), charm()],
         statuses: [],
         weaknesses: ["fire"],
         resistances: ["lightning"],
