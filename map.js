@@ -159,12 +159,12 @@ let dungeon = {
         } else if (player.floor === 19) {
           if (party [0].bossesDefeated < 6) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [14, 15, 16];
+            this.bossEncounter.indices = [20];
           }
         } else if (player.floor === 20) {
           if (party [0].bossesDefeated < 7) {
             this.bossEncounter.x = 2, this.bossEncounter.y = 2;
-            this.bossEncounter.indices = [19, 20];
+            this.bossEncounter.indices = [21, 22];
           }
         }
     } else {

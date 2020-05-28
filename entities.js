@@ -611,7 +611,7 @@ let mrFunky = () => {
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
-        isBoss: false
+        isBoss: true
     }
 
     return Object.assign (entity, properties(entity));
@@ -682,11 +682,11 @@ let sparkWizard = () => {
         name: "Spark Wizard",
         health: 37,
         maxHealth: 37,
-        attack: 14,
+        attack: 10,
         defense: 4,
         evasion: 5,
         level: 4,
-        experience: 22,
+        experience: 34,
         skills: [lightning2()],
         statuses: [],
         weaknesses: ["ice"],
@@ -696,6 +696,11 @@ let sparkWizard = () => {
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            for (let i = 0; i < targets.length; i++) {
+                if (targets [i].hasWeakness ("lightning") && targets [i].health > 0) {
+                    target = i;
+                }
+            }
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
@@ -709,11 +714,11 @@ let frostWizard = () => {
         name: "Frost Wizard",
         health: 37,
         maxHealth: 37,
-        attack: 14,
+        attack: 10,
         defense: 4,
         evasion: 5,
         level: 4,
-        experience: 22,
+        experience: 34,
         skills: [ice2()],
         statuses: [],
         weaknesses: ["fire"],
@@ -723,6 +728,11 @@ let frostWizard = () => {
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            for (let i = 0; i < targets.length; i++) {
+                if (targets [i].hasWeakness ("ice") && targets [i].health > 0) {
+                    target = i;
+                }
+            }
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
@@ -736,11 +746,11 @@ let fireWizard = () => {
         name: "Fire Wizard",
         health: 37,
         maxHealth: 37,
-        attack: 14,
+        attack: 10,
         defense: 4,
         evasion: 5,
         level: 4,
-        experience: 22,
+        experience: 34,
         skills: [fire2()],
         statuses: [],
         weaknesses: ["lightning"],
@@ -750,6 +760,11 @@ let fireWizard = () => {
         ai: (targets) => { 
             let target = Math.floor(Math.random() * targets.length);
             let selectedMove = Math.floor(Math.random() * entity.skills.length);
+            for (let i = 0; i < targets.length; i++) {
+                if (targets [i].hasWeakness ("fire") && targets [i].health > 0) {
+                    target = i;
+                }
+            }
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
@@ -765,7 +780,7 @@ let enforcer = () => {
         maxHealth: 144,
         attack: 16,
         defense: 5,
-        evasion: 20,
+        evasion: 35,
         level: 3,
         experience: 56,
         turn: 1,
@@ -778,7 +793,7 @@ let enforcer = () => {
         ai: (targets) => { 
             let CAFFEINE = 0;
 
-            if (turn < 3) {
+            if (entity.turn < 3) {
                 updateBattleLog (entity.name + " used Caffeine!");            
                 entity.skills [CAFFEINE].use (entity, entity);
             } else {
@@ -788,7 +803,7 @@ let enforcer = () => {
                 entity.skills [selectedMove].use (entity, targets [target]);
             }
 
-            turn++;
+            entity.turn++;
         },
         isBoss: true
     }
@@ -807,7 +822,7 @@ let manFace = () => {
         defense: 11,
         evasion: 20,
         level: 4,
-        experience: 60,
+        experience: 55,
         skills: [barrage(), charm()],
         statuses: [],
         weaknesses: ["holy", "fire"],
@@ -834,7 +849,7 @@ let chadHeretic = () => {
         defense: 14,
         evasion: 5,
         level: 5,
-        experience: 80,
+        experience: 55,
         skills: [barrage(), slowDown()],
         statuses: [],
         weaknesses: ["holy"],
@@ -861,12 +876,12 @@ let policeOfficer = () => {
         defense: 4,
         evasion: 20,
         level: 5,
-        experience: 99,
+        experience: 55,
         skills: [barrage(), holy(), factsAndLogic()],
         statuses: [],
         weaknesses: ["lightning"],
         resistances: ["ice"],
-        imagePath: "images/demo-peter-portrait.jpg",
+        imagePath: "images/police-officer.jpg",
         theme: "encounter_get_funky.mp3",
         ai: (targets) => { 
             let selectedMove = Math.floor(Math.random() * 2);
@@ -874,7 +889,7 @@ let policeOfficer = () => {
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
         },
-        isBoss: true
+        isBoss: false
     }
 
     return Object.assign (entity, properties(entity));
@@ -972,7 +987,7 @@ let goose = () => {
         defense: 11,
         evasion: 60,
         level: 9,
-        experience: 100,
+        experience: 80,
         skills: [backstab(), guitarSolo()],
         statuses: [],
         weaknesses: ["melee"],
@@ -1011,6 +1026,13 @@ let jefferey = () => {
             let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
 
             let target = Math.floor(Math.random() * targets.length);
+
+            for (let i = 0; i < targets.length; i++) {
+                if (targets [i].hasWeakness ("fire") && targets [i].health > 0) {
+                    target = i;
+                    selectedMove = 2;
+                }
+            }
             updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
             entity.skills [selectedMove].use (entity, targets [target]);
             updateBattleLog (entity.name + " is becoming stronger!");            
@@ -1031,21 +1053,45 @@ let dylanP = () => {
         evasion: 45,
         level: 10,
         experience: 0,
-        skills: [boostAttack(), barrage(), lightning2()],
+        turn: 1,
+        skills: [holy(), boostDefense(), backstab(), lightning2()],
         statuses: [],
-        weaknesses: ["fire"],
-        resistances: ["gravity", "lightning", "charm"],
+        weaknesses: [],
+        resistances: ["fire", "holy", "ice", "gravity", "lightning", "charm"],
         imagePath: "images/dylan-p.jpg",
         theme: "encounter_devil_incarnate.mp3",
         ai: (targets) => { 
-            let BOOST_ATTACK = 0;
-            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+            if (entity.turn % 3 === 1) {
+                let HOLY = 0;
+                for (let i = 0; i < targets.length; i++) {
+                    entity.skills [HOLY].use (entity, targets [i]);
+                }
+            } else {
+                if (entity.turn % 2 === 0) {
+                    let BOOST_DEFENSE = 1;
+                    entity.skills [BOOST_DEFENSE].use (entity, entity);
+                } else {
+                    let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+                    let target = Math.floor(Math.random() * targets.length);
 
-            let target = Math.floor(Math.random() * targets.length);
-            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
-            entity.skills [selectedMove].use (entity, targets [target]);
-            updateBattleLog (entity.name + " is becoming stronger!");            
-            entity.skills [BOOST_ATTACK].use (entity, entity);
+                    for (let i = 0; i < targets.length; i++) {
+                        if (targets [i].hasWeakness ("lightning") && targets [i].health > 0) {
+                            target = i;
+                            selectedMove = 3;
+                        }
+                    }
+
+                    for (let i = 0; i < targets.length; i++) {
+                        if (targets [i].hasWeakness ("melee") && targets [i].health > 0) {
+                            target = i;
+                            selectedMove = 2;
+                        }
+                    }
+                    updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+                    entity.skills [selectedMove].use (entity, targets [target]);
+                }
+            }
+            entity.turn++;
         },
         isBoss: true
     }
@@ -1062,21 +1108,37 @@ let dylanG = () => {
         evasion: 45,
         level: 10,
         experience: 0,
-        skills: [boostAttack(), barrage(), lightning2()],
+        skills: [charm(), boostAttack(), fire2(), gravity()],
         statuses: [],
-        weaknesses: ["fire"],
-        resistances: ["gravity", "lightning", "charm"],
+        weaknesses: ["ice"],
+        resistances: ["gravity", "lightning", "charm", "holy"],
         imagePath: "images/dylan-g.jpg",
         theme: "encounter_devil_incarnate.mp3",
         ai: (targets) => { 
-            let BOOST_ATTACK = 0;
-            let selectedMove = Math.floor(Math.random() * (entity.skills.length - 1)) + 1;
+            if (entity.turn % 3 === 2) {
+                let CHARM = 0;
+                for (let i = 0; i < targets.length; i++) {
+                    entity.skills [CHARM].use (entity, targets [i]);
+                }
+            } else {
+                if (entity.turn % 2 === 1) {
+                    let BOOST_ATTACK = 1;
+                    entity.skills [BOOST_ATTACK].use (entity, entity);
+                } else {
+                    let selectedMove = Math.floor(Math.random() * (entity.skills.length - 2)) + 2;
+                    let target = Math.floor(Math.random() * targets.length);
 
-            let target = Math.floor(Math.random() * targets.length);
-            updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
-            entity.skills [selectedMove].use (entity, targets [target]);
-            updateBattleLog (entity.name + " is becoming stronger!");            
-            entity.skills [BOOST_ATTACK].use (entity, entity);
+                    for (let i = 0; i < targets.length; i++) {
+                        if (targets [i].hasWeakness ("fire") && targets [i].health > 0) {
+                            target = i;
+                            selectedMove = 2;
+                        }
+                    }
+                    updateBattleLog (entity.name + " used " + entity.skills [selectedMove].name + "!"); 
+                    entity.skills [selectedMove].use (entity, targets [target]);
+                }
+            }
+            entity.turn++;
         },
         isBoss: true
     }

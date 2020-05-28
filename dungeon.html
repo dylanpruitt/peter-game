@@ -138,9 +138,9 @@
             } else if (player.floor < 13) {
                 let SPARK_WIZARD = 7, FROST_WIZARD = 8, FIRE_WIZARD = 9;
                 encounters = [
-                    [SPARK_WIZARD, FROST_WIZARD],
-                    [FROST_WIZARD, FIRE_WIZARD],
-                    [FIRE_WIZARD, SPARK_WIZARD],
+                    [SPARK_WIZARD, SPARK_WIZARD],
+                    [FROST_WIZARD, FROST_WIZARD],
+                    [FIRE_WIZARD, FIRE_WIZARD],
                 ];
                 let encounterIndex = Math.floor(Math.random() * encounters.length);
                 enemies = encounters[encounterIndex];
@@ -154,11 +154,11 @@
                 let encounterIndex = Math.floor(Math.random() * encounters.length);
                 enemies = encounters[encounterIndex];
             } else if (player.floor < 17) {
-                let BIKER_GNOME = 0, BEAR = 1;
+                let MAN_FACE = 13, CHAD_HERETIC = 14, POLICE_OFFICER = 15;
                 encounters = [
-                    [BIKER_GNOME, BIKER_GNOME, BEAR],
-                    [BIKER_GNOME, BEAR, BEAR],
-                    [BEAR, BEAR, BEAR],
+                    [MAN_FACE, MAN_FACE, MAN_FACE],
+                    [CHAD_HERETIC, POLICE_OFFICER, CHAD_HERETIC],
+                    [POLICE_OFFICER, POLICE_OFFICER],
                 ];
                 let encounterIndex = Math.floor(Math.random() * encounters.length);
                 enemies = encounters[encounterIndex];
